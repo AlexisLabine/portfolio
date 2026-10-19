@@ -1,0 +1,263 @@
+// ============================================================
+// BLOC 2 — SALLE DE CRISE : le décor et les objets de la scène 3D
+// ============================================================
+// Positions dans le monde : voir les --x / --y / --z dans index.html.
+@use "variables" as *;
+
+// Pendant un examen, le sujet se décale pour laisser la place au document.
+.scene--salle.en-examen {
+  --centre-x: 32%;
+
+  @include sur-mobile {
+    --centre-x: 50%;
+    --centre-y: 26%;
+  }
+}
+
+// --- Les murs et le sol (béton) ---
+.decor--mur {
+  width: 5000px;
+  height: 2000px;
+  background:
+    radial-gradient(ellipse 30% 45% at 50% 58%, rgba(244, 183, 64, 0.1), transparent 70%),
+    linear-gradient(180deg, rgba(4, 5, 6, 0.9), rgba(4, 5, 6, 0.35) 60%, rgba(4, 5, 6, 0.8)),
+    var(--texture-beton, #15171c);
+  background-size: cover;
+}
+
+.decor--sol {
+  width: 5000px;
+  height: 1650px;
+  background:
+    linear-gradient(rgba(3, 4, 5, 0.75), rgba(3, 4, 5, 0.9)),
+    var(--texture-beton, #101216);
+  background-size: cover;
+}
+
+// --- Le bureau (bois généré par js/textures.js) ---
+.bureau__plateau {
+  width: 1400px;
+  height: 620px;
+  background: var(--texture-bois, linear-gradient(180deg, #5a463b, var(--brun-bois) 40%, #1f1814));
+  background-size: cover;
+
+  // Les bords du plateau, plus sombres
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(0, 0, 0, 0.6) 85%);
+    pointer-events: none;
+  }
+
+  // La flaque de lumière de la lampe (au-dessus des objets posés)
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 45% 60% at 50% 45%, rgba(255, 196, 110, 0.35), transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.bureau__facade {
+  --ancre: 0%;
+  width: 1400px;
+  height: 420px;
+  background:
+    linear-gradient(180deg, rgba(255, 220, 170, 0.12) 0 3px, rgba(0, 0, 0, 0.35) 3px 34px, rgba(0, 0, 0, 0.75) 34px, rgba(0, 0, 0, 0.92)),
+    var(--texture-bois, #2a1d15);
+  background-size: cover;
+}
+
+.bureau__cote {
+  --orientation: rotateY(90deg);
+  --ancre: 0%;
+  width: 620px;
+  height: 420px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95)),
+    var(--texture-bois, #2a1d15);
+  background-size: cover;
+}
+
+// --- La lampe suspendue ---
+.lampe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+
+  &__fil {
+    width: 3px;
+    height: 440px;
+    background: linear-gradient(#0b0c0e, #2a2d33);
+  }
+
+  &__abat-jour {
+    width: 200px;
+    height: 90px;
+    background: linear-gradient(180deg, #3d424a, #16181c 85%);
+    clip-path: polygon(32% 0, 68% 0, 100% 100%, 0 100%);
+  }
+
+  &__ampoule {
+    width: 80px;
+    height: 22px;
+    margin-top: -12px;
+    border-radius: 50%;
+    background: #2b2720;
+  }
+}
+
+// Le cône de lumière
+.faisceau {
+  width: 1100px;
+  height: 480px;
+  pointer-events: none;
+  clip-path: polygon(46.5% 0, 53.5% 0, 100% 100%, 0 100%);
+  background: linear-gradient(180deg, rgba(255, 210, 140, 0.28), rgba(255, 200, 120, 0.08) 60%, rgba(255, 200, 120, 0.02));
+  opacity: 0;
+}
+
+// La poussière (dessinée par js/poussiere.js)
+.scene--salle .poussiere {
+  width: 900px;
+  height: 480px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease 1s;
+}
+
+// En forte plongée, ces éléments passeraient derrière l'objectif.
+.scene.plongee {
+  .lampe,
+  .faisceau,
+  .poussiere,
+  .decor--mur {
+    visibility: hidden;
+  }
+}
+
+// --- LIGHTS ON ---
+.scene--salle.lumiere-allumee {
+  .faisceau,
+  .bureau__plateau::after {
+    animation: allumage 1.4s linear forwards;
+  }
+
+  .lampe__ampoule {
+    background: #ffe2a6;
+    box-shadow:
+      0 0 40px 14px rgba(244, 183, 64, 0.7),
+      0 0 120px 40px rgba(244, 183, 64, 0.25);
+  }
+
+  .poussiere {
+    opacity: 1;
+  }
+}
+
+// --- Les objets qu'on peut examiner ---
+.objet {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+  img {
+    display: block;
+    width: 100%;
+    filter: drop-shadow(0 20px 16px rgba(0, 0, 0, 0.55));
+    transition: filter 0.3s ease;
+  }
+
+  // Contour lumineux au survol, comme un objet interactif dans un jeu
+  &:hover img,
+  &:focus-visible img {
+    filter:
+      drop-shadow(0 0 1px var(--jaune-ambre))
+      drop-shadow(0 0 12px rgba(244, 183, 64, 0.55))
+      drop-shadow(0 20px 16px rgba(0, 0, 0, 0.55));
+  }
+
+  &:focus-visible {
+    outline: 2px dashed var(--jaune-ambre);
+    outline-offset: 10px;
+  }
+
+  &--pochette {
+    width: 290px;
+  }
+
+  &--telephone {
+    width: 250px;
+    isolation: isolate; // garde le halo (z-index: -1) juste derrière le téléphone
+
+    // Halo rouge qui "sonne"
+    &::before {
+      content: "";
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      z-index: -1;
+      width: 90%;
+      aspect-ratio: 1;
+      translate: -50% 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(179, 18, 43, 0.5), transparent 65%);
+      filter: blur(10px);
+      animation: sonnerie 2.4s ease-in-out infinite;
+    }
+  }
+
+  // La cocarde est posée à plat SUR le plateau (coordonnées du plateau)
+  &--cocarde {
+    position: absolute;
+    width: 170px;
+    left: 700px;
+    top: 390px;
+    translate: -50% -50%;
+    rotate: -10deg;
+
+    &:hover .cocarde,
+    &:focus-visible .cocarde {
+      box-shadow:
+        0 0 0 2px var(--jaune-ambre),
+        0 0 24px rgba(244, 183, 64, 0.55),
+        0 18px 25px rgba(0, 0, 0, 0.55);
+    }
+  }
+}
+
+@keyframes sonnerie {
+  0%, 100% { opacity: 0.4; scale: 0.9; }
+  50% { opacity: 1; scale: 1.1; }
+}
+
+// --- La cocarde : la vraie, celle du festival De l'âme à l'écran ---
+.cocarde {
+  display: block;
+  border-radius: 6px;
+  box-shadow: 0 18px 25px rgba(0, 0, 0, 0.55);
+  transition: box-shadow 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene--salle.lumiere-allumee {
+    .faisceau,
+    .bureau__plateau::after {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  .objet--telephone::before {
+    animation: none;
+  }
+}

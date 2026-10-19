@@ -1,0 +1,30 @@
+// ============================================================
+// STYLE.SCSS — fichier principal
+// ============================================================
+// Il ne contient aucun style : il rassemble les partials dans
+// l'ordre. Il se compile en css/style.css (ex. extension VS Code
+// « Live Sass Compiler », ou : sass scss/style.scss css/style.css).
+//
+//   _variables      palette, polices, mixins
+//   _base           réglages globaux, titres, tampon
+//   _accueil        Bloc 1 : portes, brume, clavier
+//   _scene          moteur 3D, post-traitement, HUD (Blocs 2 et 3)
+//   _salle-de-crise Bloc 2 : bureau, lampe, objets, cocarde
+//   _competences    Bloc 3 : entrepôt, flight case, fiche
+//   _mur-enquete    Bloc 4 : liège, polaroïds, fils, néon
+//   _modales        fenêtres (dossier, cocarde, projets)
+//   _chronologie    navigation fixée à droite
+//   _festival       Bloc 5 : scène, ligne backstage, formulaire
+//   _tactile        téléphone et iPad : bouton « Entrer », scènes à plat
+//                   (toujours en DERNIER : il remplace les styles 3D)
+
+@use "base";
+@use "accueil";
+@use "scene";
+@use "salle-de-crise";
+@use "competences";
+@use "mur-enquete";
+@use "modales";
+@use "chronologie";
+@use "festival";
+@use "tactile";

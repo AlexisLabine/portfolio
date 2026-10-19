@@ -1,0 +1,57 @@
+// ============================================================
+// VARIABLES — palette, polices, points de rupture, mixins
+// ============================================================
+
+// --- Palette (charte, section 3) ---
+// En variables CSS (et non Sass) pour pouvoir les modifier plus tard
+// en JavaScript, pendant la bascule Ombre → Festival.
+:root {
+  // Palette « Ombre » (Blocs 1 à 4)
+  --noir-bleute: #0D0F14;
+  --brun-bois: #3B2E27;
+  --rouge-dossier: #B3122B;
+  --jaune-ambre: #F4B740;
+  --gris-acier: #8A8F98;
+  --blanc-casse: #F2EFE9;
+  --anthracite: #1C1C1E;
+
+  // Palette « Festival » (Bloc 5)
+  --rose-neon: #FF2E9A;
+  --cyan-neon: #00E5FF;
+  --violet-neon: #8B2FE0;
+  --noir-profond: #050507;
+}
+
+// --- Polices (charte, section 4) ---
+$police-titre: "Oswald", "Arial Narrow", sans-serif;
+$police-sous-titre: "Barlow Condensed", "Arial Narrow", sans-serif;
+$police-texte: "Inter", "Segoe UI", sans-serif;
+$police-document: "Special Elite", "Courier New", monospace;
+$police-festival: "Bungee", "Arial Black", sans-serif; // Bloc 5 seulement : ronde, pleine, énergique
+
+// --- Points de rupture ---
+$mobile: 768px;
+
+// --- Mixins ---
+// Texte "machine à écrire" : dates, mentions confidentielles, étiquettes.
+@mixin machine-a-ecrire($taille: 13px) {
+  font-family: $police-document;
+  font-size: $taille;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+// Feuille de papier posée sur le bureau (fiche, modales).
+@mixin papier {
+  background: var(--blanc-casse);
+  color: var(--anthracite);
+  border-radius: 2px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.55);
+}
+
+// Raccourci pour les écrans de téléphone.
+@mixin sur-mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
