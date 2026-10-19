@@ -1,0 +1,1042 @@
+// ============================================================
+// BLOC 5 — LE FESTIVAL : la scène de concert (Contact)
+// ============================================================
+// Même moteur que les Blocs 2 à 4 (_scene.scss), mais la règle
+// s'inverse (charte, section 3.2) : la couleur domine.
+//
+//   --allumage (0 → 1)  la couleur monte pendant qu'on arrive (js/festival.js)
+//   .en-concert         le spectacle commence (dès le plan 1)
+//   [data-plan="2"]     la ligne backstage : le laissez-passer s'affiche
+//   [data-plan="3"]     le générique de fin
+//   .sans-rail          mouvement réduit : un seul plan, laissez-passer visible
+@use "variables" as *;
+
+$degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
+
+.scene--festival {
+  --allumage: 0;
+  background: var(--noir-profond);
+
+  // Le cadrage se décale pour laisser la place au HUD
+  &[data-plan="2"],
+  &.sans-rail {
+    --centre-x: 36%;
+  }
+
+  &[data-plan="3"] {
+    --centre-x: 64%;
+  }
+
+  &.en-examen {
+    --centre-x: 30%;
+  }
+
+  @include sur-mobile {
+    &[data-plan="2"],
+    &.sans-rail {
+      --centre-x: 50%;
+      --centre-y: 28%;
+    }
+
+    &[data-plan="3"],
+    &.en-examen {
+      --centre-x: 50%;
+      --centre-y: 24%;
+    }
+
+    // Le laissez-passer a déjà son bouton "Décrocher" : pas d'invite par-dessus
+    .hud__invite {
+      display: none;
+    }
+  }
+
+  // Le titre du chapitre : Bungee, en dégradé néon (charte, section 4)
+  .hud__chapitre::before {
+    background: $degrade-neon;
+  }
+
+  .hud__chapitre .mention-dossier {
+    color: var(--cyan-neon);
+  }
+
+  // Contour d'objet interactif : néon plutôt qu'ambre
+  .objet:hover img,
+  .objet:focus-visible img {
+    filter:
+      drop-shadow(0 0 1px var(--cyan-neon))
+      drop-shadow(0 0 14px rgba(0, 229, 255, 0.6))
+      drop-shadow(0 20px 16px rgba(0, 0, 0, 0.55));
+  }
+}
+
+.titre-festival {
+  font-family: $police-festival;
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 64px);
+  letter-spacing: 0.03em;
+  color: transparent;
+  background: linear-gradient(90deg, var(--rose-neon), var(--jaune-ambre) 50%, var(--cyan-neon));
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 0 14px rgba(255, 46, 154, 0.5));
+}
+
+/* ============================================================
+   LE DÉCOR
+   ============================================================ */
+// --- Le ciel de nuit et ses étoiles ---
+.decor--ciel {
+  width: 7000px;
+  height: 3200px;
+  background:
+    radial-gradient(1.5px 1.5px at 30px 40px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 150px 110px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(ellipse 35% 30% at 50% 78%, rgba(139, 47, 224, 0.4), transparent 70%),
+    linear-gradient(#020106, #0a0418 55%, #1a0630);
+  background-size: 220px 160px, 260px 190px, auto, auto;
+}
+
+// --- Le terrain, sous la foule ---
+.terrain {
+  width: 6000px;
+  height: 2200px;
+  background:
+    radial-gradient(ellipse 30% 30% at 50% 25%, rgba(139, 47, 224, 0.2), transparent 70%),
+    #050308;
+
+  // Les reflets colorés du spectacle sur le sol
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 18% 20% at 35% 30%, rgba(255, 46, 154, 0.3), transparent 70%),
+      radial-gradient(ellipse 18% 20% at 65% 30%, rgba(0, 229, 255, 0.25), transparent 70%);
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+}
+
+// --- La scène : le plateau (à plat) et sa façade ---
+.estrade {
+  width: 2700px;
+  height: 900px;
+  background:
+    radial-gradient(ellipse 45% 55% at 50% 0%, rgba(255, 46, 154, 0.18), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 2px, transparent 2px 90px),
+    linear-gradient(#17121c, #0a080d);
+
+  &__facade {
+    --ancre: 0%;
+    width: 2700px;
+    height: 200px;
+    background: linear-gradient(#0d0b11, #020203);
+
+    // La bande LED sur le bord de la scène
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon), var(--jaune-ambre), var(--rose-neon));
+      background-size: 50% 100%;
+      opacity: 0.15;
+    }
+  }
+}
+
+// --- L'écran géant au fond de la scène ---
+.ecran-geant {
+  width: 1600px;
+  height: 900px;
+  overflow: hidden;
+  border: 18px solid #0d0d10;
+  background: #050407;
+  box-shadow: 0 0 0 4px #1a1a1f;
+
+  // La grille de pixels LED, par-dessus l'image
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: radial-gradient(circle, transparent 1.4px, rgba(0, 0, 0, 0.55) 1.9px);
+    background-size: 6px 6px;
+    pointer-events: none;
+  }
+
+  // Avant le spectacle : un message de veille qui clignote
+  &__veille {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: $police-document;
+    font-size: 54px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 183, 64, 0.55);
+    animation: clignote 1.6s steps(2) infinite;
+  }
+
+  // Pendant le spectacle : le monogramme, le titre, la révélation
+  &__contenu {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+    background: linear-gradient(120deg, #2a0640, #050414 30%, #1a0230 55%, #003a46 80%, #2a0640);
+    background-size: 300% 300%;
+    opacity: 0;
+
+    // Une ligne de balayage qui descend, comme sur un vrai écran
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -20%;
+      height: 20%;
+      background: linear-gradient(transparent, rgba(255, 255, 255, 0.06), transparent);
+    }
+  }
+
+  &__logo {
+    width: 230px;
+    filter:
+      drop-shadow(0 0 4px #fff)
+      drop-shadow(0 0 18px var(--rose-neon))
+      drop-shadow(0 0 40px var(--cyan-neon));
+  }
+
+  &__titre {
+    font-family: $police-festival;
+    font-size: 150px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #fff0f8;
+    text-shadow:
+      0 0 8px #fff,
+      0 0 26px var(--rose-neon),
+      0 0 60px var(--rose-neon),
+      0 0 120px rgba(0, 229, 255, 0.6);
+  }
+
+  &__texte {
+    font-family: $police-sous-titre;
+    font-weight: 600;
+    font-size: 56px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #d8fbff;
+    text-shadow: 0 0 10px var(--cyan-neon), 0 0 30px var(--cyan-neon);
+  }
+}
+
+// --- Les enceintes suspendues ---
+.enceinte {
+  width: 170px;
+  height: 560px;
+  border-radius: 6px;
+  background: repeating-linear-gradient(#141418 0 34px, #050506 34px 40px);
+  box-shadow: inset 0 0 0 3px #1f2024, 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+// --- La structure métallique (truss) ---
+.truss {
+  --ancre: -50%;
+  width: 2620px;
+  height: 46px;
+  background:
+    linear-gradient(#2c2f35, #2c2f35) top / 100% 5px no-repeat,
+    linear-gradient(#2c2f35, #2c2f35) bottom / 100% 5px no-repeat,
+    repeating-linear-gradient(45deg, transparent 0 20px, #23262b 20px 24px),
+    repeating-linear-gradient(-45deg, transparent 0 20px, #23262b 20px 24px);
+
+  // Les pieds verticaux, accrochés par le haut
+  &--pied {
+    --ancre: 0%;
+    width: 46px;
+    height: 1005px;
+    background:
+      linear-gradient(#2c2f35, #2c2f35) left / 5px 100% no-repeat,
+      linear-gradient(#2c2f35, #2c2f35) right / 5px 100% no-repeat,
+      repeating-linear-gradient(45deg, transparent 0 20px, #23262b 20px 24px),
+      repeating-linear-gradient(-45deg, transparent 0 20px, #23262b 20px 24px);
+  }
+
+  // Un projecteur accroché sous la barre
+  &__lampe {
+    position: absolute;
+    top: 100%;
+    left: var(--px);
+    width: 40px;
+    height: 30px;
+    translate: -50% 0;
+    border-radius: 4px 4px 50% 50%;
+    background: #16181c;
+    transition: background 0.4s, box-shadow 0.4s;
+  }
+}
+
+// --- Un faisceau : un point d'accroche, et le cône qui balaie ---
+.rayon {
+  width: 0;
+  height: 0;
+  opacity: 0;
+
+  &__cone {
+    position: absolute;
+    top: 0;
+    left: -330px;
+    width: 660px;
+    height: 1400px;
+    transform-origin: 50% 0;
+    rotate: var(--angle);
+    clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+    background: linear-gradient(to bottom, var(--couleur), transparent 85%);
+    opacity: 0.4;
+  }
+}
+
+// --- La fumée de scène ---
+.fumee {
+  width: 3000px;
+  height: 380px;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 25% 45% at 25% 70%, rgba(255, 255, 255, 0.07), transparent 70%),
+    radial-gradient(ellipse 30% 50% at 60% 65%, rgba(255, 255, 255, 0.06), transparent 70%),
+    radial-gradient(ellipse 20% 40% at 85% 75%, rgba(255, 255, 255, 0.05), transparent 70%);
+  opacity: 0.4;
+  transition: opacity 2s ease;
+}
+
+// --- La caisse de tournée sous le téléphone ---
+.caisse {
+  display: grid;
+  place-items: center;
+  width: 320px;
+  height: 170px;
+  border-radius: 4px;
+  background:
+    linear-gradient(90deg, #8a8f98 0 10px, transparent 10px calc(100% - 10px), #8a8f98 calc(100% - 10px)),
+    linear-gradient(#8a8f98 0 8px, transparent 8px calc(100% - 8px), #8a8f98 calc(100% - 8px)),
+    linear-gradient(#1d1e23, #0d0e11);
+  box-shadow: 0 24px 30px rgba(0, 0, 0, 0.6);
+
+  &__pochoir {
+    font-family: $police-titre;
+    font-weight: 700;
+    font-size: 38px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(242, 239, 233, 0.5);
+  }
+}
+
+// --- Le téléphone : toujours rouge, mais le halo devient multicolore ---
+.objet--ligne {
+  width: 230px;
+}
+
+.scene--festival.en-concert .objet--ligne::before {
+  background: conic-gradient(
+    var(--rose-neon),
+    var(--violet-neon),
+    var(--cyan-neon),
+    var(--jaune-ambre),
+    var(--rouge-dossier),
+    var(--rose-neon)
+  );
+  filter: blur(24px);
+  animation: sonnerie 2.4s ease-in-out infinite, halo-tourne 6s linear infinite;
+}
+
+// --- La foule en contre-jour (dessinée par js/festival.js) ---
+.foule {
+  width: 3200px;
+  height: 320px;
+  overflow: visible;
+  color: #0a0611; // rangée du fond, un peu moins noire : la profondeur
+  fill: currentColor;
+  pointer-events: none;
+
+  &--devant {
+    color: #000;
+  }
+
+  line {
+    stroke: currentColor;
+    stroke-linecap: round;
+  }
+
+  // Les écrans de téléphone levés
+  .ecran {
+    fill: #bff8ff;
+    opacity: 0.2;
+    transition: opacity 0.6s;
+  }
+}
+
+/* ============================================================
+   LE SPECTACLE COMMENCE (.en-concert)
+   ============================================================ */
+.scene--festival.en-concert {
+  .rayon {
+    animation: allumage 1.4s linear both;
+  }
+
+  .rayon__cone {
+    animation: balayage 6s ease-in-out var(--delai) infinite alternate;
+  }
+
+  .truss__lampe {
+    background: var(--couleur);
+    box-shadow: 0 0 20px 6px var(--couleur), 0 0 60px 20px var(--couleur);
+  }
+
+  .ecran-geant__veille {
+    display: none;
+  }
+
+  .ecran-geant__contenu {
+    animation:
+      allumage 1.6s linear 0.3s both,
+      fond-ecran 12s ease-in-out infinite alternate;
+
+    &::before {
+      animation: balayage-ecran 4s linear infinite;
+    }
+  }
+
+  .estrade__facade::before {
+    opacity: 1;
+    box-shadow: 0 0 20px var(--rose-neon), 0 0 40px var(--cyan-neon);
+    animation: chenillard 3s linear infinite;
+  }
+
+  .terrain::after {
+    opacity: 1;
+  }
+
+  .fumee {
+    opacity: 1;
+    animation: fumee 14s ease-in-out infinite alternate;
+  }
+
+  .fan {
+    animation: saut 0.5s ease-in-out var(--delai) infinite alternate;
+  }
+
+  .foule .ecran {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   POST-TRAITEMENT PROPRE AU FESTIVAL
+   ============================================================ */
+// Le gris qui se retire au scroll : la saturation monte avec --allumage
+.scene__desature,
+.confettis {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scene__desature {
+  background: #808080;
+  mix-blend-mode: saturation;
+  opacity: calc(1 - var(--allumage));
+}
+
+.confettis {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   HUD — LE LAISSEZ-PASSER BACKSTAGE
+   ============================================================ */
+.passe {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 0 28px 24px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  background:
+    linear-gradient(rgba(10, 8, 16, 0.94), rgba(10, 8, 16, 0.94)) padding-box,
+    $degrade-neon border-box;
+  box-shadow: 0 0 50px rgba(139, 47, 224, 0.35);
+  color: var(--blanc-casse);
+
+  // Le cordon qui monte hors de l'écran
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% - 6px);
+    left: 50%;
+    width: 30px;
+    height: 60vh;
+    translate: -50% 0;
+    background: repeating-linear-gradient(90deg, var(--rose-neon) 0 10px, var(--violet-neon) 10px 20px, var(--rose-neon) 20px 30px);
+    opacity: 0.85;
+  }
+
+  // La bande de couleur en haut du laissez-passer
+  &__type {
+    margin: 0 -28px;
+    padding: 12px 28px;
+    border-radius: 12px 12px 0 0;
+    background: $degrade-neon;
+    color: var(--noir-profond);
+    font-family: $police-festival;
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  &__titre {
+    font-family: $police-sous-titre;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  &__texte {
+    font-size: 15px;
+    color: rgba(242, 239, 233, 0.8);
+  }
+
+  &__canaux {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__dispo {
+    @include machine-a-ecrire(11px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(242, 239, 233, 0.65);
+  }
+
+  &__voyant {
+    flex: none;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #3dff8a;
+    box-shadow: 0 0 10px #3dff8a;
+    animation: clignote 1.6s steps(2) infinite;
+  }
+
+  .cta-festival {
+    justify-self: stretch;
+  }
+}
+
+.hud__passe {
+  position: absolute;
+  top: 54%;
+  right: 7vw;
+  width: min(400px, 34vw);
+  translate: 0 -50%;
+  rotate: 2deg;
+  pointer-events: auto;
+  transition: opacity 0.6s ease, visibility 0.6s, translate 0.6s ease;
+
+  @include sur-mobile {
+    top: auto;
+    right: 44px; // place pour la Chronologie
+    bottom: 12px;
+    left: 12px;
+    width: auto;
+    max-height: 52vh;
+    overflow-y: auto;
+    padding: 0 18px 18px;
+    translate: none;
+    rotate: none;
+
+    &::before {
+      display: none;
+    }
+
+    .passe__type {
+      margin: 0 -18px;
+      padding: 10px 18px;
+    }
+
+    .passe__texte {
+      display: none;
+    }
+  }
+}
+
+// Le laissez-passer n'apparaît que sur le plan de la ligne backstage.
+.scene--festival:not([data-plan="2"]):not(.sans-rail) .hud__passe {
+  opacity: 0;
+  visibility: hidden;
+  translate: 40px -50%;
+
+  @include sur-mobile {
+    translate: 0 40px;
+  }
+}
+
+// Un canal de contact direct (courriel, LinkedIn)
+.canal {
+  --couleur: var(--rose-neon);
+  display: grid;
+  gap: 2px;
+  padding: 10px 16px;
+  border-left: 3px solid var(--couleur);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc-casse);
+  text-decoration: none;
+  transition: background 0.3s, box-shadow 0.3s, translate 0.3s;
+
+  &--cyan {
+    --couleur: var(--cyan-neon);
+  }
+
+  &__type {
+    font-family: $police-sous-titre;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--couleur);
+  }
+
+  &__valeur {
+    font-size: 15px;
+    overflow-wrap: anywhere;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: -8px 0 24px -6px var(--couleur);
+    translate: 4px 0;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--couleur);
+    outline-offset: 3px;
+  }
+}
+
+// Le bouton d'action final : pulse multicolore au survol
+.cta-festival {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 4px;
+  background: $degrade-neon;
+  color: var(--noir-profond);
+  font-family: $police-festival;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: scale 0.25s;
+
+  &:hover,
+  &:focus-visible {
+    scale: 1.04;
+    animation: pulse-festival 1.8s linear infinite;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--blanc-casse);
+    outline-offset: 4px;
+  }
+}
+
+/* ============================================================
+   HUD — LE GÉNÉRIQUE DE FIN
+   ============================================================ */
+.generique {
+  display: grid;
+  gap: 14px;
+  padding: 28px 32px;
+  background: rgba(5, 5, 7, 0.8);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 3px 0 0 var(--rose-neon);
+
+  // La photo et le titre, côte à côte (le titre passe dessous si la place manque)
+  &__entete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 22px;
+  }
+
+  // La photo du Mastermind, en polaroïd, avec un halo néon
+  &__photo {
+    flex: none;
+    width: 104px;
+    margin: 0;
+    padding: 7px 7px 0;
+    background: #f7f4ee;
+    rotate: -4deg;
+    box-shadow:
+      0 0 0 2px rgba(255, 46, 154, 0.6),
+      0 0 26px rgba(255, 46, 154, 0.45),
+      0 0 50px rgba(0, 229, 255, 0.25);
+
+    img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+    }
+
+    figcaption {
+      padding: 6px 0 8px;
+      font-family: $police-document;
+      font-size: 12px;
+      text-align: center;
+      color: var(--anthracite);
+    }
+  }
+
+  &__titre {
+    flex: 1 1 180px; // à côté de la photo s'il reste 180px, sinon dessous
+    font-family: $police-festival;
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: transparent;
+    background: $degrade-neon;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  &__credits {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+
+    div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 4px 16px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed rgba(242, 239, 233, 0.15);
+    }
+
+    dt {
+      @include machine-a-ecrire(11px);
+      color: var(--gris-acier);
+    }
+
+    dd {
+      margin: 0;
+      font-family: $police-sous-titre;
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  }
+
+  &__slogan {
+    font-family: $police-sous-titre;
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(242, 239, 233, 0.85);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 22px;
+  }
+
+  &__retour {
+    font-family: $police-sous-titre;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan-neon);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-shadow: 0 0 12px var(--cyan-neon);
+    }
+  }
+
+  &__copyright {
+    @include machine-a-ecrire(11px);
+    color: rgba(242, 239, 233, 0.5);
+  }
+}
+
+.hud__generique {
+  position: absolute;
+  top: 50%;
+  left: 7vw;
+  width: min(500px, 40vw);
+  max-height: 86vh; // sur un écran bas, le générique défile au lieu de déborder
+  overflow-y: auto;
+  translate: 0 -50%;
+  pointer-events: auto;
+  transition: opacity 0.6s ease, visibility 0.6s;
+
+  @include sur-mobile {
+    top: auto;
+    right: 44px;
+    bottom: 12px;
+    left: 12px;
+    width: auto;
+    max-height: 62vh;
+    overflow-y: auto;
+    padding: 20px 18px;
+    translate: none;
+  }
+}
+
+.scene--festival:not([data-plan="3"]) .hud__generique {
+  opacity: 0;
+  visibility: hidden;
+}
+
+// Les lignes du générique apparaissent l'une après l'autre
+.scene--festival[data-plan="3"] .generique > * {
+  animation: apparition-ligne 0.7s ease both;
+
+  &:nth-child(2) { animation-delay: 0.15s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.45s; }
+  &:nth-child(5) { animation-delay: 0.6s; }
+  &:nth-child(6) { animation-delay: 0.75s; }
+}
+
+/* ============================================================
+   LA MODALE DE CONTACT : la ligne backstage
+   ============================================================ */
+.modale--festival {
+  .modale__document {
+    width: min(100%, 600px);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background:
+      linear-gradient(rgba(12, 9, 20, 0.96), rgba(12, 9, 20, 0.96)) padding-box,
+      $degrade-neon border-box;
+    box-shadow: 0 0 50px rgba(139, 47, 224, 0.4), 0 0 120px rgba(255, 46, 154, 0.15);
+    color: var(--blanc-casse);
+
+    .mention-dossier {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--cyan-neon);
+    }
+  }
+
+  .modale__titre {
+    font-family: $police-festival;
+    font-weight: 400;
+    font-size: clamp(24px, 4vw, 32px);
+  }
+
+  .modale__fermer {
+    border-color: rgba(242, 239, 233, 0.3);
+    color: var(--blanc-casse);
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--rose-neon);
+      background: var(--rose-neon);
+      color: var(--noir-profond);
+    }
+  }
+
+  // Le voyant vert "en communication"
+  .modale__en-ligne {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #3dff8a;
+    box-shadow: 0 0 10px #3dff8a;
+    animation: clignote 1.6s steps(2) infinite;
+  }
+}
+
+// --- Le formulaire ---
+.formulaire {
+  display: grid;
+  gap: 16px;
+
+  &__rangee {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    @include sur-mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__champ {
+    display: grid;
+    gap: 6px;
+  }
+
+  label {
+    font-family: $police-sous-titre;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(242, 239, 233, 0.8);
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(242, 239, 233, 0.18);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--blanc-casse);
+    font-family: $police-texte;
+    font-size: 16px; // 16px minimum : pas de zoom automatique sur iPhone
+    transition: border-color 0.3s, box-shadow 0.3s;
+
+    &::placeholder {
+      color: rgba(242, 239, 233, 0.35);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--cyan-neon);
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2), 0 0 18px rgba(0, 229, 255, 0.25);
+    }
+  }
+
+  // Erreur seulement après une tentative d'envoi
+  &.est-verifie :invalid {
+    border-color: var(--rose-neon);
+  }
+
+  select option {
+    background: #0a0810;
+  }
+
+  textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .cta-festival {
+    justify-self: start;
+
+    @include sur-mobile {
+      justify-self: stretch;
+    }
+  }
+
+  &__note {
+    font-size: 13px;
+    color: rgba(242, 239, 233, 0.55);
+  }
+
+  &__statut {
+    @include machine-a-ecrire(13px);
+    min-height: 1.5em;
+    color: var(--cyan-neon);
+
+    &.est-erreur {
+      color: var(--rose-neon);
+    }
+  }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes balayage {
+  from { rotate: calc(var(--angle) - 14deg); }
+  to { rotate: calc(var(--angle) + 14deg); }
+}
+
+@keyframes fond-ecran {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@keyframes balayage-ecran {
+  to { top: 120%; }
+}
+
+@keyframes chenillard {
+  to { background-position: 100% 0; }
+}
+
+@keyframes fumee {
+  from { translate: -120px 0; }
+  to { translate: 120px -30px; }
+}
+
+@keyframes saut {
+  to { transform: translateY(-18px); }
+}
+
+@keyframes halo-tourne {
+  to { rotate: 360deg; }
+}
+
+@keyframes apparition-ligne {
+  from { opacity: 0; translate: -16px 0; }
+}
+
+@keyframes pulse-festival {
+  0%, 100% { box-shadow: 0 0 14px 2px var(--rose-neon), 0 0 34px var(--rose-neon); }
+  25% { box-shadow: 0 0 14px 2px var(--violet-neon), 0 0 34px var(--violet-neon); }
+  50% { box-shadow: 0 0 14px 2px var(--cyan-neon), 0 0 34px var(--cyan-neon); }
+  75% { box-shadow: 0 0 14px 2px var(--jaune-ambre), 0 0 34px var(--jaune-ambre); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene--festival.en-concert {
+    .rayon,
+    .ecran-geant__contenu {
+      animation: none;
+      opacity: 1;
+    }
+
+    .rayon__cone,
+    .ecran-geant__contenu::before,
+    .estrade__facade::before,
+    .fumee,
+    .fan,
+    .objet--ligne::before {
+      animation: none;
+    }
+  }
+
+  .ecran-geant__veille,
+  .passe__voyant,
+  .modale__en-ligne,
+  .cta-festival:hover,
+  .cta-festival:focus-visible,
+  .scene--festival[data-plan="3"] .generique > * {
+    animation: none;
+  }
+}

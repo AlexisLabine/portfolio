@@ -1,0 +1,173 @@
+// ============================================================
+// BLOC 1 — ACCUEIL : portes, brume et clavier à code
+// ============================================================
+@use "variables" as *;
+
+.accueil {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden; // les portes qui glissent ne créent pas de scroll horizontal
+
+  // Ce qu'on découvre derrière les portes (apparaît avec GSAP)
+  &__revelation {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 16px;
+    text-align: center;
+    opacity: 0;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(244, 183, 64, 0.08), transparent 60%),
+      var(--noir-bleute);
+  }
+
+  &__revelation-titre {
+    font-family: $police-titre;
+    font-weight: 700;
+    font-size: clamp(36px, 8vw, 72px);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__descendre {
+    font-family: $police-sous-titre;
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blanc-casse);
+    text-decoration: none;
+    border: 1px solid var(--gris-acier);
+    padding: 10px 24px;
+    transition: color 0.3s, border-color 0.3s;
+
+    span {
+      display: inline-block;
+      animation: rebond 1.6s ease-in-out infinite;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--jaune-ambre);
+      border-color: var(--jaune-ambre);
+    }
+  }
+}
+
+@keyframes rebond {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 5px; }
+}
+
+// --- Les portes ---
+.porte {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+  object-fit: cover;
+  display: block;
+}
+#porte-gauche { left: 0; border-right: 2px solid var(--noir-bleute); }
+#porte-droite { right: 0; border-left: 2px solid var(--noir-bleute); }
+
+// --- La brume ---
+#brume {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  touch-action: pan-y;
+  /* La brume passe devant le clavier (visuellement), donc on la rend
+     "transparente aux clics" pour que les touches restent cliquables en dessous. */
+  pointer-events: none;
+}
+
+/* ============================================================
+   LE CLAVIER À CODE — z-index 2, au-dessus des portes mais
+   sous la brume (qui passe devant, voile légèrement le clavier)
+   ============================================================ */
+#clavier-code {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: auto;
+  background: #1c1e22;
+  border: 2px solid var(--gris-acier);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font-family: "Courier New", monospace;
+
+  &.erreur { animation: secousse 0.3s ease; }
+}
+
+#code-affichage {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.chiffre {
+  width: 30px;
+  height: 38px;
+  background: var(--noir-bleute);
+  border: 1px solid var(--gris-acier);
+  border-radius: 4px;
+  color: var(--blanc-casse);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#code-erreur {
+  color: var(--rouge-dossier);
+  font-size: 11px;
+  letter-spacing: 1px;
+  height: 14px;
+  margin-bottom: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  &.visible { opacity: 1; }
+}
+
+#code-pave {
+  display: grid;
+  grid-template-columns: repeat(3, 42px);
+  gap: 6px;
+}
+
+.touche {
+  width: 42px;
+  height: 42px;
+  background: #2b2e33;
+  border: 1px solid var(--gris-acier);
+  border-radius: 4px;
+  color: var(--blanc-casse);
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover { background: #3b3e44; }
+  &:active { background: var(--jaune-ambre); color: #1c1e22; }
+}
+
+@keyframes secousse {
+  0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+  25% { transform: translate(-50%, -50%) translateX(-8px); }
+  75% { transform: translate(-50%, -50%) translateX(8px); }
+}

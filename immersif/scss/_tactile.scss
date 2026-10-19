@@ -1,0 +1,658 @@
+// ============================================================
+// MODE TACTILE — téléphone et iPad
+// ============================================================
+// La classe "mode-tactile" est posée sur <html> par le petit script
+// du <head> (index.html). Dans ce mode :
+//   - les portes s'ouvrent avec un bouton « Entrer » (pas de clavier)
+//   - les caméras 3D sont coupées (js/camera.js ne fait rien) : chaque
+//     scène est mise à plat et défile comme une page normale
+//   - on touche les objets pour lire leur contenu (modales)
+//   - à la fin : les retouches téléphone et tablette (encoche, tampons...)
+//
+// Dans une scène à plat, .hud devient "display: contents" : ses
+// enfants (titre, fiche, laissez-passer...) se rangent dans la même
+// grille que le monde, dans l'ordre donné par "order".
+@use "variables" as *;
+
+$degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
+
+// Ces éléments n'existent qu'en mode tactile : cachés sur ordinateur.
+.bouton-entree,
+.hud__consigne,
+.objet__legende {
+  display: none;
+}
+
+// --- Le bouton « Entrer » des portes ---
+.bouton-entree {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4; // au-dessus de la brume : toujours lisible
+  translate: -50% -50%;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 210px;
+  padding: 18px 36px 22px;
+  border: 2px solid var(--gris-acier);
+  border-radius: 8px;
+  background: #1c1e22;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: var(--blanc-casse);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, border-color 0.2s;
+
+  &__mention {
+    @include machine-a-ecrire(11px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--jaune-ambre);
+  }
+
+  &__voyant {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--rouge-dossier);
+    box-shadow: 0 0 10px var(--rouge-dossier);
+    animation: clignote 1.2s steps(2) infinite;
+  }
+
+  &__texte {
+    margin-right: -0.3em; // compense l'espacement après la dernière lettre
+    font-family: $police-titre;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  &:active {
+    border-color: var(--jaune-ambre);
+    background: #2b2e33;
+  }
+
+  &:focus-visible {
+    outline: 2px dashed var(--jaune-ambre);
+    outline-offset: 6px;
+  }
+
+  // Le bon geste : le voyant passe au vert
+  &.est-ouvert .bouton-entree__voyant {
+    background: #3dff8a;
+    box-shadow: 0 0 10px #3dff8a;
+    animation: none;
+  }
+}
+
+// --- La consigne "Touchez..." sous le titre de chaque scène ---
+.hud__consigne {
+  @include machine-a-ecrire(12px);
+  align-items: center;
+  gap: 10px;
+  color: rgba(242, 239, 233, 0.7);
+
+  &::before {
+    content: "";
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--jaune-ambre);
+    box-shadow: 0 0 10px var(--jaune-ambre);
+    animation: clignote 1.6s steps(2) infinite;
+  }
+}
+
+// --- L'étiquette papier sous un objet du bureau ---
+.objet__legende {
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 14px 10px;
+  border-radius: 2px;
+  background: var(--blanc-casse);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.5);
+  color: var(--anthracite);
+  font-family: $police-titre;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  rotate: -1.5deg;
+
+  small {
+    font-family: $police-texte;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #555;
+  }
+}
+
+.objet__numero {
+  @include machine-a-ecrire(11px);
+  color: var(--rouge-dossier);
+}
+
+/* ============================================================
+   TOUT CE QUI SUIT : SEULEMENT EN MODE TACTILE
+   ============================================================ */
+html.mode-tactile {
+  // Sur iPhone et iPad, bloquer le <body> ne suffit pas à bloquer le scroll.
+  &:has(> body.verrouille),
+  &:has(> body.modale-active) {
+    overflow: hidden;
+  }
+
+  // ===== BLOC 1 : le bouton remplace le clavier =====
+  #clavier-code {
+    display: none;
+  }
+
+  .bouton-entree {
+    display: flex;
+  }
+
+  // ===== LES SCÈNES, À PLAT =====
+  .scene {
+    display: grid;
+    grid-template-columns: minmax(0, 1080px);
+    justify-content: center;
+    align-content: start;
+    gap: 28px;
+    height: auto;
+    min-height: 100vh;
+    padding: 56px 48px 64px 16px; // à droite : la place de la Chronologie
+    perspective: none;
+
+    @media (min-width: 768px) {
+      gap: 36px;
+      padding: 104px 88px 112px 40px;
+    }
+  }
+
+  .scene__echelle {
+    position: relative;
+    left: auto;
+    top: auto;
+    order: 3;
+    transform: none;
+    transition: none;
+  }
+
+  .camera {
+    position: relative;
+    transform: none;
+  }
+
+  // Chaque élément du monde reprend simplement sa place dans la page.
+  .camera > * {
+    position: relative;
+    transform: none;
+  }
+
+  // Le décor 3D, les effets de caméra et les aides au scroll disparaissent.
+  .decor:not(.ecran-geant),
+  .bureau__facade,
+  .bureau__cote,
+  .lampe,
+  .faisceau,
+  .poussiere,
+  .projecteur,
+  .truss,
+  .rayon,
+  .fumee,
+  .ombre-contact,
+  .fils,
+  .scene__obscurite,
+  .scene__vignette,
+  .scene__grain,
+  .scene__barre,
+  .scene__desature,
+  .hud__camera,
+  .hud__defiler,
+  .hud__invite,
+  .hud__legende {
+    display: none;
+  }
+
+  // Le HUD n'est plus une couche par-dessus l'image : ses éléments
+  // prennent place dans la page, avant et après le monde.
+  .hud {
+    display: contents;
+    pointer-events: auto;
+  }
+
+  .scene .hud__chapitre {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    order: 1;
+    max-width: 640px;
+    opacity: 1;
+    translate: none;
+  }
+
+  .hud__consigne {
+    display: flex;
+    order: 2;
+  }
+
+  .objet__legende {
+    display: flex;
+  }
+
+  // ===== BLOC 2 : le bureau, vu de haut =====
+  .scene--salle .camera {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+    justify-items: center;
+    gap: 32px 16px;
+    padding: 36px 16px 32px;
+    border-radius: 6px;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255, 196, 110, 0.3), transparent 70%),
+      radial-gradient(ellipse at 50% 45%, transparent 40%, rgba(0, 0, 0, 0.65) 95%),
+      var(--texture-bois, linear-gradient(180deg, #5a463b, var(--brun-bois) 40%, #1f1814));
+    background-size: cover;
+    box-shadow:
+      inset 0 3px 0 rgba(255, 220, 170, 0.12),
+      0 30px 60px rgba(0, 0, 0, 0.6);
+
+    @media (min-width: 700px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding: 56px 32px 44px;
+    }
+  }
+
+  // Le plateau s'efface : la cocarde se range avec les autres objets.
+  .bureau__plateau {
+    display: contents;
+  }
+
+  .objet {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+
+    img {
+      width: auto;
+      max-width: 100%;
+      height: clamp(110px, 30vw, 190px);
+      object-fit: contain;
+    }
+  }
+
+  .objet--pochette {
+    order: 1;
+  }
+
+  .objet--cocarde {
+    position: relative;
+    left: auto;
+    top: auto;
+    order: 2;
+    translate: none;
+    rotate: none;
+
+    .cocarde {
+      rotate: -6deg;
+    }
+  }
+
+  .objet--telephone {
+    order: 3;
+    width: min(100%, 260px);
+
+    img {
+      height: clamp(90px, 22vw, 140px);
+    }
+  }
+
+  .scene--salle .objet--telephone {
+    grid-column: 1 / -1;
+
+    @media (min-width: 700px) {
+      grid-column: auto;
+    }
+  }
+
+  // ===== BLOC 3 : le flight case, puis la fiche technique =====
+  .scene--competences .camera {
+    display: flex;
+    justify-content: center;
+  }
+
+  // Les autocollants suivent la taille du flight case (cqw = % de sa largeur).
+  .flight-case {
+    width: min(100%, 440px);
+    container-type: inline-size;
+  }
+
+  .autocollant {
+    font-size: clamp(11px, 4.4cqw, 20px);
+  }
+
+  .hud__fiche {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    order: 4;
+    justify-self: center;
+    width: min(100%, 560px);
+    max-height: none;
+    overflow: visible;
+    translate: none;
+    rotate: 1deg;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  // iPad : le flight case à gauche, la fiche à droite
+  @media (min-width: 820px) {
+    .scene--competences {
+      grid-template-columns: repeat(2, minmax(0, 520px));
+      align-items: center;
+    }
+
+    .scene--competences .hud__chapitre,
+    .scene--competences .hud__consigne {
+      grid-column: 1 / -1;
+    }
+  }
+
+  // ===== BLOC 4 : le mur d'enquête devient un tableau qui défile =====
+  .scene--mur .hud__chapitre {
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+  }
+
+  .neon {
+    margin: 0 0 28px;
+    font-size: clamp(38px, 10vw, 96px);
+    letter-spacing: 0.1em;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .panneau {
+    padding: 12px;
+
+    @media (min-width: 768px) {
+      padding: 22px;
+    }
+  }
+
+  // Les dossiers s'empilent : la fiche cartonnée, puis ses polaroïds.
+  .panneau__liege {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 14px;
+    width: auto;
+    height: auto;
+    padding: 30px 14px 34px;
+    background-size: 420px;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    @media (min-width: 700px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 36px 24px;
+      padding: 40px 28px 44px;
+    }
+
+    @media (min-width: 1000px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .fiche-dossier {
+    position: relative;
+    left: auto;
+    top: auto;
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(100%, 420px);
+    margin-top: 16px;
+    padding: 20px 20px 16px;
+    translate: none;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .fiche-dossier__titre {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .fiche-dossier--principale .fiche-dossier__titre {
+    font-size: clamp(28px, 8vw, 42px);
+  }
+
+  .polaroid {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    padding: 8px 8px 0;
+    translate: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &::before {
+      top: 3px;
+      width: 14px;
+      height: 14px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+  }
+
+  .polaroid__legende {
+    padding: 8px 0 10px;
+    font-size: 14px;
+  }
+
+  // ===== BLOC 5 : l'écran géant, la foule, puis la ligne backstage =====
+  .scene--festival .camera {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  // L'écran garde ses proportions ; son contenu suit sa largeur (cqw).
+  .ecran-geant {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-width: 8px;
+    isolation: isolate; // la grille LED reste sous la foule
+    container-type: inline-size;
+
+    // Vue de près, la grille LED doit être plus fine et plus légère.
+    &::after {
+      background: radial-gradient(circle, transparent 0.8px, rgba(0, 0, 0, 0.35) 1.2px);
+      background-size: 3px 3px;
+    }
+  }
+
+  .ecran-geant__veille {
+    font-size: max(11px, 3.4cqw);
+  }
+
+  .ecran-geant__contenu {
+    gap: 2.4cqw;
+  }
+
+  .ecran-geant__logo {
+    width: 15cqw;
+  }
+
+  .ecran-geant__titre {
+    font-size: 9.4cqw;
+  }
+
+  .ecran-geant__texte {
+    font-size: max(11px, 3.4cqw);
+    letter-spacing: 0.2em;
+  }
+
+  // La foule en contre-jour, devant le bas de l'écran
+  .foule {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 10 / 1;
+    margin-top: -10%;
+  }
+
+  .foule--devant {
+    margin-top: -7%;
+  }
+
+  .objet--ligne {
+    margin-top: 40px;
+  }
+
+  .scene--festival .objet__legende {
+    background: $degrade-neon;
+    color: var(--noir-profond);
+
+    small,
+    .objet__numero {
+      color: rgba(5, 5, 7, 0.75);
+    }
+  }
+
+  // (.scene--festival : plus fort que les règles qui les cachent selon le plan)
+  .scene--festival .hud__passe,
+  .scene--festival .hud__generique {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    justify-self: center;
+    max-height: none;
+    overflow: visible;
+    translate: none;
+    rotate: none;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hud__passe {
+    order: 4;
+    width: min(100%, 460px);
+
+    // Le cordon passerait par-dessus l'écran géant
+    &::before {
+      display: none;
+    }
+
+    .passe__texte {
+      display: block;
+    }
+  }
+
+  .hud__generique {
+    order: 5;
+    width: min(100%, 560px);
+  }
+
+  // Les confettis tombent sur le premier écran de la scène seulement.
+  .confettis {
+    bottom: auto;
+    height: 100vh;
+  }
+
+  // ===== LES MODALES =====
+  // Fond sombre uni (pas de gros plan de caméra derrière) ;
+  // sur iPad, le document est centré.
+  .modale {
+    background: rgba(5, 5, 7, 0.75);
+
+    @media (min-width: 769px) {
+      justify-content: center;
+    }
+  }
+
+  .modale__document {
+    overscroll-behavior: contain; // le scroll ne "traverse" pas jusqu'à la page
+  }
+}
+
+/* ============================================================
+   RETOUCHES TÉLÉPHONE ET TABLETTE
+   ============================================================ */
+
+// Le lien LinkedIn reste caché tant que sa vraie adresse n'est pas entrée.
+.canal[href="#"] {
+  display: none;
+}
+
+// La révélation derrière les portes laisse la place à la Chronologie
+// (sinon, sur un téléphone à l'horizontale, le titre passe dessous).
+@media (min-width: 600px) {
+  .accueil__revelation {
+    padding-inline: 64px;
+  }
+}
+
+html.mode-tactile {
+  // Encoche et coins arrondis (iPhone à l'horizontale) : env() vaut 0 ailleurs.
+  .scene {
+    padding-left: calc(16px + env(safe-area-inset-left));
+    padding-right: calc(48px + env(safe-area-inset-right));
+
+    @media (min-width: 768px) {
+      padding-left: calc(40px + env(safe-area-inset-left));
+      padding-right: calc(88px + env(safe-area-inset-right));
+    }
+  }
+
+  // Petit écran : les tampons « Classé » ne recouvrent plus le texte.
+  @media (max-width: 600px) {
+    .hud__fiche {
+      padding-top: 76px; // le tampon a sa propre ligne, au-dessus du titre
+    }
+
+    .modale__tampon {
+      top: 22px;
+      right: 64px;
+      font-size: 15px;
+    }
+
+    .modale__tampon ~ .mention-dossier {
+      margin-top: 34px; // la mention passe sous le tampon
+    }
+  }
+}
+
+// Téléphone à l'horizontale (écran bas) : titre de la révélation plus petit.
+@media (max-height: 500px) {
+  .accueil__revelation-titre {
+    font-size: clamp(32px, 6vw, 56px);
+  }
+}
