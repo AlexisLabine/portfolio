@@ -26,7 +26,7 @@
   background:
     radial-gradient(ellipse 25% 40% at 50% 60%, rgba(244, 183, 64, 0.08), transparent 70%),
     linear-gradient(180deg, rgba(4, 5, 6, 0.92), rgba(4, 5, 6, 0.5) 60%, rgba(4, 5, 6, 0.85)),
-    var(--texture-beton, #15171c);
+    var(--beton);
   background-size: cover;
 }
 
@@ -95,7 +95,7 @@
   transform: translate(-50%, -50%) rotate(var(--rotation));
   min-width: 3em;
   padding: 0.4em 0.6em;
-  border: 3px solid var(--blanc-casse); // la marge blanche d'un autocollant découpé
+  border: 3px solid var(--texte); // la marge blanche d'un autocollant découpé
   border-radius: 8px;
   font-family: $police-titre;
   font-weight: 700;
@@ -113,14 +113,14 @@
   }
 
   &:focus-visible {
-    outline: 2px dashed var(--jaune-ambre);
+    outline: 2px dashed var(--accent);
     outline-offset: 4px;
   }
 
   &.est-selectionne {
     z-index: 2;
     box-shadow:
-      0 0 0 3px var(--jaune-ambre),
+      0 0 0 3px var(--accent),
       0 0 18px rgba(244, 183, 64, 0.6);
   }
 
@@ -154,7 +154,7 @@
   // Développement web
   &--html { background: #E34F26; color: #fff; border-radius: 999px; }
   &--scss { background: #CD6799; color: #fff; }
-  &--js { background: #F7DF1E; color: var(--anthracite); border-radius: 4px; }
+  &--js { background: #F7DF1E; color: var(--encre); border-radius: 4px; }
   &--php { background: #777BB4; color: #fff; border-radius: 999px; }
 }
 
@@ -173,7 +173,7 @@
 
   &__categorie {
     @include machine-a-ecrire;
-    color: var(--rouge-dossier);
+    color: var(--signature);
   }
 
   &__titre {
@@ -192,7 +192,7 @@
 
   &__sous-titre {
     margin-bottom: 10px;
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-weight: 600;
     font-size: 20px;
     letter-spacing: 0.12em;
@@ -209,7 +209,7 @@
 
     li::before {
       content: "▸ ";
-      color: var(--rouge-dossier);
+      color: var(--signature);
     }
   }
 }

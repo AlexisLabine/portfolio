@@ -16,10 +16,17 @@ const COURRIEL_CONTACT = "labinealexis@gmail.com";
    PARTIE 1 — LA FOULE EN CONTRE-JOUR
    ------------------------------------------------------------
    Chaque personne = un corps (ellipse) + une tête (cercle), parfois
-   un ou deux bras levés, parfois un téléphone. hasard() vient de
-   js/textures.js : la foule est toujours la même d'une visite à l'autre.
+   un ou deux bras levés, parfois un téléphone. hasard() est définie
+   juste en dessous : la foule est toujours la même d'une visite à l'autre.
 */
 const NS_SVG = "http://www.w3.org/2000/svg";
+
+// Nombre « aléatoire » entre 0 et 1, toujours le même pour un (x, y) donné.
+// (Venait de textures.js, retiré en 3.3.)
+function hasard(x, y) {
+  const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+  return s - Math.floor(s);
+}
 
 function formeSvg(type, attributs, parent) {
   const forme = document.createElementNS(NS_SVG, type);

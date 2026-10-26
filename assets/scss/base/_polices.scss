@@ -1,0 +1,34 @@
+// ============================================================
+// POLICES — hébergées sur le site (tâche 3.3), en WOFF2
+// ============================================================
+// Trois familles (02, section 3) : Oswald (titres), Inter (texte),
+// Special Elite (signature). Oswald et Inter sont des polices « variables » :
+// un seul fichier couvre toutes les graisses. Seul le sous-ensemble latin
+// est chargé (il contient le français : accents, œ, guillemets).
+// Les chemins sont relatifs au CSS compilé (assets/css/ → assets/fonts/).
+// font-display: swap : le texte s'affiche tout de suite avec la police de
+// secours, puis change quand la vraie police arrive.
+
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("../fonts/oswald-latin-wght.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter-latin-wght.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Special Elite";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/special-elite-latin-400.woff2") format("woff2");
+}

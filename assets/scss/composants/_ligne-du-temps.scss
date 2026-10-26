@@ -49,7 +49,7 @@
       left: 50%;
       width: 1px;
       translate: -50% 0;
-      background: linear-gradient(to bottom, var(--gris-acier) 70%, var(--rose-neon));
+      background: linear-gradient(to bottom, var(--texte-doux) 70%, var(--lumiere-1));
       opacity: 0.5;
     }
 
@@ -68,9 +68,9 @@
     display: block;
     width: 14px;
     height: 14px;
-    border: 2px solid var(--gris-acier);
+    border: 2px solid var(--texte-doux);
     border-radius: 50%;
-    background: var(--noir-bleute);
+    background: var(--fond);
     transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, scale 0.3s;
 
     // Zone cliquable plus grande que le point (plus facile au doigt)
@@ -87,24 +87,24 @@
     &:hover,
     &:focus-visible {
       scale: 1.2;
-      border-color: var(--jaune-ambre);
+      border-color: var(--accent);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--jaune-ambre);
+      outline: 2px solid var(--accent);
       outline-offset: 4px;
     }
 
     &.est-actif {
-      background: var(--jaune-ambre);
-      border-color: var(--jaune-ambre);
+      background: var(--accent);
+      border-color: var(--accent);
       box-shadow: 0 0 12px 2px rgba(244, 183, 64, 0.6);
     }
 
     // Point 4 : la transition (ambre → rose)
     &--transition.est-actif {
-      background: linear-gradient(135deg, var(--jaune-ambre), var(--rose-neon));
-      border-color: var(--rose-neon);
+      background: linear-gradient(135deg, var(--accent), var(--lumiere-1));
+      border-color: var(--lumiere-1);
       box-shadow:
         0 0 12px rgba(244, 183, 64, 0.5),
         0 0 18px rgba(255, 46, 154, 0.45);
@@ -113,12 +113,12 @@
     // Point 5 : le Festival, en néon
     &--festival:hover,
     &--festival:focus-visible {
-      border-color: var(--rose-neon);
+      border-color: var(--lumiere-1);
     }
 
     &--festival.est-actif {
-      background: var(--rose-neon);
-      border-color: var(--cyan-neon);
+      background: var(--lumiere-1);
+      border-color: var(--lumiere-2);
       animation: neon 1.6s ease-in-out infinite alternate;
     }
   }
@@ -133,7 +133,7 @@
     border: 1px solid rgba(138, 143, 152, 0.4);
     border-radius: 3px;
     background: rgba(13, 15, 20, 0.85);
-    color: var(--blanc-casse);
+    color: var(--texte);
     font-family: $police-texte;
     font-size: 12px;
     letter-spacing: 0.06em;
@@ -151,6 +151,6 @@
 }
 
 @keyframes neon {
-  from { box-shadow: 0 0 6px var(--rose-neon), 0 0 12px var(--cyan-neon); }
-  to { box-shadow: 0 0 12px var(--rose-neon), 0 0 28px var(--cyan-neon); }
+  from { box-shadow: 0 0 6px var(--lumiere-1), 0 0 12px var(--lumiere-2); }
+  to { box-shadow: 0 0 12px var(--lumiere-1), 0 0 28px var(--lumiere-2); }
 }

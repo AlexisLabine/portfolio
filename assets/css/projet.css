@@ -1,23 +1,31 @@
 @charset "UTF-8";
 /* PROJET.CSS — FICHIER COMPILÉ à partir de assets/scss/projet.scss.
    Ne pas le modifier à la main : éditer les partials, puis recompiler. */
-:root {
-  --noir-bleute: #0D0F14;
-  --brun-bois: #3B2E27;
-  --rouge-dossier: #B3122B;
-  --jaune-ambre: #F4B740;
-  --gris-acier: #8A8F98;
-  --blanc-casse: #F2EFE9;
-  --anthracite: #1C1C1E;
-  --rose-neon: #FF2E9A;
-  --cyan-neon: #00E5FF;
-  --violet-neon: #8B2FE0;
-  --noir-profond: #050507;
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("../fonts/oswald-latin-wght.woff2") format("woff2");
 }
-
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter-latin-wght.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Special Elite";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/special-elite-latin-400.woff2") format("woff2");
+}
 :root {
   --fond: #0D0F14;
   --fond-eleve: #161920;
+  --fond-profond: #050507;
   --trait: #2A2E37;
   --bordure-champ: #646A76;
   --texte: #F2EFE9;
@@ -37,6 +45,13 @@
   --lumiere-3: #8B2FE0;
   --lumiere-texte: #7FF2FF;
   --fond-scene: #0A0810;
+  --bois-degrade: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--bois) 90%, white),
+    var(--bois) 40%,
+    color-mix(in srgb, var(--bois) 60%, black)
+  );
+  --beton: linear-gradient(180deg, var(--fond-eleve), var(--fond));
   --ombre-papier: 0 12px 32px rgb(0 0 0 / 0.45);
   --ombre-portee: drop-shadow(0 14px 16px rgb(0 0 0 / 0.55));
 }
@@ -59,8 +74,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--noir-bleute);
-  color: var(--blanc-casse);
+  background: var(--fond);
+  color: var(--texte);
   font-family: "Inter", "Segoe UI", sans-serif;
   font-size: 17px;
   line-height: 1.5;
@@ -80,6 +95,27 @@ h2,
 h3,
 p {
   margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.lien-evitement {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  z-index: 100;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: var(--fond) !important;
+  font-weight: 600;
+  transform: translateY(-120%);
+}
+.lien-evitement:focus-visible {
+  transform: none;
+  outline-color: var(--texte);
 }
 
 .page-cv,
@@ -106,22 +142,6 @@ p {
 .page-projet :focus-visible {
   outline: 2px solid var(--accent-papier);
   outline-offset: 3px;
-}
-
-.lien-evitement {
-  position: absolute;
-  top: 0;
-  left: 16px;
-  z-index: 20;
-  padding: 12px 16px;
-  background: var(--accent);
-  color: var(--fond) !important;
-  font-weight: 600;
-  transform: translateY(-120%);
-}
-.lien-evitement:focus-visible {
-  transform: none;
-  outline-color: var(--texte);
 }
 
 .barre {

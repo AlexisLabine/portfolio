@@ -30,14 +30,14 @@
   background:
     radial-gradient(ellipse 30% 35% at 50% 40%, rgba(255, 46, 154, 0.06), transparent 70%),
     linear-gradient(180deg, rgba(4, 5, 6, 0.95), rgba(4, 5, 6, 0.6) 50%, rgba(4, 5, 6, 0.95)),
-    var(--texture-beton, #15171c);
+    var(--beton);
   background-size: cover;
 }
 
 // --- Le néon au-dessus du panneau ---
 .neon {
   margin: 0;
-  font-family: $police-sous-titre;
+  font-family: $police-titre;
   font-weight: 600;
   font-size: 150px;
   line-height: 1;
@@ -53,8 +53,8 @@
   color: #ffe3f1;
   text-shadow:
     0 0 6px #fff,
-    0 0 18px var(--rose-neon),
-    0 0 42px var(--rose-neon),
+    0 0 18px var(--lumiere-1),
+    0 0 42px var(--lumiere-1),
     0 0 90px rgba(0, 229, 255, 0.6);
   animation: allumage 1.6s linear 0.4s both;
 }
@@ -62,7 +62,7 @@
 // --- Le panneau : un cadre en bois et du liège ---
 .panneau {
   padding: 36px;
-  background: var(--texture-bois, #3b2e27);
+  background: var(--bois-degrade);
   background-size: cover;
   box-shadow:
     inset 0 0 0 2px rgba(0, 0, 0, 0.4),
@@ -115,7 +115,7 @@
   width: 330px;
   padding: 22px 24px 18px;
   background: #efe6cf;
-  color: var(--anthracite);
+  color: var(--encre);
   box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5);
 
   // Le ruban adhésif
@@ -134,7 +134,7 @@
 
   &__numero {
     @include machine-a-ecrire(16px);
-    color: var(--rouge-dossier);
+    color: var(--signature);
   }
 
   &__titre {
@@ -153,7 +153,7 @@
   // L'affaire principale : plus grande, avec un bandeau rouge
   &--principale {
     width: 440px;
-    border-top: 10px solid var(--rouge-dossier);
+    border-top: 10px solid var(--signature);
     box-shadow:
       0 0 0 2px rgba(179, 18, 43, 0.5),
       0 16px 24px rgba(0, 0, 0, 0.55);
@@ -178,7 +178,7 @@
   padding: 15px 15px 0;
   border: 0;
   background: #f7f4ee;
-  color: var(--anthracite);
+  color: var(--encre);
   cursor: pointer;
   box-shadow:
     inset 0 -5px 0 var(--teinte),
@@ -196,7 +196,7 @@
     height: 18px;
     translate: -50% 0;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #ff6b7d, var(--rouge-dossier) 55%, #5a0714);
+    background: radial-gradient(circle at 35% 35%, #ff6b7d, var(--signature) 55%, #5a0714);
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
   }
 
@@ -230,13 +230,13 @@
     scale: 1.06;
     box-shadow:
       inset 0 -5px 0 var(--teinte),
-      0 0 0 3px var(--jaune-ambre),
+      0 0 0 3px var(--accent),
       0 0 30px rgba(244, 183, 64, 0.5),
       0 22px 30px rgba(0, 0, 0, 0.6);
   }
 
   &:focus-visible {
-    outline: 3px dashed var(--jaune-ambre);
+    outline: 3px dashed var(--accent);
     outline-offset: 10px;
   }
 }

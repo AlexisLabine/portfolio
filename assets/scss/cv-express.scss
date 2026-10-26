@@ -9,5 +9,7 @@
 /* CV-EXPRESS.CSS — FICHIER COMPILÉ à partir de assets/scss/cv-express.scss.
    Ne pas le modifier à la main : éditer les partials, puis recompiler. */
 
+@use "base/polices";
 @use "base/reset";
+@use "base/a11y";
 @use "pages/cv-express";

@@ -22,7 +22,7 @@
   background:
     radial-gradient(ellipse 30% 45% at 50% 58%, rgba(244, 183, 64, 0.1), transparent 70%),
     linear-gradient(180deg, rgba(4, 5, 6, 0.9), rgba(4, 5, 6, 0.35) 60%, rgba(4, 5, 6, 0.8)),
-    var(--texture-beton, #15171c);
+    var(--beton);
   background-size: cover;
 }
 
@@ -31,15 +31,15 @@
   height: 1650px;
   background:
     linear-gradient(rgba(3, 4, 5, 0.75), rgba(3, 4, 5, 0.9)),
-    var(--texture-beton, #101216);
+    var(--beton);
   background-size: cover;
 }
 
-// --- Le bureau (bois généré par js/textures.js) ---
+// --- Le bureau (bois : dégradé du jeton --bois) ---
 .bureau__plateau {
   width: 1400px;
   height: 620px;
-  background: var(--texture-bois, linear-gradient(180deg, #5a463b, var(--brun-bois) 40%, #1f1814));
+  background: var(--bois-degrade);
   background-size: cover;
 
   // Les bords du plateau, plus sombres
@@ -68,7 +68,7 @@
   height: 420px;
   background:
     linear-gradient(180deg, rgba(255, 220, 170, 0.12) 0 3px, rgba(0, 0, 0, 0.35) 3px 34px, rgba(0, 0, 0, 0.75) 34px, rgba(0, 0, 0, 0.92)),
-    var(--texture-bois, #2a1d15);
+    var(--bois-degrade);
   background-size: cover;
 }
 
@@ -79,7 +79,7 @@
   height: 420px;
   background:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95)),
-    var(--texture-bois, #2a1d15);
+    var(--bois-degrade);
   background-size: cover;
 }
 
@@ -168,13 +168,13 @@
   &:hover img,
   &:focus-visible img {
     filter:
-      drop-shadow(0 0 1px var(--jaune-ambre))
+      drop-shadow(0 0 1px var(--accent))
       drop-shadow(0 0 12px rgba(244, 183, 64, 0.55))
       drop-shadow(0 20px 16px rgba(0, 0, 0, 0.55));
   }
 
   &:focus-visible {
-    outline: 2px dashed var(--jaune-ambre);
+    outline: 2px dashed var(--accent);
     outline-offset: 10px;
   }
 
@@ -215,7 +215,7 @@
     &:hover .cocarde,
     &:focus-visible .cocarde {
       box-shadow:
-        0 0 0 2px var(--jaune-ambre),
+        0 0 0 2px var(--accent),
         0 0 24px rgba(244, 183, 64, 0.55),
         0 18px 25px rgba(0, 0, 0, 0.55);
     }
