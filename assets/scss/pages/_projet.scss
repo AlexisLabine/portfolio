@@ -217,7 +217,7 @@ $ordinateur: $mobile;
 
     // affiches et jaquettes en hauteur : deux par ligne, plus étroites
     &--hauteur {
-      grid-template-columns: repeat(auto-fit, minmax(140px, 220px));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 190px));
       justify-content: start;
     }
   }
