@@ -4,7 +4,7 @@
    Même moteur de caméra que les autres scènes (camera.js).
    1. La foule, dessinée en SVG
    2. La couleur qui monte au scroll (bascule Ombre → Lumière)
-   3. Les plans de caméra : le spectacle commence au plan 1
+   3. Les plans de caméra (3 au plus) : le spectacle commence au plan 1
    4. Décrocher la ligne backstage : gros plan, puis le formulaire
    5. Le formulaire de contact
 */
@@ -111,7 +111,6 @@ const texteInviteFestival = sceneFestival.querySelector("[data-texte-invite]");
 
 const plansFestival = [
   { nom: "Avant le spectacle", x: 0, y: -170, z: 0, distance: -700, rx: 3, ry: 0 },
-  { nom: "L'écran géant", x: 0, y: -260, z: -600, distance: -520, rx: 0, ry: 0 },
   {
     nom: "La ligne backstage", objet: "telephone", invite: "Décrocher la ligne backstage",
     x: 820, y: 10, z: 130, distance: 180, rx: -8, ry: -16,
@@ -201,34 +200,66 @@ document.addEventListener("keydown", (e) => {
 /* ------------------------------------------------------------
    PARTIE 5 — LE FORMULAIRE
    ------------------------------------------------------------
-   Pas de serveur : on vérifie les champs, puis on ouvre le logiciel
-   de courriel du visiteur avec le message déjà rédigé (mailto:).
+   Le message part vers api/contact.php (fetch). Les textes viennent de 03b.
+   Si le serveur ne répond pas, on le dit et on donne l'adresse courriel.
 */
 const formulaire = document.getElementById("formulaire-contact");
 const statutFormulaire = document.getElementById("formulaire-statut");
+const boutonEnvoi = formulaire.querySelector("[type=submit]");
+
+const MESSAGES = {
+  succes: "Merci, votre message est bien parti. Je vous réponds dès que possible.",
+  echec: `Le message n'a pas pu partir. Réessayez, ou écrivez-moi directement à ${COURRIEL_CONTACT}.`,
+  vide: "Ce champ est requis.",
+  courriel: "Cette adresse courriel ne semble pas valide.",
+};
 
 function afficherStatut(texte, estErreur) {
   statutFormulaire.textContent = texte;
   statutFormulaire.classList.toggle("est-erreur", estErreur);
 }
 
-formulaire.addEventListener("submit", (e) => {
-  e.preventDefault();
-  formulaire.classList.add("est-verifie"); // les champs invalides passent au rose
+// Affiche (ou efface) le message d'erreur sous un champ.
+function signalerChamp(champ, message) {
+  const erreur = document.getElementById("erreur-" + champ.name);
+  champ.setAttribute("aria-invalid", message ? "true" : "false");
+  erreur.textContent = message || "";
+  erreur.hidden = !message;
+}
 
-  const premierChampInvalide = formulaire.querySelector(":invalid");
-  if (premierChampInvalide) {
-    afficherStatut("Il manque une pièce au dossier : vérifiez les champs en rose.", true);
-    premierChampInvalide.focus();
+function validerFormulaire() {
+  let premierInvalide = null;
+  formulaire.querySelectorAll("[name=nom], [name=courriel], [name=message]").forEach((champ) => {
+    const valeur = champ.value.trim();
+    let message = "";
+    if (!valeur) message = MESSAGES.vide;
+    else if (champ.name === "courriel" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valeur)) message = MESSAGES.courriel;
+    signalerChamp(champ, message);
+    if (message && !premierInvalide) premierInvalide = champ;
+  });
+  return premierInvalide;
+}
+
+formulaire.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  afficherStatut("", false);
+
+  const premierInvalide = validerFormulaire();
+  if (premierInvalide) {
+    premierInvalide.focus();
     return;
   }
 
-  const donnees = new FormData(formulaire);
-  const sujet = `${donnees.get("objet")} — ${donnees.get("nom")}`;
-  const corps = `${donnees.get("message")}\n\n${donnees.get("nom")}\n${donnees.get("courriel")}`;
-
-  window.location.href =
-    `mailto:${COURRIEL_CONTACT}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
-
-  afficherStatut("Ligne ouverte : votre logiciel de courriel prend le relais.", false);
+  boutonEnvoi.disabled = true;
+  try {
+    const reponse = await fetch("api/contact.php", { method: "POST", body: new FormData(formulaire) });
+    const resultat = await reponse.json();
+    if (!reponse.ok || !resultat.ok) throw new Error("Envoi refusé");
+    afficherStatut(MESSAGES.succes, false);
+    formulaire.reset();
+  } catch {
+    afficherStatut(MESSAGES.echec, true);
+  } finally {
+    boutonEnvoi.disabled = false;
+  }
 });
