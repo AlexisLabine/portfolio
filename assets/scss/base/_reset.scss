@@ -29,9 +29,7 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
 
-  // Pas de scroll : avant le code des portes, ou quand une modale est ouverte
-  // (« verrouille » disparaît à la tâche 3.2)
-  &.verrouille,
+  // Pas de scroll quand une modale est ouverte
   &.modale-active {
     overflow: hidden;
   }

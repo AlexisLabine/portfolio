@@ -3,7 +3,7 @@
    ============================================================
    Dessine la fumée animée par-dessus les portes, qui réagit au
    curseur (effet "lampe de poche" / coup de vent).
-   Expose window.brumeBurst() pour le clavier à code (porte.js).
+   Expose window.brumeBurst() pour le bouton « Entrer » (portes.js).
 */
 
 // On détecte si l'utilisateur est sur un appareil tactile (téléphone/tablette)
@@ -23,7 +23,7 @@ const gl =
   });
 
 // Filet de sécurité : si WebGL n'est pas disponible, on garde quand même une
-// fonction "brumeBurst" qui ne fait rien, pour que le clavier puisse l'appeler
+// fonction "brumeBurst" qui ne fait rien, pour que le bouton « Entrer » puisse l'appeler
 // sans avoir à vérifier si l'effet de brume a bien pu démarrer.
 window.brumeBurst = () => {};
 
@@ -260,7 +260,7 @@ if (gl) {
   }
 
   // Déclenche une "bouffée" de fumée à un endroit précis de l'écran (ex: quand
-  // on clique sur une touche du clavier), en réutilisant le même système de
+  // on clique sur « Entrer »), en réutilisant le même système de
   // sillage/dissolution que celui du curseur, mais sans dépendre du mouvement.
   function brumeBurst(clientX, clientY, power = 1.6) {
     const x = clientX * dpr;
@@ -268,8 +268,8 @@ if (gl) {
     trailHistory.push({ x, y, spawn: performance.now(), power });
     if (trailHistory.length > TRAIL_LEN - 1) trailHistory.shift();
   }
-  // Exposée globalement pour que le clavier à code (plus bas dans ce fichier)
-  // puisse déclencher l'animation dans la fumée au clic sur un chiffre.
+  // Exposée globalement pour que portes.js déclenche la fumée au clic
+  // sur « Entrer ».
   window.brumeBurst = brumeBurst;
 
   // Appelée à chaque mouvement de souris/doigt : met à jour la position brute,
@@ -292,7 +292,7 @@ if (gl) {
 
   // Écoute la souris et le toucher sur toute la fenêtre (pas seulement sur le
   // canvas) : la brume a "pointer-events: none" en CSS pour laisser les clics
-  // passer jusqu'au clavier en dessous, donc le canvas ne reçoit plus lui-même
+  // passer jusqu'au bouton en dessous, donc le canvas ne reçoit plus lui-même
   // d'événements — on écoute sur window pour continuer à suivre le curseur partout.
   window.addEventListener("mousemove", (e) =>
     setMouseFromClient(e.clientX, e.clientY),

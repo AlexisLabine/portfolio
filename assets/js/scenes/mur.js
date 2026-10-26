@@ -1,19 +1,20 @@
 /* ============================================================
-   MUR-ENQUETE.JS — Bloc 4 : le mur d'enquête (Réalisations)
+   MUR.JS — Le mur de production (Réalisations)
    ============================================================
    1. Les PROJETS : textes, images et vidéos de chaque projet
-   2. Les FILS : quels polaroïds sont reliés, et comment
-   3. Les plans de caméra, un par dossier
-   4. Examiner un polaroïd : gros plan puis rapport du projet
+   2. Le FIL rouge : quels polaroïds sont reliés (étapes d'un même projet)
+   3. Les plans de caméra, un par projet
+   4. Examiner un polaroïd : gros plan puis fiche du projet
+   (Ce fichier est réécrit en 4.6 : les projets passent dans projets/*.html.)
 */
 
-const sceneMur = document.getElementById("mur-enquete");
+const sceneMur = document.getElementById("realisations");
 const cameraMur = new Camera(sceneMur);
 
 /* ------------------------------------------------------------
    PARTIE 1 — LES PROJETS
    ------------------------------------------------------------
-   medias : les pièces du dossier, dans l'ordre. Les polaroïds
+   medias : les images et vidéos du projet, dans l'ordre. Les polaroïds
    pointent vers l'une d'elles avec data-media="0", "1"...
    lien   : (facultatif) le projet en ligne.
 */
@@ -22,7 +23,7 @@ const DOSSIER_VIDEO = "assets/video/"; // les vidéos ont leur propre dossier (0
 
 const PROJETS = {
   "timeline-zero": {
-    numero: "Dossier 01 — Pièces A à D",
+    numero: "Projet 01",
     titre: "Timeline : Zero",
     type: "Concept de jeu vidéo — direction artistique complète",
     outils: "Photoshop (photomontage), typographie",
@@ -34,7 +35,7 @@ const PROJETS = {
       "jaquette Xbox.",
     fil:
       "Le moodboard puise dans Watch Dogs, Tron et Halo. Le photomontage « Ville néon » explore la " +
-      "même ambiance. Et l'univers du jeu vidéo relie ce dossier au Game Jam et à Abysscore.",
+      "même ambiance. Et l'univers du jeu vidéo relie ce projet au Game Jam et à Abysscore.",
     medias: [
       { type: "image", src: "timeline-zero/moodboard.jpg", legende: "Le moodboard : références, couleurs et typographies." },
       { type: "image", src: "timeline-zero/scene.jpg", legende: "La scène : Alpha face à Zero, son double du futur." },
@@ -44,7 +45,7 @@ const PROJETS = {
   },
 
   "ville-neon": {
-    numero: "Dossier 01 — Pièce annexe",
+    numero: "Projet 01",
     titre: "Ville néon",
     type: "Photomontage",
     outils: "Photoshop",
@@ -56,7 +57,7 @@ const PROJETS = {
   },
 
   "game-jam": {
-    numero: "Dossier 02 — Pièces A et B",
+    numero: "Projet 02",
     titre: "Game Jam",
     type: "Affiche événementielle, puis mapping vidéo",
     outils: "Photoshop, Illustrator (titre), After Effects",
@@ -73,7 +74,7 @@ const PROJETS = {
   },
 
   abysscore: {
-    numero: "Dossier 03 — Pièces A à D",
+    numero: "Projet 03",
     titre: "Abysscore",
     type: "Interface de jeu vidéo (menu et écran de mission)",
     outils: "Adobe XD (zoning), Photoshop, Illustrator (logo et titre)",
@@ -92,7 +93,7 @@ const PROJETS = {
 
   // ===== L'AFFAIRE PRINCIPALE : le festival De l'âme à l'écran (DAE) =====
   "dae-festival": {
-    numero: "Dossier 04 — L'affaire principale",
+    numero: "Projet 04",
     titre: "De l'âme à l'écran",
     type: "Festival intercollégial de courts métrages — Cégep de Jonquière",
     outils: "Coordination, communication, graphisme, logistique, terrain",
@@ -109,7 +110,7 @@ const PROJETS = {
       "C'est exactement l'idée de ce portfolio : le cerveau derrière l'événement.",
     fil:
       "Tout est relié : le site actuel, le nouveau thème que je code et le matériel graphique " +
-      "servent le même festival. Et ma cocarde « Organisation », sur le bureau de la salle de crise, " +
+      "servent le même festival. Et ma cocarde « Organisation », sur le bureau de la régie, " +
       "vient de là.",
     lien: { url: "https://www.delamealecran.com/", texte: "Visiter le site du festival" },
     medias: [
@@ -120,7 +121,7 @@ const PROJETS = {
   },
 
   "dae-site": {
-    numero: "Dossier 04 — Pièce A : le site actuel",
+    numero: "Projet 04",
     titre: "delamealecran.com",
     type: "Refonte du site web du festival (en ligne)",
     outils: "PHP, base de données MySQL, SCSS, JavaScript",
@@ -145,7 +146,7 @@ const PROJETS = {
   },
 
   "dae-theme": {
-    numero: "Dossier 04 — Pièce B : le nouveau thème",
+    numero: "Projet 04",
     titre: "DAE 2026 — nouveau thème",
     type: "Nouveau thème du site + back-office (en développement)",
     outils: "PHP (PDO), MySQL, Bootstrap 5 en SCSS, JavaScript, FontAwesome",
@@ -169,7 +170,7 @@ const PROJETS = {
   },
 
   "rentree-magique": {
-    numero: "Dossier 05 — Pièces A à E",
+    numero: "Projet 05",
     titre: "Rentrée Magique 101",
     type: "Site WordPress — projet final, Système de gestion de contenu 1",
     outils: "WordPress (thème Frost), CSS personnalisé, extension HurryTimer",
@@ -190,7 +191,7 @@ const PROJETS = {
   },
 
   phoenix: {
-    numero: "Dossier 06 — Pièces A et B",
+    numero: "Projet 06",
     titre: "Phoenix",
     type: "Logo de studio et animation",
     outils: "Illustrator, After Effects",
@@ -205,7 +206,7 @@ const PROJETS = {
   },
 
   nova: {
-    numero: "Dossier 06 — Pièce C",
+    numero: "Projet 06",
     titre: "NOVA",
     type: "Affiche publicitaire",
     outils: "Photomontage",
@@ -218,11 +219,9 @@ const PROJETS = {
 };
 
 /* ------------------------------------------------------------
-   PARTIE 2 — LES FILS
+   PARTIE 2 — LE FIL ROUGE
    ------------------------------------------------------------
-   rouge = étapes d'un même projet
-   rose  = piste commune (le jeu vidéo)
-   cyan  = même inspiration
+   Un seul fil, rouge : il relie les étapes d'un même projet.
 */
 const FILS = [
   { de: "p-tz-moodboard", vers: "p-tz-scene", type: "rouge" },
@@ -235,10 +234,6 @@ const FILS = [
   { de: "p-dae-site", vers: "p-dae-theme", type: "rouge" },
   { de: "p-rm-moodboard", vers: "p-rm-site", type: "rouge" },
   { de: "p-phoenix-logo", vers: "p-phoenix-animation", type: "rouge" },
-  // decalage = déplacement de l'étiquette (en px), pour qu'elle ne cache pas un polaroïd
-  { de: "p-ville-neon", vers: "p-tz-moodboard", type: "cyan", etiquette: "Même inspiration : Watch Dogs", decalage: { x: 0, y: 90 } },
-  { de: "p-tz-jaquette", vers: "p-gj-affiche", type: "rose", etiquette: "Piste : le jeu vidéo", decalage: { x: 100, y: 150 } },
-  { de: "p-gj-affiche", vers: "p-ab-menu", type: "rose" },
 ];
 
 // Position de l'épingle d'un polaroïd sur le liège (en haut, au centre).
@@ -299,12 +294,12 @@ function surLeMur(bx, by) {
 
 const plansMur = [
   { nom: "Vue d'ensemble", ...surLeMur(1600, 560), distance: -1750, rx: 0, ry: 0 },
-  { nom: "Dossier 01 — Timeline : Zero", polaroid: "p-tz-moodboard", ...surLeMur(565, 542), distance: -150, rx: 0, ry: 8 },
-  { nom: "Dossier 02 — Game Jam", polaroid: "p-gj-affiche", ...surLeMur(1515, 358), distance: 250, rx: 0, ry: -6 },
-  { nom: "Dossier 03 — Abysscore", polaroid: "p-ab-menu", ...surLeMur(1595, 1042), distance: 200, rx: 4, ry: 6 },
-  { nom: "Dossier 04 — De l'âme à l'écran", polaroid: "p-dae-festival", ...surLeMur(2650, 360), distance: 60, rx: 0, ry: -8 },
-  { nom: "Dossier 05 — Rentrée Magique 101", polaroid: "p-rm-site", ...surLeMur(2580, 1032), distance: 250, rx: 4, ry: 8 },
-  { nom: "Dossier 06 — Pièces isolées", polaroid: "p-phoenix-animation", ...surLeMur(662, 1228), distance: 150, rx: 4, ry: -6 },
+  { nom: "Projet 01 — Timeline : Zero", polaroid: "p-tz-moodboard", ...surLeMur(565, 542), distance: -150, rx: 0, ry: 8 },
+  { nom: "Projet 02 — Game Jam", polaroid: "p-gj-affiche", ...surLeMur(1515, 358), distance: 250, rx: 0, ry: -6 },
+  { nom: "Projet 03 — Abysscore", polaroid: "p-ab-menu", ...surLeMur(1595, 1042), distance: 200, rx: 4, ry: 6 },
+  { nom: "Projet 04 — Festival de l'Âme à l'Écran", polaroid: "p-dae-festival", ...surLeMur(2650, 360), distance: 60, rx: 0, ry: -8 },
+  { nom: "Projet 05 — Rentrée Magique 101", polaroid: "p-rm-site", ...surLeMur(2580, 1032), distance: 250, rx: 4, ry: 8 },
+  { nom: "Projet 06 — Pièces courtes", polaroid: "p-phoenix-animation", ...surLeMur(662, 1228), distance: 150, rx: 4, ry: -6 },
 ];
 
 const inviteMur = sceneMur.querySelector(".hud__invite");
@@ -314,8 +309,8 @@ let planActuelMur = plansMur[0];
 cameraMur.creerRail(plansMur, (plan) => {
   planActuelMur = plan;
   inviteMur.hidden = !plan.polaroid;
-  const titreDossier = plan.nom.split(" — ")[1] || "";
-  texteInviteMur.textContent = "Ouvrir le dossier " + titreDossier;
+  const titreProjet = plan.nom.split(" — ")[1] || "";
+  texteInviteMur.textContent = "Ouvrir le projet " + titreProjet;
 });
 
 /* ------------------------------------------------------------
@@ -343,7 +338,7 @@ function remplirModale(idProjet, indexMedia) {
     lien.querySelector("span").textContent = projet.lien.texte;
   }
 
-  // Une vignette par pièce du dossier (seulement s'il y en a plusieurs).
+  // Une vignette par image du projet (seulement s'il y en a plusieurs).
   const vignettes = champ("vignettes");
   vignettes.innerHTML = "";
   if (projet.medias.length > 1) {
@@ -423,15 +418,15 @@ sceneMur.querySelectorAll(".polaroid").forEach((polaroid) => {
   polaroid.addEventListener("click", () => examinerPolaroid(polaroid));
 });
 
-// Invite "[E] Ouvrir le dossier…" : examine le polaroïd principal du plan.
-function ouvrirDossierDuPlan() {
+// Invite "[E] Ouvrir le projet…" : examine le polaroïd principal du plan.
+function ouvrirProjetDuPlan() {
   if (planActuelMur.polaroid) examinerPolaroid(document.getElementById(planActuelMur.polaroid));
 }
 
-inviteMur.addEventListener("click", ouvrirDossierDuPlan);
+inviteMur.addEventListener("click", ouvrirProjetDuPlan);
 
 document.addEventListener("keydown", (e) => {
   const dansUnChamp = e.target.closest("input, textarea");
   if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleOuverte) return;
-  if (cameraMur.visible) ouvrirDossierDuPlan();
+  if (cameraMur.visible) ouvrirProjetDuPlan();
 });

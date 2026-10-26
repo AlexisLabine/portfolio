@@ -1,16 +1,15 @@
 /* ============================================================
-   FESTIVAL.JS — Bloc 5 : le Festival (Contact)
+   SCENE-FINALE.JS — La scène (Contact)
    ============================================================
-   Même moteur de caméra que les Blocs 2 à 4 (js/camera.js).
+   Même moteur de caméra que les autres scènes (camera.js).
    1. La foule, dessinée en SVG
    2. La couleur qui monte au scroll (bascule Ombre → Lumière)
-   3. Les canons à confettis
-   4. Les plans de caméra : le spectacle commence au plan 1
-   5. Décrocher la ligne backstage : gros plan, puis le formulaire
-   6. Le formulaire de contact
+   3. Les plans de caméra : le spectacle commence au plan 1
+   4. Décrocher la ligne backstage : gros plan, puis le formulaire
+   5. Le formulaire de contact
 */
 
-const sceneFestival = document.getElementById("le-festival");
+const sceneFestival = document.getElementById("contact");
 const COURRIEL_CONTACT = "labinealexis@gmail.com";
 
 /* ------------------------------------------------------------
@@ -94,117 +93,7 @@ if (MOUVEMENT_REDUIT || MODE_TACTILE) {
 }
 
 /* ------------------------------------------------------------
-   PARTIE 3 — LES CANONS À CONFETTIS
-   ------------------------------------------------------------
-   Dessinés à plat par-dessus l'image (comme un effet de particules
-   dans un jeu) : une rafale depuis les deux coins du bas, puis une
-   petite pluie continue tant que la scène est à l'écran.
-*/
-const canvasConfettis = sceneFestival.querySelector(".confettis");
-const ctxConfettis = canvasConfettis.getContext("2d");
-const COULEURS_CONFETTIS = ["#FF2E9A", "#00E5FF", "#8B2FE0", "#F4B740", "#B3122B", "#F2EFE9"];
-const confettis = [];
-let confettisVisibles = false;
-let confettisEnMarche = false;
-
-// Le canvas couvre toute la scène (ordinateur) ou seulement son premier
-// écran (mode tactile, où la scène est plus haute que l'écran).
-function ajusterConfettis() {
-  const ratio = Math.min(window.devicePixelRatio || 1, 2);
-  canvasConfettis.width = canvasConfettis.clientWidth * ratio;
-  canvasConfettis.height = canvasConfettis.clientHeight * ratio;
-  ctxConfettis.setTransform(ratio, 0, 0, ratio, 0, 0);
-}
-
-// depuis = "gauche" ou "droite" (un canon), sinon le confetti tombe du haut.
-function nouveauConfetti(depuis) {
-  const largeur = canvasConfettis.clientWidth;
-  const hauteur = canvasConfettis.clientHeight;
-  const confetti = {
-    x: Math.random() * largeur,
-    y: -20,
-    vx: (Math.random() - 0.5) * 0.8,
-    vy: 1 + Math.random() * 1.5,
-    taille: 7 + Math.random() * 8,
-    angle: Math.random() * Math.PI * 2,
-    rotation: (Math.random() - 0.5) * 0.25,
-    phase: Math.random() * Math.PI * 2,
-    couleur: COULEURS_CONFETTIS[Math.floor(Math.random() * COULEURS_CONFETTIS.length)],
-  };
-  if (depuis) {
-    const sens = depuis === "gauche" ? 1 : -1;
-    confetti.x = depuis === "gauche" ? 0 : largeur;
-    confetti.y = hauteur;
-    confetti.vx = sens * (4 + Math.random() * 10);
-    confetti.vy = -(12 + Math.random() * 12);
-  }
-  return confetti;
-}
-
-function tirerConfettis() {
-  for (let i = 0; i < 90; i++) {
-    confettis.push(nouveauConfetti("gauche"), nouveauConfetti("droite"));
-  }
-  demarrerConfettis();
-}
-
-function demarrerConfettis() {
-  if (confettisEnMarche || !confettisVisibles || MOUVEMENT_REDUIT) return;
-  confettisEnMarche = true;
-  requestAnimationFrame(imageConfettis);
-}
-
-function imageConfettis() {
-  if (!confettisVisibles) {
-    confettisEnMarche = false;
-    return;
-  }
-  const largeur = canvasConfettis.clientWidth;
-  const hauteur = canvasConfettis.clientHeight;
-  ctxConfettis.clearRect(0, 0, largeur, hauteur);
-
-  // La petite pluie continue
-  if (sceneFestival.classList.contains("en-concert") && confettis.length < 70 && Math.random() < 0.3) {
-    confettis.push(nouveauConfetti());
-  }
-
-  for (let i = confettis.length - 1; i >= 0; i--) {
-    const c = confettis[i];
-    c.vy = Math.min(c.vy + 0.25, 2.2); // la gravité, freinée par l'air
-    c.vx *= 0.98;
-    c.x += c.vx + Math.sin(c.phase) * 0.6;
-    c.y += c.vy;
-    c.angle += c.rotation;
-    c.phase += 0.05;
-
-    if (c.y > hauteur + 30) {
-      confettis.splice(i, 1);
-      continue;
-    }
-
-    // Le confetti tourne sur lui-même : on l'aplatit avec un cosinus.
-    ctxConfettis.save();
-    ctxConfettis.translate(c.x, c.y);
-    ctxConfettis.rotate(c.angle);
-    ctxConfettis.scale(1, Math.cos(c.phase * 2));
-    ctxConfettis.fillStyle = c.couleur;
-    ctxConfettis.fillRect(-c.taille / 2, -c.taille / 4, c.taille, c.taille / 2);
-    ctxConfettis.restore();
-  }
-
-  requestAnimationFrame(imageConfettis);
-}
-
-ajusterConfettis();
-window.addEventListener("resize", ajusterConfettis);
-
-new IntersectionObserver(([entree]) => {
-  confettisVisibles = entree.isIntersecting;
-  if (confettisVisibles) demarrerConfettis();
-}).observe(sceneFestival);
-
-/* ------------------------------------------------------------
-   PARTIE 4 — LES PLANS DE CAMÉRA
+   PARTIE 3 — LES PLANS DE CAMÉRA
    ------------------------------------------------------------
    Le sol de la foule est à y = 400, le dessus de la scène à y = 200,
    l'écran géant au fond (z = -600), le téléphone à x = 820.
@@ -233,11 +122,10 @@ cameraFestival.creerRail(plansFestival, (plan, index) => {
   if (index >= 1) lancerSpectacle();
 });
 
-// Une seule fois : les projecteurs s'allument, l'écran se révèle, les confettis partent.
+// Une seule fois : les projecteurs s'allument et l'écran se révèle.
 function lancerSpectacle() {
   if (sceneFestival.classList.contains("en-concert")) return;
   sceneFestival.classList.add("en-concert");
-  if (!MOUVEMENT_REDUIT) tirerConfettis();
 }
 
 // Mode tactile : pas de plans de caméra. Le spectacle commence quand
@@ -256,7 +144,7 @@ if (MODE_TACTILE) {
 }
 
 /* ------------------------------------------------------------
-   PARTIE 5 — DÉCROCHER LA LIGNE BACKSTAGE
+   PARTIE 4 — DÉCROCHER LA LIGNE BACKSTAGE
    ------------------------------------------------------------ */
 const modaleContact = document.getElementById("modale-contact");
 const telephoneFestival = sceneFestival.querySelector('[data-objet="telephone"]');
@@ -304,7 +192,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ------------------------------------------------------------
-   PARTIE 6 — LE FORMULAIRE
+   PARTIE 5 — LE FORMULAIRE
    ------------------------------------------------------------
    Pas de serveur : on vérifie les champs, puis on ouvre le logiciel
    de courriel du visiteur avec le message déjà rédigé (mailto:).

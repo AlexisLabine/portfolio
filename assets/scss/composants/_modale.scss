@@ -53,7 +53,7 @@
       font-size: 16px;
     }
 
-    .mention-dossier {
+    .mention {
       color: var(--rouge-dossier);
     }
   }
@@ -76,12 +76,6 @@
       background: var(--anthracite);
       color: var(--blanc-casse);
     }
-  }
-
-  &__tampon {
-    position: absolute;
-    top: 28px;
-    right: 64px;
   }
 
   &__titre {

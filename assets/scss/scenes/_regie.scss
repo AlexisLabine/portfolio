@@ -122,20 +122,10 @@
   opacity: 0;
 }
 
-// La poussière (dessinée par js/poussiere.js)
-.scene--salle .poussiere {
-  width: 900px;
-  height: 480px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 2s ease 1s;
-}
-
 // En forte plongée, ces éléments passeraient derrière l'objectif.
 .scene.plongee {
   .lampe,
   .faisceau,
-  .poussiere,
   .decor--mur {
     visibility: hidden;
   }
@@ -153,10 +143,6 @@
     box-shadow:
       0 0 40px 14px rgba(244, 183, 64, 0.7),
       0 0 120px 40px rgba(244, 183, 64, 0.25);
-  }
-
-  .poussiere {
-    opacity: 1;
   }
 }
 

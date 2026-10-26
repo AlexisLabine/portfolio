@@ -24,7 +24,7 @@
 }
 
 // --- Le mur de la pièce, derrière le panneau ---
-.decor--mur-enquete {
+.decor--mur-production {
   width: 8000px;
   height: 4200px;
   background:
@@ -72,7 +72,7 @@
     position: relative;
     width: 3200px;
     height: 1600px;
-    background: url("../img/mur-enquete/liege.jpg") repeat;
+    background: url("../img/mur/liege.jpg") repeat;
     background-size: 612px;
     box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7);
 
@@ -241,7 +241,7 @@
   }
 }
 
-// --- Les fils (SVG) ---
+// --- Le fil rouge (SVG) ---
 .fils {
   position: absolute;
   inset: 0;
@@ -261,34 +261,9 @@
   &--rouge {
     stroke: #c0182f;
   }
-
-  &--rose {
-    stroke: var(--rose-neon);
-    stroke-dasharray: 16 10;
-    filter: drop-shadow(0 0 6px rgba(255, 46, 154, 0.8));
-  }
-
-  &--cyan {
-    stroke: var(--cyan-neon);
-    stroke-dasharray: 16 10;
-    filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.8));
-  }
 }
 
-.fil__etiquette {
-  font-family: $police-document;
-  font-size: 26px;
-  letter-spacing: 0.05em;
-  text-anchor: middle;
-  paint-order: stroke;
-  stroke: rgba(5, 5, 7, 0.85);
-  stroke-width: 8px;
-
-  &--rose { fill: #ffd0e8; }
-  &--cyan { fill: #c9f9ff; }
-}
-
-// --- La légende des fils (HUD) ---
+// --- La légende du fil (HUD) ---
 .hud__legende {
   position: absolute;
   left: 28px;
@@ -322,8 +297,6 @@
   }
 
   &--rouge::before { background: #c0182f; }
-  &--rose::before { background: repeating-linear-gradient(90deg, var(--rose-neon) 0 6px, transparent 6px 10px); }
-  &--cyan::before { background: repeating-linear-gradient(90deg, var(--cyan-neon) 0 6px, transparent 6px 10px); }
 }
 
 // Sur le liège très chargé, le titre et la légende ont besoin d'un fond.
