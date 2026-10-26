@@ -1,0 +1,605 @@
+@charset "UTF-8";
+/* CV-EXPRESS.CSS — FICHIER COMPILÉ à partir de assets/scss/cv-express.scss.
+   Ne pas le modifier à la main : éditer les partials, puis recompiler. */
+:root {
+  --noir-bleute: #0D0F14;
+  --brun-bois: #3B2E27;
+  --rouge-dossier: #B3122B;
+  --jaune-ambre: #F4B740;
+  --gris-acier: #8A8F98;
+  --blanc-casse: #F2EFE9;
+  --anthracite: #1C1C1E;
+  --rose-neon: #FF2E9A;
+  --cyan-neon: #00E5FF;
+  --violet-neon: #8B2FE0;
+  --noir-profond: #050507;
+}
+
+:root {
+  --fond: #0D0F14;
+  --fond-eleve: #161920;
+  --trait: #2A2E37;
+  --bordure-champ: #646A76;
+  --texte: #F2EFE9;
+  --texte-doux: #A9ADB5;
+  --bois: #3B2E27;
+  --papier: #F2EFE9;
+  --papier-note: #EFE8D8;
+  --encre: #1C1C1E;
+  --encre-douce: #4A4F58;
+  --bordure-papier: #8A8478;
+  --pointille: #A9A396;
+  --accent: #F4B740;
+  --accent-papier: #8A5A00;
+  --signature: #B3122B;
+  --lumiere-1: #FF2E9A;
+  --lumiere-2: #00E5FF;
+  --lumiere-3: #8B2FE0;
+  --lumiere-texte: #7FF2FF;
+  --fond-scene: #0A0810;
+  --ombre-papier: 0 12px 32px rgb(0 0 0 / 0.45);
+  --ombre-portee: drop-shadow(0 14px 16px rgb(0 0 0 / 0.55));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--noir-bleute);
+  color: var(--blanc-casse);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+body.verrouille, body.modale-active {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.page-cv {
+  min-height: 100vh;
+  background: var(--bois) url("../img/mur-enquete/liege.jpg") repeat;
+  color: var(--encre);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: visible;
+}
+@media (min-width: 768px) {
+  .page-cv {
+    background: var(--fond);
+  }
+}
+.page-cv a {
+  color: var(--accent-papier);
+}
+.page-cv :focus-visible {
+  outline: 2px solid var(--accent-papier);
+  outline-offset: 3px;
+}
+
+.lien-evitement {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  z-index: 20;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: var(--fond) !important;
+  font-weight: 600;
+  transform: translateY(-120%);
+}
+.lien-evitement:focus-visible {
+  transform: none;
+  outline-color: var(--texte);
+}
+
+.barre {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--fond-eleve);
+  border-bottom: 1px solid var(--trait);
+}
+.barre__interieur {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 760px;
+  min-height: 56px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.barre__marque {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texte);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.barre__lien {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent) !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+.barre__lien:hover {
+  text-decoration: underline;
+}
+.barre :focus-visible {
+  outline-color: var(--accent);
+}
+
+.feuille {
+  position: relative;
+  margin: 26px 10px 0;
+  padding: 30px 20px 24px;
+  background: var(--papier);
+  border-radius: 2px;
+  box-shadow: var(--ombre-papier);
+}
+@media (min-width: 768px) {
+  .feuille {
+    max-width: 760px;
+    margin: 48px auto 0;
+    padding: 40px 56px 40px;
+  }
+}
+.feuille__entete {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--encre);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.punaise {
+  position: absolute;
+  top: -7px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--signature), var(--texte) 55%), var(--signature) 55%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+.punaise--gauche {
+  left: 24px;
+}
+.punaise--droite {
+  right: 24px;
+}
+.punaise--petite {
+  left: 50%;
+  top: -6px;
+  margin-left: -8px;
+}
+
+.identite {
+  margin-top: 22px;
+}
+.identite__haut {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.identite__titre {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+@media (min-width: 768px) {
+  .identite__titre {
+    font-size: 56px;
+  }
+}
+.identite__poste {
+  margin-top: 8px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+@media (min-width: 768px) {
+  .identite__poste {
+    font-size: 18px;
+  }
+}
+.identite__accroche {
+  margin-top: 24px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.25;
+}
+@media (min-width: 768px) {
+  .identite__accroche {
+    font-size: 26px;
+  }
+}
+
+.polaroid {
+  position: relative;
+  flex: none;
+  width: 103px;
+  margin: 0;
+  padding: 6px 6px 8px;
+  background: var(--papier);
+  box-shadow: var(--ombre-papier);
+  rotate: -2deg;
+}
+@media (min-width: 768px) {
+  .polaroid {
+    width: 140px;
+    padding: 8px 8px 10px;
+  }
+}
+.polaroid__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+}
+.polaroid__legende {
+  margin-top: 6px;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  text-align: center;
+}
+
+.coordonnees {
+  display: grid;
+  gap: 4px;
+  margin: 20px 0 0;
+}
+.coordonnees__ligne {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 0;
+}
+.coordonnees dt {
+  padding-top: 3px;
+  color: var(--encre-douce);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.coordonnees dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.bouton {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+}
+.bouton--principal {
+  background: var(--fond);
+  color: var(--texte) !important;
+}
+.bouton--principal:hover {
+  background: var(--fond-eleve);
+}
+.bouton--secondaire {
+  border-color: var(--encre);
+  color: var(--encre) !important;
+}
+.bouton--secondaire:hover {
+  background: var(--papier-note);
+}
+.bouton--ambre {
+  background: var(--accent);
+  color: var(--fond) !important;
+}
+
+.rubrique {
+  margin-top: 36px;
+}
+.rubrique__titre {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dotted var(--pointille);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.rubrique__numero {
+  color: var(--accent-papier);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+.rubrique__intro {
+  margin-top: 16px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.methode {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding-left: 22px;
+}
+
+.projets {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.projet {
+  position: relative;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px dotted var(--pointille);
+}
+.projet:last-child {
+  border-bottom: 0;
+}
+.projet:hover {
+  background: var(--papier-note);
+}
+.projet__vignette {
+  width: 60px;
+  height: 60px;
+  margin-top: 2px;
+  border: 3px solid var(--papier);
+  outline: 1px solid var(--pointille);
+  object-fit: cover;
+}
+.projet__vignette--carte {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--papier-note);
+  color: var(--encre-douce);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+}
+.projet__texte {
+  min-width: 0;
+}
+.projet__titre {
+  margin-top: 8px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.projet__lien {
+  color: var(--encre) !important;
+  text-decoration: none;
+}
+.projet__lien::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.projet__lien:focus-visible {
+  outline: none;
+}
+.projet__lien:focus-visible::after {
+  outline: 2px solid var(--accent-papier);
+  outline-offset: -2px;
+}
+.projet__ligne {
+  margin-top: 6px;
+}
+.projet__pied {
+  margin-top: 8px;
+  color: var(--accent-papier);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ruban {
+  display: inline-block;
+  max-width: 100%;
+  padding: 2px 8px;
+  background: var(--signature);
+  color: var(--texte);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.materiel__groupe {
+  margin-top: 16px;
+}
+.materiel__nom {
+  color: var(--encre-douce);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.materiel__texte {
+  margin-top: 16px;
+}
+
+.pastilles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pastilles li {
+  padding: 3px 9px;
+  border: 1px solid var(--encre-douce);
+  border-radius: 2px;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.parcours {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin: 20px 0 0;
+  padding: 0 0 0 24px;
+  list-style: none;
+}
+.parcours::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 4px;
+  width: 2px;
+  background: var(--signature);
+}
+.parcours__etape {
+  position: relative;
+}
+.parcours__etape::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: -24px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--signature);
+  border-radius: 50%;
+  background: var(--papier);
+  box-sizing: border-box;
+}
+.parcours__date {
+  color: var(--accent-papier);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.parcours__titre {
+  margin-top: 2px;
+  font-weight: 600;
+}
+.parcours__detail {
+  margin-top: 4px;
+  color: var(--encre-douce);
+}
+
+.encart {
+  margin-top: 36px;
+  padding: 18px 16px 16px;
+  background: var(--fond);
+  color: var(--texte);
+  border-radius: 2px;
+}
+.encart__chapitre {
+  color: var(--accent);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.encart__texte {
+  margin: 10px 0 16px;
+}
+.encart .bouton {
+  width: 100%;
+}
+.encart :focus-visible {
+  outline-color: var(--accent);
+}
+
+.pied {
+  margin-top: 36px;
+  background: var(--fond-eleve);
+  color: var(--texte-doux);
+  font-size: 13px;
+}
+.pied__interieur {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.pied a {
+  color: var(--accent);
+}
+.pied :focus-visible {
+  outline-color: var(--accent);
+}
