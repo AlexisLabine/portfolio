@@ -1028,7 +1028,8 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   75% { box-shadow: 0 0 14px 2px var(--accent), 0 0 34px var(--accent); }
 }
 
-@media (prefers-reduced-motion: reduce) {
+// « Moins d'animations » (système) sauf si la personne a activé les animations du site.
+html.mouvement-reduit {
   .scene--festival.en-concert {
     .rayon,
     .ecran-geant__contenu {

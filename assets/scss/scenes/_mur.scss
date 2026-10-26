@@ -400,8 +400,90 @@
   backdrop-filter: blur(4px);
 }
 
-@media (prefers-reduced-motion: reduce) {
+// « Moins d'animations » (système) sauf si la personne a activé les animations du site.
+html.mouvement-reduit {
   .scene--mur.lumiere-allumee .neon {
     animation: none;
   }
+}
+
+// --- Le parcours des projets : « projet précédent / suivant » ---
+// Ordinateur seulement (mur.js le montre) : en tactile, les projets défilent.
+.parcours {
+  position: absolute;
+  left: 50%;
+  bottom: calc(6vh + 56px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
+  width: max-content;
+  max-width: min(92vw, 880px);
+  padding: 8px 12px;
+  transform: translateX(-50%);
+  background: rgb(13 15 20 / 0.82);
+  border: 1px solid var(--trait);
+  border-radius: 8px;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__etat {
+    margin: 0;
+    min-width: 200px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--texte);
+
+    strong {
+      font-family: $police-titre;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  &__bouton {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--bordure-champ);
+    border-radius: 6px;
+    color: var(--texte);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--accent);
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    &--principal {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--fond);
+      font-weight: 600;
+    }
+  }
+
+  // Pendant un gros plan ou un projet ouvert, le parcours s'efface.
+  .scene--mur.en-examen & {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+// Les filtres et le parcours se partagent le bas de l'écran : en parcours, les filtres s'effacent.
+.scene--mur.en-parcours .filtres {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }

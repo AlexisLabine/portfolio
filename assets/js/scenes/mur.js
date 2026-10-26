@@ -5,6 +5,7 @@
    2. Les filtres par porte (Web, Communication, Graphisme, Coordination)
    3. Les plans de caméra (3 au plus, 02)
    4. Ouvrir un projet : gros plan, puis la fiche (fiche-projet.js)
+   5. Le parcours : « projet précédent / suivant » (boutons et flèches)
 
    Le contenu des projets n'est plus ici : il vit dans projets/*.html (une
    page par projet). Chaque polaroïd est un vrai lien vers sa page ; ce
@@ -103,9 +104,11 @@ const plansMur = [
 const inviteMur = sceneMur.querySelector(".hud__invite");
 const texteInviteMur = sceneMur.querySelector("[data-texte-invite]");
 let planActuelMur = plansMur[0];
+let indexParcours = -1; // -1 = on suit le rail ; sinon, l'étape du parcours (partie 5)
 
 cameraMur.creerRail(plansMur, (plan) => {
   planActuelMur = plan;
+  if (indexParcours >= 0) quitterParcours(); // le défilement reprend la main sur la caméra
   inviteMur.hidden = !plan.polaroid;
   texteInviteMur.textContent = "Ouvrir le projet : " + (plan.nom.split(" — ")[1] || "");
 });
@@ -140,7 +143,9 @@ function examinerPolaroid(polaroid) {
 function terminerExamenMur() {
   sceneMur.classList.remove("en-examen");
   sceneMur.querySelectorAll(".est-examine").forEach((p) => p.classList.remove("est-examine"));
-  cameraMur.revenir();
+  // En parcours, on reste cadré sur le projet ; sinon retour au rail.
+  if (indexParcours >= 0) cameraMur.examiner(poseDuProjet(etapes[indexParcours]));
+  else cameraMur.revenir();
 }
 
 polaroidsMur.forEach((polaroid) => {
@@ -153,7 +158,8 @@ polaroidsMur.forEach((polaroid) => {
 
 // Invite "[E] Ouvrir le projet…" : examine le polaroïd principal du plan.
 function ouvrirProjetDuPlan() {
-  if (planActuelMur.polaroid) examinerPolaroid(document.getElementById(planActuelMur.polaroid));
+  if (indexParcours >= 0) examinerPolaroid(etapes[indexParcours].polaroid);
+  else if (planActuelMur.polaroid) examinerPolaroid(document.getElementById(planActuelMur.polaroid));
 }
 
 inviteMur.addEventListener("click", ouvrirProjetDuPlan);
@@ -163,3 +169,91 @@ document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
   if (cameraMur.visible) ouvrirProjetDuPlan();
 });
+
+/* ------------------------------------------------------------
+   PARTIE 5 — LE PARCOURS DES PROJETS
+   ------------------------------------------------------------
+   Le rail n'a que 3 plans (02) : il ne peut pas s'arrêter sur chacun des
+   huit projets. Le parcours est un second moyen, au choix de la personne :
+   « Projet suivant » (bouton ou flèche →) fait glisser la caméra d'une note
+   à la suivante. Chaque arrêt = une note du mur + les polaroïds sous elle.
+   Défiler reprend le rail ; « Vue d'ensemble » ou Échap en sort aussi.
+*/
+const parcours = sceneMur.querySelector(".parcours");
+const boutonsParcours = {
+  precedent: parcours.querySelector('[data-parcours="precedent"]'),
+  suivant: parcours.querySelector('[data-parcours="suivant"]'),
+  ouvrir: parcours.querySelector('[data-parcours="ouvrir"]'),
+  ensemble: parcours.querySelector('[data-parcours="ensemble"]'),
+};
+const compteurParcours = parcours.querySelector("[data-parcours-compteur]");
+const nomParcours = parcours.querySelector("[data-parcours-nom]");
+
+function lireBordure(element, propriete) {
+  return parseFloat(getComputedStyle(element).getPropertyValue(propriete));
+}
+
+// Une étape par note du mur : son titre, sa position et le premier polaroïd en dessous.
+const etapes = [...sceneMur.querySelectorAll(".panneau__liege .note")]
+  .map((note) => {
+    const bx = lireBordure(note, "--bx");
+    const by = lireBordure(note, "--by");
+    const polaroid = polaroidsMur.find((p) => {
+      const px = lireBordure(p, "--bx");
+      const py = lireBordure(p, "--by");
+      return Math.abs(px - bx) < 450 && py > by && py < by + 500;
+    });
+    return { titre: note.querySelector(".note__titre").textContent, bx, by, polaroid };
+  })
+  .filter((etape) => etape.polaroid);
+
+function poseDuProjet(etape) {
+  return { ...surLeMur(etape.bx, etape.by + 190), distance: -250, rx: 0, ry: 0 };
+}
+
+function majParcours() {
+  const dansLeParcours = indexParcours >= 0;
+  compteurParcours.textContent = dansLeParcours ? `${indexParcours + 1}/${etapes.length}` : "";
+  nomParcours.textContent = dansLeParcours ? etapes[indexParcours].titre : "Parcourir les projets";
+  // Le repère « CAM 04 — … » en haut à gauche suit la caméra.
+  const repere = sceneMur.querySelector("[data-nom-plan]");
+  if (repere) repere.textContent = dansLeParcours ? etapes[indexParcours].titre : planActuelMur.nom;
+  boutonsParcours.ouvrir.hidden = !dansLeParcours;
+  boutonsParcours.ensemble.hidden = !dansLeParcours;
+  // Dans le parcours, l'invite « E » est remplacée par le bouton « Ouvrir ce projet ».
+  inviteMur.hidden = dansLeParcours || !planActuelMur.polaroid;
+}
+
+function allerAuProjet(index) {
+  if (sceneMur.classList.contains("en-examen")) return;
+  indexParcours = (index + etapes.length) % etapes.length;
+  sceneMur.classList.add("en-parcours");
+  cameraMur.examiner(poseDuProjet(etapes[indexParcours]));
+  majParcours();
+}
+
+function quitterParcours() {
+  if (indexParcours < 0) return;
+  indexParcours = -1;
+  sceneMur.classList.remove("en-parcours");
+  cameraMur.revenir();
+  majParcours();
+}
+
+if (etapes.length && !MODE_TACTILE && !MOUVEMENT_REDUIT) {
+  parcours.hidden = false;
+  boutonsParcours.precedent.addEventListener("click", () => allerAuProjet(indexParcours < 0 ? etapes.length - 1 : indexParcours - 1));
+  boutonsParcours.suivant.addEventListener("click", () => allerAuProjet(indexParcours + 1));
+  boutonsParcours.ouvrir.addEventListener("click", ouvrirProjetDuPlan);
+  boutonsParcours.ensemble.addEventListener("click", quitterParcours);
+  // Un coup de molette = on reprend le défilement : la caméra revient sur le rail.
+  window.addEventListener("wheel", () => cameraMur.visible && quitterParcours(), { passive: true });
+
+  document.addEventListener("keydown", (e) => {
+    const dansUnChamp = e.target.closest("input, textarea, select");
+    if (dansUnChamp || modaleActive() || !cameraMur.visible) return;
+    if (e.key === "ArrowRight") allerAuProjet(indexParcours + 1);
+    else if (e.key === "ArrowLeft") allerAuProjet(indexParcours < 0 ? etapes.length - 1 : indexParcours - 1);
+    else if (e.key === "Escape") quitterParcours();
+  }, true); // phase de capture : on lit l'état AVANT que l'Échap ne ferme une fiche ouverte
+}

@@ -10,13 +10,15 @@
   box-sizing: border-box;
 }
 
-// Défilement fluide pour les liens d'ancrage (navigation, téléphone...)
+// Défilement des liens d'ancrage : doux seulement en mode tactile. Sur ordinateur,
+// "scroll-behavior: smooth" se bat avec le "snap" de la caméra (ScrollTrigger) :
+// la page dérive d'un plan à l'autre toute seule. Les liens y sautent donc
+// directement à leur scène.
 html {
-  scroll-behavior: smooth;
   scrollbar-gutter: stable; // la page ne "saute" pas quand le scroll est bloqué
 
-  @media (prefers-reduced-motion: reduce) {
-    scroll-behavior: auto;
+  &.mode-tactile:not(.mouvement-reduit) {
+    scroll-behavior: smooth;
   }
 }
 

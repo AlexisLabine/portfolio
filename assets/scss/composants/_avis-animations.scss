@@ -1,0 +1,62 @@
+// ============================================================
+// AVIS-ANIMATIONS — le bandeau « Activer les animations »
+// ============================================================
+// Affiché seulement quand le système demande « moins d'animations »
+// (voir animations.js). Fixé en bas, au-dessus de tout, texte lisible.
+.avis-animations {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: min(760px, calc(100vw - 32px));
+  padding: 14px 20px;
+  transform: translateX(-50%);
+  background: var(--fond-eleve);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: var(--ombre-papier);
+  color: var(--texte);
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__texte {
+    flex: 1 1 320px;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  &__bouton {
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid var(--bordure-champ);
+    border-radius: 6px;
+    color: var(--texte);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--accent);
+    }
+
+    &--principal {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--fond);
+    }
+  }
+}

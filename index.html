@@ -47,12 +47,36 @@
     window.matchMedia("(pointer: coarse), (max-width: 768px)").matches ||
     (navigator.maxTouchPoints > 1 && /Macintosh|iPad/.test(navigator.userAgent));
   if (MODE_TACTILE) document.documentElement.classList.add("mode-tactile");
+
+  // « Moins d'animations » (réglage du système) : on le respecte, sauf si la
+  // personne a choisi « Activer les animations » sur ce site (bandeau).
+  (function () {
+    let choix = null;
+    try { choix = localStorage.getItem("portfolio:animations"); } catch (e) {}
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && choix !== "oui") {
+      document.documentElement.classList.add("mouvement-reduit");
+    }
+  })();
 </script>
 </head>
 
 <body>
 
 <a class="lien-evitement" href="#a-propos">Passer l'entrée et aller au contenu</a>
+
+<!-- Bandeau affiché seulement si le système demande « moins d'animations » :
+     le site est une visite en caméra 3D, qui ne marche qu'avec les animations.
+     Le choix est mémorisé (animations.js). -->
+<aside class="avis-animations" id="avis-animations" aria-label="Animations" hidden>
+  <p class="avis-animations__texte">
+    Votre appareil demande de réduire les animations. Ce portfolio est une visite
+    en caméra 3D : pour la vivre, activez-les ici. Sinon, la version calme reste complète.
+  </p>
+  <div class="avis-animations__actions">
+    <button type="button" class="avis-animations__bouton avis-animations__bouton--principal" data-animations="oui">Activer les animations</button>
+    <button type="button" class="avis-animations__bouton" data-animations="non">Garder la version calme</button>
+  </div>
+</aside>
 
 <!-- ============================================================
      BARRE CV + NAVIGATION (toujours visibles, sur toutes les scènes)
@@ -519,6 +543,14 @@
         <button class="filtres__onglet" type="button" data-filtre="graphisme" aria-pressed="false">Graphisme</button>
         <button class="filtres__onglet" type="button" data-filtre="coordination" aria-pressed="false">Coordination</button>
       </div>
+
+      <nav class="parcours" aria-label="Parcourir les projets un par un" hidden>
+        <button class="parcours__bouton" type="button" data-parcours="precedent">← Projet précédent</button>
+        <p class="parcours__etat" aria-live="polite"><span data-parcours-compteur></span> <strong data-parcours-nom>Parcourir les projets</strong></p>
+        <button class="parcours__bouton" type="button" data-parcours="suivant">Projet suivant →</button>
+        <button class="parcours__bouton parcours__bouton--principal" type="button" data-parcours="ouvrir" hidden>Ouvrir ce projet</button>
+        <button class="parcours__bouton" type="button" data-parcours="ensemble" hidden>Vue d’ensemble</button>
+      </nav>
 
       <button class="hud__invite" type="button" hidden>
         <kbd>E</kbd><span data-texte-invite></span>

@@ -235,7 +235,8 @@
   transition: box-shadow 0.3s ease;
 }
 
-@media (prefers-reduced-motion: reduce) {
+// « Moins d'animations » (système) sauf si la personne a activé les animations du site.
+html.mouvement-reduit {
   .scene--salle.lumiere-allumee {
     .faisceau,
     .bureau__plateau::after {

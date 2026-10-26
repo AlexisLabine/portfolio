@@ -102,7 +102,7 @@ export class Camera {
      ---------------------------------------------------------- */
   // La scène reste épinglée à l'écran (pin) pendant que le scroll fait
   // avancer une timeline GSAP qui passe d'un plan à l'autre. Le "snap"
-  // fait toujours s'arrêter la caméra pile sur un plan.
+  // fait s'arrêter la caméra pile sur le plan le plus proche.
   creerRail(plans, quandPlanChange) {
     if (MODE_TACTILE) return;
 
@@ -128,14 +128,18 @@ export class Camera {
       scrollTrigger: {
         trigger: this.scene,
         start: "top top",
-        end: "+=" + (plans.length - 1) * 100 + "%", // un écran de scroll par plan
+        end: "+=" + (plans.length - 1) * 150 + "%", // un écran et demi de scroll par plan : un petit coup de molette ne change pas de plan
         pin: true,
         anticipatePin: 1,
         scrub: 1, // la caméra "rattrape" le scroll en 1 s : effet de poids
         snap: {
-          snapTo: "labelsDirectional",
-          duration: { min: 0.4, max: 1.2 },
-          delay: 0.1,
+          // Le plan LE PLUS PROCHE (et non « le suivant dans le sens du scroll »,
+          // qui sautait au plan suivant au moindre coup de molette).
+          snapTo: "labels",
+          directional: false, // par défaut, GSAP saute au plan SUIVANT dans le sens du scroll
+          inertia: false, // et ne projette pas la vitesse du coup de molette vers un plan plus loin
+          duration: { min: 0.5, max: 1.4 },
+          delay: 0.25,
           ease: "power2.inOut",
         },
         onUpdate: (declencheur) => {
@@ -159,12 +163,20 @@ export class Camera {
      ---------------------------------------------------------- */
   examiner(pose) {
     if (MODE_TACTILE) return;
+    gsap.killTweensOf(this.melange);
+    gsap.killTweensOf(this.examen);
+    if (this.melange.valeur > 0.01) {
+      // Déjà en gros plan : la caméra glisse d'un cadrage à l'autre.
+      gsap.to(this.melange, { valeur: 1, duration: 0.6, ease: "power2.out" });
+      return gsap.to(this.examen, { ...pose, duration: 1.1, ease: "power3.inOut" });
+    }
     Object.assign(this.examen, pose);
     return gsap.to(this.melange, { valeur: 1, duration: 1.1, ease: "power3.inOut" });
   }
 
   revenir() {
     if (MODE_TACTILE) return;
+    gsap.killTweensOf(this.melange);
     return gsap.to(this.melange, { valeur: 0, duration: 0.9, ease: "power3.inOut" });
   }
 
@@ -197,11 +209,11 @@ export class Camera {
     let roulis = 0;
     if (!MOUVEMENT_REDUIT) {
       // 3. Le regard suit la souris, avec du retard (lissage).
-      this.regardLisse.x += (this.regard.x - this.regardLisse.x) * 0.05;
-      this.regardLisse.y += (this.regard.y - this.regardLisse.y) * 0.05;
+      this.regardLisse.x += (this.regard.x - this.regardLisse.x) * 0.03;
+      this.regardLisse.y += (this.regard.y - this.regardLisse.y) * 0.03;
       const liberte = 1 - m * 0.75; // on bouge moins pendant un gros plan
-      p.ry += this.regardLisse.x * 4 * liberte;
-      p.rx -= this.regardLisse.y * 2.5 * liberte;
+      p.ry += this.regardLisse.x * 1.5 * liberte; // très léger : la souris ne doit pas faire bouger la scène
+      p.rx -= this.regardLisse.y * 1 * liberte;
 
       // 4. Le souffle : de lentes ondulations (sinus), comme une caméra tenue à la main.
       p.x += Math.sin(secondes * 0.4) * 6;
