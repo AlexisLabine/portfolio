@@ -5,10 +5,12 @@
    l'affichage) si on est sur téléphone ou iPad, et il a posé la classe
    "mode-tactile" sur <html>. Ici, on la lit simplement.
    MOUVEMENT_REDUIT : la personne a demandé « moins d'animations » dans
-   son système : pas de rail au scroll, pas de balancement, pas de suivi
+   son système (et n'a pas activé les animations du site) : pas de rail au scroll, pas de balancement, pas de suivi
    de souris.
 */
 
 export const MODE_TACTILE = document.documentElement.classList.contains("mode-tactile");
 
-export const MOUVEMENT_REDUIT = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Le script du <head> pose "mouvement-reduit" si le système demande moins
+// d'animations ET que la personne n'a pas choisi de les activer (animations.js).
+export const MOUVEMENT_REDUIT = document.documentElement.classList.contains("mouvement-reduit");

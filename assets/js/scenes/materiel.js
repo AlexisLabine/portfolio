@@ -34,13 +34,23 @@ function afficherCompetence(autocollantChoisi) {
   ficheDescription.textContent = autocollantChoisi.dataset.description;
 }
 
+// Quand la souris a bougé / quand la page a défilé pour la dernière fois.
+let dernierMouvement = 0;
+let dernierDefilement = 0;
+window.addEventListener("mousemove", () => (dernierMouvement = performance.now()), { passive: true });
+window.addEventListener("scroll", () => (dernierDefilement = performance.now()), { passive: true });
+
 // Survol (souris), focus (clavier) ou clic (tactile) : même résultat.
 autocollants.forEach((autocollant) => {
   autocollant.setAttribute("aria-pressed", "false");
   // Le survol n'existe pas au toucher : un mouseenter simulé après un défilement
   // changerait la fiche sans que la personne ait touché quoi que ce soit.
+  // Sur ordinateur, la caméra bouge pendant le défilement : les autocollants
+  // passent alors sous une souris immobile. On ignore ces faux survols.
   autocollant.addEventListener("mouseenter", () => {
-    if (!MODE_TACTILE) afficherCompetence(autocollant);
+    if (MODE_TACTILE) return;
+    if (performance.now() - dernierMouvement > 150 || performance.now() - dernierDefilement < 400) return;
+    afficherCompetence(autocollant);
   });
   autocollant.addEventListener("focus", () => afficherCompetence(autocollant));
   autocollant.addEventListener("click", () => {

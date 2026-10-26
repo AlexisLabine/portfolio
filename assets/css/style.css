@@ -63,13 +63,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scrollbar-gutter: stable;
 }
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+html.mode-tactile:not(.mouvement-reduit) {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -728,16 +725,15 @@ html.mode-tactile .accueil {
     translate: -50% 12px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .scene.lumiere-allumee .scene__obscurite {
-    animation: none;
-    opacity: 0;
-  }
-  .scene__grain,
-  .hud__point {
-    animation: none;
-  }
+html.mouvement-reduit .scene.lumiere-allumee .scene__obscurite {
+  animation: none;
+  opacity: 0;
 }
+html.mouvement-reduit .scene__grain,
+html.mouvement-reduit .hud__point {
+  animation: none;
+}
+
 .scene--salle.en-examen {
   --centre-x: 32%;
 }
@@ -923,16 +919,15 @@ html.mode-tactile .accueil {
   transition: box-shadow 0.3s ease;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scene--salle.lumiere-allumee .faisceau,
-  .scene--salle.lumiere-allumee .bureau__plateau::after {
-    animation: none;
-    opacity: 1;
-  }
-  .objet--telephone::before {
-    animation: none;
-  }
+html.mouvement-reduit .scene--salle.lumiere-allumee .faisceau,
+html.mouvement-reduit .scene--salle.lumiere-allumee .bureau__plateau::after {
+  animation: none;
+  opacity: 1;
 }
+html.mouvement-reduit .objet--telephone::before {
+  animation: none;
+}
+
 .scene--salle .objet .objet__legende {
   display: flex;
 }
@@ -1225,13 +1220,12 @@ html.mode-tactile .accueil {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scene--competences.lumiere-allumee .projecteur,
-  .scene--competences.lumiere-allumee .flaque-lumiere {
-    animation: none;
-    opacity: 1;
-  }
+html.mouvement-reduit .scene--competences.lumiere-allumee .projecteur,
+html.mouvement-reduit .scene--competences.lumiere-allumee .flaque-lumiere {
+  animation: none;
+  opacity: 1;
 }
+
 .scene--mur.en-examen {
   --centre-x: 30%;
 }
@@ -1569,11 +1563,81 @@ html.mode-tactile .accueil {
   backdrop-filter: blur(4px);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scene--mur.lumiere-allumee .neon {
-    animation: none;
-  }
+html.mouvement-reduit .scene--mur.lumiere-allumee .neon {
+  animation: none;
 }
+
+.parcours {
+  position: absolute;
+  left: 50%;
+  bottom: calc(6vh + 56px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
+  width: max-content;
+  max-width: min(92vw, 880px);
+  padding: 8px 12px;
+  transform: translateX(-50%);
+  background: rgba(13, 15, 20, 0.82);
+  border: 1px solid var(--trait);
+  border-radius: 8px;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+}
+.parcours[hidden] {
+  display: none;
+}
+.parcours__etat {
+  margin: 0;
+  min-width: 200px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--texte);
+}
+.parcours__etat strong {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.parcours__bouton {
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px solid var(--bordure-champ);
+  border-radius: 6px;
+  color: var(--texte);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.parcours__bouton:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+.parcours__bouton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.parcours__bouton[hidden] {
+  display: none;
+}
+.parcours__bouton--principal {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--fond);
+  font-weight: 600;
+}
+.scene--mur.en-examen .parcours {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.scene--mur .parcours:not([hidden]) ~ .hud__invite {
+  display: none;
+}
+
 .modale {
   position: fixed;
   inset: 0;
@@ -2110,6 +2174,58 @@ html.mode-tactile .chronologie__label {
   background: none;
   font-size: 13px;
   opacity: 1;
+}
+
+.avis-animations {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: min(760px, 100vw - 32px);
+  padding: 14px 20px;
+  transform: translateX(-50%);
+  background: var(--fond-eleve);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: var(--ombre-papier);
+  color: var(--texte);
+}
+.avis-animations[hidden] {
+  display: none;
+}
+.avis-animations__texte {
+  flex: 1 1 320px;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.avis-animations__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.avis-animations__bouton {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--bordure-champ);
+  border-radius: 6px;
+  color: var(--texte);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.avis-animations__bouton:hover {
+  border-color: var(--accent);
+}
+.avis-animations__bouton--principal {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--fond);
 }
 
 .scene--festival {
@@ -2990,28 +3106,27 @@ html.mode-tactile .chronologie__label {
     box-shadow: 0 0 14px 2px var(--accent), 0 0 34px var(--accent);
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .scene--festival.en-concert .rayon,
-  .scene--festival.en-concert .ecran-geant__contenu {
-    animation: none;
-    opacity: 1;
-  }
-  .scene--festival.en-concert .rayon__cone,
-  .scene--festival.en-concert .ecran-geant__contenu::before,
-  .scene--festival.en-concert .estrade__facade::before,
-  .scene--festival.en-concert .fumee,
-  .scene--festival.en-concert .fan,
-  .scene--festival.en-concert .objet--ligne::before {
-    animation: none;
-  }
-  .ecran-geant__veille,
-  .modale__en-ligne,
-  .cta-festival:hover,
-  .cta-festival:focus-visible,
-  .scene--festival[data-plan="2"] .generique > * {
-    animation: none;
-  }
+html.mouvement-reduit .scene--festival.en-concert .rayon,
+html.mouvement-reduit .scene--festival.en-concert .ecran-geant__contenu {
+  animation: none;
+  opacity: 1;
 }
+html.mouvement-reduit .scene--festival.en-concert .rayon__cone,
+html.mouvement-reduit .scene--festival.en-concert .ecran-geant__contenu::before,
+html.mouvement-reduit .scene--festival.en-concert .estrade__facade::before,
+html.mouvement-reduit .scene--festival.en-concert .fumee,
+html.mouvement-reduit .scene--festival.en-concert .fan,
+html.mouvement-reduit .scene--festival.en-concert .objet--ligne::before {
+  animation: none;
+}
+html.mouvement-reduit .ecran-geant__veille,
+html.mouvement-reduit .modale__en-ligne,
+html.mouvement-reduit .cta-festival:hover,
+html.mouvement-reduit .cta-festival:focus-visible,
+html.mouvement-reduit .scene--festival[data-plan="2"] .generique > * {
+  animation: none;
+}
+
 .hud__consigne,
 .objet__legende {
   display: none;
