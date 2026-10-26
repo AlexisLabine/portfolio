@@ -1,8 +1,8 @@
 // ============================================================
-// BLOC 4 — LE MUR D'ENQUÊTE : liège, polaroïds, fils et néon
+// BLOC 4 — LE MUR DE PRODUCTION : liège, notes, polaroïds-liens, fil rouge et néon
 // ============================================================
-// La palette Ombre domine encore, mais le rose et le cyan du
-// Festival apparaissent : le néon, certains fils, le bas des polaroïds.
+// Huit projets en deux rangées de quatre ; chaque polaroïd est un vrai lien
+// vers sa page. Un seul fil, rouge, relie les polaroïds d'un même projet.
 @use "../abstracts/jetons" as *;
 @use "../abstracts/mixins" as *;
 
@@ -16,7 +16,7 @@
   }
 
   .polaroid:not(.est-examine),
-  .fiche-dossier,
+  .note,
   .fils,
   .neon {
     filter: blur(4px) brightness(0.6);
@@ -82,12 +82,14 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 14% 28% at 17% 34%, rgba(255, 210, 150, 0.22), transparent 70%),
-        radial-gradient(ellipse 12% 22% at 47% 24%, rgba(255, 210, 150, 0.2), transparent 70%),
-        radial-gradient(ellipse 12% 22% at 50% 66%, rgba(255, 210, 150, 0.2), transparent 70%),
-        radial-gradient(ellipse 12% 22% at 79% 24%, rgba(255, 210, 150, 0.2), transparent 70%),
-        radial-gradient(ellipse 12% 22% at 80% 66%, rgba(255, 210, 150, 0.2), transparent 70%),
-        radial-gradient(ellipse 14% 22% at 20% 77%, rgba(255, 210, 150, 0.18), transparent 70%);
+        radial-gradient(ellipse 12% 24% at 12.5% 32%, rgba(255, 210, 150, 0.22), transparent 70%),
+        radial-gradient(ellipse 12% 24% at 37.5% 32%, rgba(255, 210, 150, 0.18), transparent 70%),
+        radial-gradient(ellipse 12% 24% at 62.5% 32%, rgba(255, 210, 150, 0.18), transparent 70%),
+        radial-gradient(ellipse 12% 24% at 87.5% 32%, rgba(255, 210, 150, 0.18), transparent 70%),
+        radial-gradient(ellipse 12% 24% at 12.5% 80%, rgba(255, 210, 150, 0.18), transparent 70%),
+        radial-gradient(ellipse 12% 24% at 37.5% 80%, rgba(255, 210, 150, 0.22), transparent 70%),
+        radial-gradient(ellipse 12% 24% at 62.5% 80%, rgba(255, 210, 150, 0.18), transparent 70%),
+        radial-gradient(ellipse 12% 24% at 87.5% 80%, rgba(255, 210, 150, 0.18), transparent 70%);
       pointer-events: none;
     }
 
@@ -103,8 +105,8 @@
   }
 }
 
-// --- La fiche cartonnée de chaque dossier ---
-.fiche-dossier {
+// --- La note scotchée de chaque projet ---
+.note {
   position: absolute;
   left: var(--bx);
   top: var(--by);
@@ -114,7 +116,7 @@
   gap: 4px;
   width: 330px;
   padding: 22px 24px 18px;
-  background: #efe6cf;
+  background: var(--papier-note);
   color: var(--encre);
   box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5);
 
@@ -134,7 +136,7 @@
 
   &__numero {
     @include machine-a-ecrire(16px);
-    color: var(--signature);
+    color: var(--accent-papier);
   }
 
   &__titre {
@@ -145,28 +147,33 @@
     text-transform: uppercase;
   }
 
-  &__note {
+  &__texte {
     font-size: 15px;
-    color: #555;
+    color: var(--encre-douce);
   }
 
-  // L'affaire principale : plus grande, avec un bandeau rouge
-  &--principale {
+  // Le projet vedette : plus grand, avec un bandeau rouge
+  &--vedette {
     width: 440px;
     border-top: 10px solid var(--signature);
     box-shadow:
       0 0 0 2px rgba(179, 18, 43, 0.5),
       0 16px 24px rgba(0, 0, 0, 0.55);
 
-    .fiche-dossier__titre {
+    .note__titre {
       font-size: 42px;
     }
   }
 }
 
-// --- Un polaroïd ---
+// Un filtre de porte qui ne correspond pas : la note s'assombrit aussi.
+.note.est-attenue {
+  opacity: 0.22;
+  filter: grayscale(1);
+}
+
+// --- Un polaroïd (c'est un lien : <a href="projets/…">) ---
 .polaroid {
-  --teinte: transparent; // liseré de couleur en bas du cadre
   position: absolute;
   left: var(--bx);
   top: var(--by);
@@ -174,16 +181,14 @@
   rotate: var(--rotation);
   display: flex;
   flex-direction: column;
-  width: 250px;
-  padding: 15px 15px 0;
-  border: 0;
-  background: #f7f4ee;
+  width: 214px;
+  padding: 12px 12px 0;
+  background: var(--papier);
   color: var(--encre);
+  text-decoration: none;
   cursor: pointer;
-  box-shadow:
-    inset 0 -5px 0 var(--teinte),
-    0 14px 22px rgba(0, 0, 0, 0.55);
-  transition: scale 0.25s ease, box-shadow 0.25s ease, filter 0.8s ease;
+  box-shadow: var(--ombre-papier);
+  transition: scale 0.25s ease, box-shadow 0.25s ease, filter 0.8s ease, opacity 0.4s ease;
 
   // L'épingle
   &::before {
@@ -202,26 +207,48 @@
 
   img {
     display: block;
-    width: 220px;
-    height: 220px;
+    width: 190px;
+    height: 190px;
     object-fit: cover;
     filter: saturate(0.9) contrast(1.05);
   }
 
   &__legende {
-    padding: 12px 0 16px;
+    padding: 10px 0 14px;
     font-family: $police-document;
-    font-size: 17px;
+    font-size: 16px;
     text-align: center;
   }
 
-  // Les touches de rose et de cyan du Festival qui approche
-  &:nth-of-type(3n) {
-    --teinte: rgba(255, 46, 154, 0.6);
+  // Le mandat client n'a pas encore d'image (06) : une carte de papier à la place.
+  &__carte {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 6px;
+    width: 190px;
+    height: 190px;
+    padding: 12px;
+    background: var(--papier-note);
+    text-align: center;
+
+    strong {
+      font-family: $police-titre;
+      font-size: 24px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    small {
+      @include machine-a-ecrire(11px);
+      color: var(--encre-douce);
+    }
   }
 
-  &:nth-of-type(3n + 1) {
-    --teinte: rgba(0, 229, 255, 0.55);
+  // Un filtre de porte qui ne correspond pas : le projet s'assombrit (il reste un lien).
+  &.est-attenue {
+    opacity: 0.22;
+    filter: grayscale(1);
   }
 
   &:hover,
@@ -229,7 +256,6 @@
     z-index: 3;
     scale: 1.06;
     box-shadow:
-      inset 0 -5px 0 var(--teinte),
       0 0 0 3px var(--accent),
       0 0 30px rgba(244, 183, 64, 0.5),
       0 22px 30px rgba(0, 0, 0, 0.6);
@@ -258,8 +284,52 @@
   stroke-linecap: round;
   filter: drop-shadow(0 6px 3px rgba(0, 0, 0, 0.45));
 
-  &--rouge {
-    stroke: #c0182f;
+  stroke: var(--signature);
+}
+
+// --- Les filtres par porte : des onglets de papier (02, composant 11) ---
+.filtres {
+  position: absolute;
+  left: 28px;
+  bottom: calc(6vh + 56px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 46vw;
+  pointer-events: auto;
+
+  transition: opacity 0.4s ease, visibility 0.4s;
+
+  &[hidden] {
+    display: none;
+  }
+
+  // Les filtres servent à la vue d'ensemble ; de près, ils laissent la place à l'invite.
+  .scene--mur[data-plan]:not([data-plan="0"]) & {
+    opacity: 0;
+    visibility: hidden; // ni visibles ni atteignables au clavier
+    pointer-events: none;
+  }
+
+  &__onglet {
+    @include machine-a-ecrire(13px);
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--bordure-papier);
+    border-radius: 2px;
+    background: var(--papier);
+    color: var(--encre);
+    cursor: pointer;
+
+    &[aria-pressed="true"] {
+      border-color: var(--signature);
+      background: var(--signature);
+      color: var(--texte);
+    }
+
+    &:hover {
+      border-color: var(--encre);
+    }
   }
 }
 
@@ -296,10 +366,25 @@
     height: 3px;
   }
 
-  &--rouge::before { background: #c0182f; }
+  &--rouge::before { background: var(--signature); }
 }
 
 // Sur le liège très chargé, le titre et la légende ont besoin d'un fond.
+// Le titre est compact et haut : il ne recouvre pas les projets du panneau.
+.scene--mur .hud__chapitre {
+  top: 56px;
+  gap: 4px;
+  max-width: 560px;
+
+  .titre-bloc {
+    font-size: 36px;
+  }
+
+  .sous-titre {
+    font-size: 20px;
+  }
+}
+
 .scene--mur .hud__chapitre,
 .hud__legende {
   padding: 16px 22px;

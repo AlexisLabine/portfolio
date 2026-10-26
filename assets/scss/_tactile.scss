@@ -319,7 +319,12 @@ html.mode-tactile {
     }
   }
 
-  // Les dossiers s'empilent : la fiche cartonnée, puis ses polaroïds.
+  // Les projets s'alignent en grille : la note de papier, puis ses polaroïds.
+  // Le fil rouge ne se dessine pas (les positions du mur ne servent plus).
+  .fils {
+    display: none;
+  }
+
   .panneau__liege {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -345,7 +350,7 @@ html.mode-tactile {
     }
   }
 
-  .fiche-dossier {
+  .note {
     position: relative;
     left: auto;
     top: auto;
@@ -361,11 +366,11 @@ html.mode-tactile {
     }
   }
 
-  .fiche-dossier__titre {
+  .note__titre {
     font-size: clamp(24px, 7vw, 34px);
   }
 
-  .fiche-dossier--principale .fiche-dossier__titre {
+  .note--vedette .note__titre {
     font-size: clamp(28px, 8vw, 42px);
   }
 
@@ -384,7 +389,8 @@ html.mode-tactile {
       height: 14px;
     }
 
-    img {
+    img,
+    .polaroid__carte {
       width: 100%;
       height: auto;
       aspect-ratio: 1;
@@ -394,6 +400,32 @@ html.mode-tactile {
   .polaroid__legende {
     padding: 8px 0 10px;
     font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  // Filtres par porte : au toucher, ce qui ne correspond pas disparaît.
+  .note.est-attenue,
+  .polaroid.est-attenue {
+    display: none;
+  }
+
+  .filtres {
+    position: static;
+    max-width: none;
+    order: 2; // juste sous la consigne, avant le mur
+    justify-content: center;
+    margin: 0 0 16px;
+    opacity: 1 !important; // les filtres restent visibles : pas de plans de caméra
+    pointer-events: auto !important;
+    visibility: visible !important;
+
+    &__onglet {
+      min-height: 44px;
+    }
+  }
+
+  .scene--mur .hud__legende {
+    display: none;
   }
 
   // ===== BLOC 5 : l'écran géant, la foule, puis la ligne backstage =====
@@ -515,6 +547,20 @@ html.mode-tactile {
 
   .modale__document {
     overscroll-behavior: contain; // le scroll ne "traverse" pas jusqu'à la page
+  }
+
+  // La fiche d'un projet s'ouvre en pleine feuille (02, section 5).
+  .modale--projet {
+    align-items: stretch;
+    justify-content: center;
+    padding: 0;
+
+    .modale__document {
+      width: 100%;
+      max-height: none;
+      height: 100vh;
+      height: 100dvh;
+    }
   }
 }
 
