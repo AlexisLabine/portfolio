@@ -5,6 +5,9 @@
    2. La fiche technique, remplie par les autocollants
 */
 
+import { MODE_TACTILE } from "../mode.js";
+import { Camera } from "../camera.js";
+
 const sceneCompetences = document.getElementById("competences");
 const cameraCompetences = new Camera(sceneCompetences);
 

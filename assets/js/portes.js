@@ -13,6 +13,8 @@
    les autres scripts (brume, caméra) l'écoutent pour se mettre à jour.
 */
 
+import { MOUVEMENT_REDUIT } from "./mode.js";
+
 let portesOuvertes = false;
 
 // Ouvre les deux battants avec GSAP, estompe la brume et fait apparaître
