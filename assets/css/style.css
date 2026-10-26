@@ -1612,8 +1612,12 @@ html.mouvement-reduit .scene--mur.lumiere-allumee .neon {
   font-size: 0.9rem;
   cursor: pointer;
 }
-.parcours__bouton:hover {
+.parcours__bouton:hover:not(:disabled) {
   border-color: var(--accent);
+}
+.parcours__bouton:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 .parcours__bouton[hidden] {
   display: none;
@@ -1630,10 +1634,8 @@ html.mouvement-reduit .scene--mur.lumiere-allumee .neon {
   pointer-events: none;
 }
 
-.scene--mur.en-parcours .filtres {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+.scene--mur .parcours:not([hidden]) ~ .hud__invite {
+  display: none;
 }
 
 .modale {

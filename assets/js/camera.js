@@ -103,8 +103,9 @@ export class Camera {
   // La scène reste épinglée à l'écran (pin) pendant que le scroll fait
   // avancer une timeline GSAP qui passe d'un plan à l'autre. Le "snap"
   // fait s'arrêter la caméra pile sur le plan le plus proche.
-  creerRail(plans, quandPlanChange) {
-    if (MODE_TACTILE) return;
+  creerRail(plans, quandPlanChange, { ecranParPlan = 1.5 } = {}) {
+    const rien = { allerAuPlan() {} };
+    if (MODE_TACTILE) return rien;
 
     const changerPlan = (index) => {
       if (index === this.indexPlan) return;
@@ -121,14 +122,14 @@ export class Camera {
       // Pas de rail : on reste sur un plan fixe qui montre toute la scène.
       Object.assign(this.rail, extrairePose(plans[1]));
       changerPlan(1);
-      return;
+      return rien;
     }
 
     const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: this.scene,
         start: "top top",
-        end: "+=" + (plans.length - 1) * 150 + "%", // un écran et demi de scroll par plan : un petit coup de molette ne change pas de plan
+        end: "+=" + (plans.length - 1) * ecranParPlan * 100 + "%", // par défaut un écran et demi de scroll par plan : un petit coup de molette ne change pas de plan
         pin: true,
         anticipatePin: 1,
         scrub: 1, // la caméra "rattrape" le scroll en 1 s : effet de poids
@@ -156,6 +157,16 @@ export class Camera {
     });
 
     changerPlan(0);
+
+    // Pour les boutons « précédent / suivant » : défile jusqu'au plan demandé.
+    const declencheur = timeline.scrollTrigger;
+    return {
+      allerAuPlan: (index) => {
+        const i = Math.max(0, Math.min(plans.length - 1, index));
+        const y = declencheur.start + (declencheur.end - declencheur.start) * (i / (plans.length - 1));
+        window.scrollTo({ top: y, behavior: "smooth" });
+      },
+    };
   }
 
   /* ----------------------------------------------------------

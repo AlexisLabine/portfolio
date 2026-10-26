@@ -457,8 +457,13 @@ html.mouvement-reduit {
     font-size: 0.9rem;
     cursor: pointer;
 
-    &:hover {
+    &:hover:not(:disabled) {
       border-color: var(--accent);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
     }
 
     &[hidden] {
@@ -481,9 +486,8 @@ html.mouvement-reduit {
   }
 }
 
-// Les filtres et le parcours se partagent le bas de l'écran : en parcours, les filtres s'effacent.
-.scene--mur.en-parcours .filtres {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+// Le parcours a son propre bouton « Ouvrir ce projet » : l'invite [E] se cache derrière lui
+// (la touche E marche toujours).
+.scene--mur .parcours:not([hidden]) ~ .hud__invite {
+  display: none;
 }
