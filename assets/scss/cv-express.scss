@@ -1,0 +1,13 @@
+// ============================================================
+// CV-EXPRESS.SCSS — point d'entrée de la page cv-express.html
+// ============================================================
+// Une feuille de style à part, pour que la page reste légère (< 500 Ko,
+// 04) et ne charge pas le moteur 3D de style.scss. Elle se compile en
+// assets/css/cv-express.css, depuis la racine du dépôt :
+//   sass --no-source-map assets/scss/cv-express.scss assets/css/cv-express.css
+
+/* CV-EXPRESS.CSS — FICHIER COMPILÉ à partir de assets/scss/cv-express.scss.
+   Ne pas le modifier à la main : éditer les partials, puis recompiler. */
+
+@use "base/reset";
+@use "pages/cv-express";

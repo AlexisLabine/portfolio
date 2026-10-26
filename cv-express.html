@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CV express — Alexis Labine</title>
+<meta name="description" content="Intégrateur multimédia · Communication numérique. Je fais le pont entre l’idée, l’équipe et l’écran. Réalisations en web, communication, graphisme et coordination.">
+<meta name="theme-color" content="#161920">
+
+<!-- Polices de la charte (02, section 3) : Oswald = titres, Inter = texte,
+     Special Elite = étiquettes. Encore sur Google Fonts : l'hébergement
+     local en WOFF2 est la tâche 3.3. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=Special+Elite&display=swap">
+
+<!-- cv-express.css est COMPILÉ à partir de assets/scss/cv-express.scss (ne pas modifier à la main).
+     Page volontairement sans JavaScript et sans animation (02, section 9). -->
+<link rel="stylesheet" href="assets/css/cv-express.css">
+</head>
+
+<body class="page-cv">
+<a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+<!-- ============================================================
+     BARRE DU HAUT (collante) : nom de la page + retour à l'expérience
+     ============================================================ -->
+<header class="barre">
+  <div class="barre__interieur">
+    <p class="barre__marque">
+      <img src="assets/img/logo/logo-ligne-du-temps.png" width="30" height="24" alt="">
+      <span>CV express</span>
+    </p>
+    <a class="barre__lien" href="index.html">Version complète&nbsp;→</a>
+  </div>
+</header>
+
+<main id="contenu">
+  <!-- La « feuille de service » : une feuille de papier, deux punaises -->
+  <article class="feuille">
+    <span class="punaise punaise--gauche" aria-hidden="true"></span>
+    <span class="punaise punaise--droite" aria-hidden="true"></span>
+
+    <p class="feuille__entete">
+      <span>Feuille de service</span>
+      <span>2026</span>
+    </p>
+
+    <!-- IDENTITÉ : photo, nom, titre, accroche, coordonnées -->
+    <section class="identite" aria-labelledby="nom">
+      <div class="identite__haut">
+        <figure class="polaroid">
+          <span class="punaise punaise--petite" aria-hidden="true"></span>
+          <img class="polaroid__image" src="assets/img/moi/alexis.jpg" width="352" height="440" alt="Portrait d’Alexis Labine">
+          <figcaption class="polaroid__legende">Alexis</figcaption>
+        </figure>
+        <div class="identite__nom">
+          <h1 class="identite__titre" id="nom">Alexis Labine</h1>
+          <p class="identite__poste">Intégrateur multimédia · Communication numérique</p>
+        </div>
+      </div>
+
+      <p class="identite__accroche">Je fais le pont entre l’idée, l’équipe et l’écran.</p>
+
+      <dl class="coordonnees">
+        <div class="coordonnees__ligne">
+          <dt>Rôle</dt>
+          <dd>Étudiant, Cégep de Jonquière</dd>
+        </div>
+        <div class="coordonnees__ligne">
+          <dt>Lieu</dt>
+          <dd>Jonquière (Québec)</dd>
+        </div>
+        <div class="coordonnees__ligne">
+          <dt>Courriel</dt>
+          <dd><a href="mailto:labinealexis@gmail.com">labinealexis@gmail.com</a></dd>
+        </div>
+      </dl>
+
+      <p class="actions">
+        <!-- Le PDF arrive à la tâche 5.3 (CV aux couleurs de la charte). -->
+        <a class="bouton bouton--principal" href="assets/Alexis_Labine_CV.pdf" download>CV (PDF)&nbsp;↓</a>
+        <a class="bouton bouton--secondaire" href="https://github.com/AlexisLabine">GitHub&nbsp;↗</a>
+      </p>
+    </section>
+
+    <!-- 01 MÉTHODE -->
+    <section class="rubrique" aria-labelledby="methode">
+      <h2 class="rubrique__titre" id="methode"><span class="rubrique__numero" aria-hidden="true">01</span>Méthode</h2>
+      <p class="rubrique__intro">Je planifie, je coordonne, j’intègre, et je suis là le jour&nbsp;J.</p>
+      <ul class="methode">
+        <li><strong>Je planifie.</strong> De nature analytique, j’organise et j’anticipe.</li>
+        <li><strong>Je coordonne.</strong> Je fais le lien entre les besoins des clients et l’équipe technique.</li>
+        <li><strong>J’intègre.</strong> HTML, CSS/SCSS, JavaScript, PHP/MySQL, WordPress, Figma.</li>
+        <li><strong>Je suis là le jour J.</strong> Sur le terrain, je m’adapte vite aux imprévus.</li>
+      </ul>
+    </section>
+
+    <!-- 02 RÉALISATIONS : une ligne par entrée du mur (03b). Chaque projet est
+         un vrai lien vers sa page ; ces pages arrivent à la tâche 4.5. -->
+    <section class="rubrique" aria-labelledby="realisations">
+      <h2 class="rubrique__titre" id="realisations"><span class="rubrique__numero" aria-hidden="true">02</span>Réalisations</h2>
+      <ol class="projets">
+
+        <li class="projet">
+          <img class="projet__vignette" src="assets/img/projets/mini/dae-evenement.webp" width="60" height="60" alt="" loading="lazy">
+          <div class="projet__texte">
+            <p class="ruban">Projet vedette · Édition 2026 · Implication étudiante</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/festival-de-lame-a-lecran.html">Festival de l’Âme à l’Écran (DAE)</a></h3>
+            <p class="projet__ligne">Un festival de films étudiants de trois jours, avec des films d’écoles de partout au Québec.</p>
+            <p class="projet__pied">Coordination · Communication <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+        <li class="projet">
+          <img class="projet__vignette" src="assets/img/projets/mini/dae-site.webp" width="60" height="60" alt="" loading="lazy">
+          <div class="projet__texte">
+            <p class="ruban">Projet 02 · Éditions 2026-2027 · Implication étudiante</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/site-du-festival.html">Le site du festival&nbsp;: avant et après</a></h3>
+            <p class="projet__ligne">Le site de l’édition 2026, réalisé en équipe de six, et celui de l’édition 2027, avec son back-office, que je développe seul.</p>
+            <p class="projet__pied">Web <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+        <li class="projet">
+          <img class="projet__vignette" src="assets/img/projets/mini/rm-site.webp" width="60" height="60" alt="" loading="lazy">
+          <div class="projet__texte">
+            <p class="ruban">Projet 03 · Hiver 2026 · Projet de session</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/rentree-magique-101.html">Rentrée Magique 101</a></h3>
+            <p class="projet__ligne">Un site WordPress qui guide les nouveaux élèves d’une école de sorcellerie.</p>
+            <p class="projet__pied">Web <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+        <!-- TonTour : la capture est à exporter de Figma (tâche 4.5) ; en attendant,
+             une carte numérotée tient la place, rien d'inventé. -->
+        <li class="projet">
+          <span class="projet__vignette projet__vignette--carte" aria-hidden="true">04</span>
+          <div class="projet__texte">
+            <p class="ruban">Projet 04 · Automne 2026 · Projet de session</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/tontour.html">TonTour</a></h3>
+            <p class="projet__ligne">Concept d’app mobile (UI/UX) de file d’attente virtuelle pour les urgences du Saguenay.</p>
+            <p class="projet__pied">Web <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+        <li class="projet">
+          <img class="projet__vignette" src="assets/img/projets/mini/gj-affiche.webp" width="60" height="60" alt="" loading="lazy">
+          <div class="projet__texte">
+            <p class="ruban">Projet 05 · Hiver 2025 · Projet de session</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/game-jam.html">Game Jam&nbsp;: affiche et mapping vidéo</a></h3>
+            <p class="projet__ligne">Une affiche pour le Game Jam d’Intégration multimédia, reprise en mapping vidéo projeté en classe.</p>
+            <p class="projet__pied">Graphisme · Communication <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+        <!-- Mandat client en cours : aucune image du client avant son accord (06 de 03b). -->
+        <li class="projet">
+          <span class="projet__vignette projet__vignette--carte" aria-hidden="true">En cours</span>
+          <div class="projet__texte">
+            <p class="ruban">Projet 06 · Automne 2026 · Mandat client</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/ecole-de-musique-du-bas-saguenay.html">Site de l’École de musique du Bas-Saguenay</a></h3>
+            <p class="projet__ligne">Le site de l’École de musique du Bas-Saguenay, avec un parcours d’inscription en ligne.</p>
+            <p class="projet__pied">Coordination · Web · Graphisme · Communication <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+        <li class="projet">
+          <img class="projet__vignette" src="assets/img/projets/mini/tz-affiche.webp" width="60" height="60" alt="" loading="lazy">
+          <div class="projet__texte">
+            <p class="ruban">Projet 07 · Automne 2025 · Projet de session</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/timeline-zero.html">Timeline&nbsp;: Zero</a></h3>
+            <p class="projet__ligne">La direction artistique d’un jeu cyberpunk imaginé de A à Z.</p>
+            <p class="projet__pied">Graphisme <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+        <li class="projet">
+          <img class="projet__vignette" src="assets/img/projets/mini/phoenix-logo.webp" width="60" height="60" alt="" loading="lazy">
+          <div class="projet__texte">
+            <p class="ruban">Pièces courtes · Hiver 2025 · Exercices</p>
+            <h3 class="projet__titre"><a class="projet__lien" href="projets/pieces-courtes.html">Phoenix, NOVA, Ville néon</a></h3>
+            <p class="projet__ligne">Un logo animé, une affiche publicitaire et un photomontage.</p>
+            <p class="projet__pied">Graphisme <span class="projet__voir" aria-hidden="true">· Voir le projet&nbsp;→</span></p>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- 03 MATÉRIEL -->
+    <section class="rubrique" aria-labelledby="materiel">
+      <h2 class="rubrique__titre" id="materiel"><span class="rubrique__numero" aria-hidden="true">03</span>Matériel</h2>
+
+      <div class="materiel__groupe">
+        <h3 class="materiel__nom">Design</h3>
+        <ul class="pastilles">
+          <li>Photoshop</li><li>Illustrator</li><li>XD</li><li>Figma</li><li>After Effects</li>
+        </ul>
+      </div>
+      <div class="materiel__groupe">
+        <h3 class="materiel__nom">Web</h3>
+        <ul class="pastilles">
+          <li>HTML5</li><li>CSS/SCSS</li><li>JavaScript (GSAP)</li><li>PHP/MySQL</li><li>WordPress</li><li>Bootstrap</li>
+        </ul>
+      </div>
+      <div class="materiel__groupe">
+        <h3 class="materiel__nom">3D et temps réel</h3>
+        <ul class="pastilles">
+          <li>Unreal Engine</li><li>Unity</li>
+        </ul>
+      </div>
+
+      <p class="materiel__texte"><strong>Humaines&nbsp;:</strong> coordination de projets et d’événements · travail d’équipe · organisation et planification · autonomie et sens des responsabilités · adaptation rapide</p>
+      <p class="materiel__texte"><strong>Langues&nbsp;:</strong> français (langue maternelle) · anglais (langue seconde)</p>
+    </section>
+
+    <!-- 04 PARCOURS : le fil rouge relie les étapes -->
+    <section class="rubrique" aria-labelledby="parcours">
+      <h2 class="rubrique__titre" id="parcours"><span class="rubrique__numero" aria-hidden="true">04</span>Parcours</h2>
+      <ol class="parcours">
+        <li class="parcours__etape">
+          <p class="parcours__date">Depuis octobre 2025</p>
+          <p class="parcours__titre">Implication étudiante et coordination de projets multimédias — Cégep de Jonquière</p>
+          <p class="parcours__detail">Festival de l’Âme à l’Écran&nbsp;: webmaster, comité de communication. Conseil ATM&nbsp;: représentant des étudiants d’Intégration multimédia.</p>
+        </li>
+        <li class="parcours__etape">
+          <p class="parcours__date">Depuis juin 2026</p>
+          <p class="parcours__titre">Journalier étudiant — Produits Kruger, Crabtree</p>
+        </li>
+        <li class="parcours__etape">
+          <p class="parcours__date">Juin 2021 à janvier 2026</p>
+          <p class="parcours__titre">Commis multifonctionnel — IGA famille Guilbault, Rawdon</p>
+        </li>
+        <li class="parcours__etape">
+          <p class="parcours__date">Août 2024 à juin 2027</p>
+          <p class="parcours__titre">Techniques d’intégration multimédia — Cégep de Jonquière</p>
+        </li>
+        <li class="parcours__etape">
+          <p class="parcours__date">Août 2022 à décembre 2023</p>
+          <p class="parcours__titre">DEP en cuisine — École hôtelière de Lanaudière, Joliette</p>
+        </li>
+        <li class="parcours__etape">
+          <p class="parcours__date">2015 à 2020</p>
+          <p class="parcours__titre">DES — Collège Champagneur, Rawdon</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- LA SUITE EN COULISSES -->
+    <aside class="encart" aria-labelledby="suite">
+      <h2 class="encart__chapitre" id="suite">La suite en coulisses</h2>
+      <p class="encart__texte">La version complète du site est une visite des coulisses, scène par scène.</p>
+      <a class="bouton bouton--ambre" href="index.html">Entrer dans les coulisses&nbsp;→</a>
+    </aside>
+  </article>
+</main>
+
+<footer class="pied">
+  <div class="pied__interieur">
+    <p>© 2026 Alexis Labine</p>
+    <p><a href="comment-ce-site-a-ete-fait.html">Comment ce site a été fait</a></p>
+  </div>
+</footer>
+</body>
+</html>
