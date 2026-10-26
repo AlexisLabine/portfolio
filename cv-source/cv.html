@@ -20,7 +20,7 @@
 @page { size: Letter; margin: 0; }
 * { box-sizing: border-box; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body { margin: 0; background: var(--papier); color: var(--encre); font: 400 8.8pt/1.45 "Inter", sans-serif; }
+body { margin: 0; background: var(--papier); color: var(--encre); font: 400 9.2pt/1.5 "Inter", sans-serif; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, p, ul { margin: 0; }
 ul { padding: 0; list-style: none; }
@@ -39,7 +39,7 @@ ul { padding: 0; list-style: none; }
 .page { display: grid; grid-template-columns: 176px 1fr; gap: 0 32px; padding: 16px 42px 0; }
 h2 { display: flex; align-items: baseline; gap: 8px; padding-bottom: 4px; margin-bottom: 9px; border-bottom: 1px dotted var(--pointille); font: 600 11pt/1.1 "Oswald", sans-serif; letter-spacing: .07em; text-transform: uppercase; }
 h2 span { font: 400 8pt "Special Elite", monospace; letter-spacing: .1em; color: var(--accent-papier); }
-section { margin-bottom: 12px; break-inside: avoid; }
+section { margin-bottom: 16px; break-inside: avoid; }
 .date { white-space: nowrap; font: 400 8pt "Special Elite", monospace; color: var(--accent-papier); letter-spacing: .03em; }
 .petit { color: var(--encre-douce); }
 
@@ -59,7 +59,7 @@ section { margin-bottom: 12px; break-inside: avoid; }
 
 /* Colonne de droite */
 .profil { font-size: 9.4pt; line-height: 1.45; }
-.poste { margin-bottom: 11px; break-inside: avoid; }
+.poste { margin-bottom: 14px; break-inside: avoid; }
 .poste__tete { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .poste h3 { font-weight: 600; font-size: 9pt; line-height: 1.3; }
 .poste__lieu { color: var(--encre-douce); margin-bottom: 2px; }
@@ -180,21 +180,8 @@ section { margin-bottom: 12px; break-inside: avoid; }
       </div>
     </section>
 
-
     <section>
-      <h2><span>07</span>Réalisations</h2>
-      <ul class="projets">
-        <li><strong>Festival de l’Âme à l’Écran (DAE)</strong><span class="ruban">Implication étudiante</span></li>
-        <li><strong>Le site du festival : avant et après</strong><span class="ruban">Web</span></li>
-        <li><strong>Site de l’École de musique du Bas-Saguenay</strong><span class="ruban">Mandat client, en cours</span></li>
-        <li><strong>Rentrée Magique 101</strong><span class="ruban">Web</span></li>
-        <li><strong>TonTour</strong><span class="ruban">UI/UX</span></li>
-        <li><strong>Game Jam, Timeline : Zero, Phoenix, NOVA, Ville néon</strong><span class="ruban">Graphisme</span></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2><span>08</span>Intérêts</h2>
+      <h2><span>07</span>Intérêts</h2>
       <p>Ski alpin · Randonnée en plein air · Cuisine et gastronomie · Jeux vidéo (narratifs et coopératifs) · Hockey (analyse sportive et ligues simulées)</p>
     </section>
   </main>
