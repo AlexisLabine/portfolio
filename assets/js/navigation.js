@@ -2,7 +2,7 @@
    NAVIGATION.JS — La ligne du temps (ordinateur) et ses libellés (tactile)
    ============================================================
    - Le défilement fluide au clic est géré par le CSS
-     (html { scroll-behavior: smooth; }) : les points sont de
+     (scroll-behavior: smooth, en mode tactile) : les points sont de
      simples liens d'ancrage <a href="#section">.
    - Ce script allume le point de la section où se trouve le
      visiteur, grâce à l'Intersection Observer.

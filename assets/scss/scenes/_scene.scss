@@ -319,7 +319,8 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+// « Moins d'animations » (système) sauf si la personne a activé les animations du site.
+html.mouvement-reduit {
   .scene.lumiere-allumee .scene__obscurite {
     animation: none;
     opacity: 0;

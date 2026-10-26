@@ -42,14 +42,20 @@ const POSES_OBJETS = {
 };
 
 // Les plans qu'on parcourt en défilant : 3 au plus (02, section 7).
-//   1. la vue d'ensemble ; 2. le bureau, vu de haut, avec ses trois objets
-//   étiquetés ; 3. la sortie : la ligne backstage, qui mène au contact.
-// Chaque objet reste ouvrable à tout moment (clic, Tab, touche E sur le téléphone).
+//   1. le dossier (profil et parcours) ; 2. la cocarde ; 3. le téléphone.
+// La caméra s'arrête donc sur chacun des trois objets du bureau, et chaque
+// objet reste ouvrable à tout moment (clic, Tab, touche E).
 const plansRegie = [
-  { nom: "Vue d'ensemble", x: 0, y: -120, z: 0, distance: -500, rx: 6, ry: 0 },
-  { nom: "Le bureau", x: 0, y: 150, z: 60, distance: 420, rx: -45, ry: 0 },
   {
-    nom: "La ligne backstage", objet: "telephone", invite: "Décrocher le téléphone pour m’écrire",
+    nom: "Le dossier", objet: "profil", invite: "Ouvrir le dossier : mon profil et mon parcours",
+    ...POSES_OBJETS.profil, distance: 400,
+  },
+  {
+    nom: "La cocarde", objet: "cocarde", invite: "Voir la cocarde Organisation",
+    ...POSES_OBJETS.cocarde, distance: 420,
+  },
+  {
+    nom: "Le téléphone", objet: "telephone", invite: "Décrocher le téléphone pour m’écrire",
     ...POSES_OBJETS.telephone,
   },
 ];
@@ -71,17 +77,13 @@ cameraRegie.creerRail(plansRegie, (plan) => {
 const MODALE_PAR_OBJET = {
   profil: "modale-profil",
   cocarde: "modale-cocarde",
+  telephone: "modale-contact", // le formulaire s'ouvre sur place (il vit dans scene-finale.js)
 };
 
 function examinerObjet(nomObjet) {
   // Mode tactile : pas de gros plan, on ouvre directement la fiche.
   if (MODE_TACTILE) {
-    if (nomObjet === "telephone") {
-      // Saut direct : un défilement doux ferait traverser tout le mur de production.
-      document.getElementById("contact").scrollIntoView({ behavior: "instant" });
-    } else {
-      ouvrirModale(document.getElementById(MODALE_PAR_OBJET[nomObjet]));
-    }
+    ouvrirModale(document.getElementById(MODALE_PAR_OBJET[nomObjet]));
     return;
   }
 
@@ -96,17 +98,7 @@ function examinerObjet(nomObjet) {
   objet.classList.add("est-examine");
   cameraRegie.examiner({ ...extrairePose(plan), ...plan.examen });
 
-  if (nomObjet === "telephone") {
-    // On "décroche" : la caméra s'approche, puis direction le contact.
-    gsap.delayedCall(0.9, () => {
-      terminerExamen();
-      // Saut direct : un défilement doux ferait traverser tout le mur de production.
-      document.getElementById("contact").scrollIntoView({ behavior: "instant" });
-    });
-    return;
-  }
-
-  // Le document s'ouvre pendant que la caméra termine son approche.
+  // Le document (ou le formulaire, pour le téléphone) s'ouvre pendant que la caméra termine son approche.
   gsap.delayedCall(0.5, () => {
     ouvrirModale(document.getElementById(MODALE_PAR_OBJET[nomObjet]), terminerExamen);
   });

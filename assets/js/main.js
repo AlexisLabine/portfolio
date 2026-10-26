@@ -9,6 +9,7 @@
    ils sont chargés avant, et donc disponibles ici.
 */
 
+import "./animations.js";
 import "./brume.js";
 import "./portes.js";
 import "./modales.js";

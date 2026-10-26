@@ -5,6 +5,7 @@
    2. Les filtres par porte (Web, Communication, Graphisme, Coordination)
    3. Les plans de caméra (3 au plus, 02)
    4. Ouvrir un projet : gros plan, puis la fiche (fiche-projet.js)
+   5. « Projet précédent / suivant » (boutons et flèches ← →)
 
    Le contenu des projets n'est plus ici : il vit dans projets/*.html (une
    page par projet). Chaque polaroïd est un vrai lien vers sa page ; ce
@@ -88,27 +89,55 @@ filtres.hidden = false;
    ------------------------------------------------------------
    Le liège mesure 3200 × 1600 et son centre est à (0, -50) dans
    le monde : un point (bx, by) du liège est donc à (bx - 1600, by - 850).
-   Trois plans : la vue d'ensemble, le projet vedette, le mandat client.
+   Neuf plans : la vue d'ensemble, puis un plan par projet (une note du mur
+   et les polaroïds sous elle).
 */
 function surLeMur(bx, by) {
   return { x: bx - 1600, y: by - 850, z: 0 };
 }
 
+function lireBordure(element, propriete) {
+  return parseFloat(getComputedStyle(element).getPropertyValue(propriete));
+}
+
+// Une étape par note du mur : son titre, sa position et le premier polaroïd en dessous.
+const etapes = [...sceneMur.querySelectorAll(".panneau__liege .note")]
+  .map((note) => {
+    const bx = lireBordure(note, "--bx");
+    const by = lireBordure(note, "--by");
+    const polaroid = polaroidsMur.find((p) => {
+      const px = lireBordure(p, "--bx");
+      const py = lireBordure(p, "--by");
+      return Math.abs(px - bx) < 450 && py > by && py < by + 500;
+    });
+    return { titre: note.querySelector(".note__titre").textContent, bx, by, polaroid };
+  })
+  .filter((etape) => etape.polaroid);
+
+// Un plan par projet : la caméra s'arrête sur chacun (décision du 2026-10-26, journal 06).
 const plansMur = [
   { nom: "Vue d'ensemble", ...surLeMur(1600, 770), distance: -1750, rx: 0, ry: 0 },
-  { nom: "Projet vedette — Festival de l'Âme à l'Écran", polaroid: "p-dae-equipe", ...surLeMur(400, 440), distance: -250, rx: 0, ry: 6 },
-  { nom: "Mandat client — École de musique du Bas-Saguenay", polaroid: "p-ecole", ...surLeMur(1200, 1170), distance: -50, rx: 3, ry: -6 },
+  ...etapes.map((etape) => ({
+    nom: etape.titre,
+    polaroid: etape.polaroid.id,
+    ...surLeMur(etape.bx, etape.by + 190),
+    distance: -250, rx: 0, ry: 0,
+  })),
 ];
 
 const inviteMur = sceneMur.querySelector(".hud__invite");
 const texteInviteMur = sceneMur.querySelector("[data-texte-invite]");
 let planActuelMur = plansMur[0];
+let indexPlanMur = 0;
+let parcoursPret = false; // vrai une fois les boutons de la partie 5 lus
 
-cameraMur.creerRail(plansMur, (plan) => {
+const railMur = cameraMur.creerRail(plansMur, (plan, index) => {
   planActuelMur = plan;
+  indexPlanMur = index;
   inviteMur.hidden = !plan.polaroid;
-  texteInviteMur.textContent = "Ouvrir le projet : " + (plan.nom.split(" — ")[1] || "");
-});
+  texteInviteMur.textContent = "Ouvrir le projet : " + plan.nom;
+  if (parcoursPret) majParcours();
+}, { ecranParPlan: 1 });
 
 /* ------------------------------------------------------------
    PARTIE 4 — OUVRIR UN PROJET
@@ -163,3 +192,47 @@ document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
   if (cameraMur.visible) ouvrirProjetDuPlan();
 });
+
+/* ------------------------------------------------------------
+   PARTIE 5 — « PROJET PRÉCÉDENT / SUIVANT »
+   ------------------------------------------------------------
+   Le défilement s'arrête sur chacun des projets ; ces boutons (et les
+   flèches ← →) font la même chose sans défiler à la main.
+*/
+const parcours = sceneMur.querySelector(".parcours");
+const boutonsParcours = {
+  precedent: parcours.querySelector('[data-parcours="precedent"]'),
+  suivant: parcours.querySelector('[data-parcours="suivant"]'),
+  ouvrir: parcours.querySelector('[data-parcours="ouvrir"]'),
+  ensemble: parcours.querySelector('[data-parcours="ensemble"]'),
+};
+const compteurParcours = parcours.querySelector("[data-parcours-compteur]");
+const nomParcours = parcours.querySelector("[data-parcours-nom]");
+
+function majParcours() {
+  const surUnProjet = indexPlanMur > 0;
+  compteurParcours.textContent = surUnProjet ? `${indexPlanMur}/${etapes.length}` : "";
+  nomParcours.textContent = surUnProjet ? plansMur[indexPlanMur].nom : "Parcourir les projets";
+  boutonsParcours.ouvrir.hidden = !surUnProjet;
+  boutonsParcours.ensemble.hidden = !surUnProjet;
+  boutonsParcours.precedent.disabled = !surUnProjet;
+  boutonsParcours.suivant.disabled = indexPlanMur >= plansMur.length - 1;
+}
+
+parcoursPret = true;
+
+if (etapes.length && !MODE_TACTILE && !MOUVEMENT_REDUIT) {
+  parcours.hidden = false;
+  majParcours();
+  boutonsParcours.precedent.addEventListener("click", () => railMur.allerAuPlan(indexPlanMur - 1));
+  boutonsParcours.suivant.addEventListener("click", () => railMur.allerAuPlan(indexPlanMur + 1));
+  boutonsParcours.ouvrir.addEventListener("click", ouvrirProjetDuPlan);
+  boutonsParcours.ensemble.addEventListener("click", () => railMur.allerAuPlan(0));
+
+  document.addEventListener("keydown", (e) => {
+    const dansUnChamp = e.target.closest("input, textarea, select");
+    if (dansUnChamp || modaleActive() || !cameraMur.visible) return;
+    if (e.key === "ArrowRight") railMur.allerAuPlan(indexPlanMur + 1);
+    else if (e.key === "ArrowLeft") railMur.allerAuPlan(indexPlanMur - 1);
+  }, true);
+}
