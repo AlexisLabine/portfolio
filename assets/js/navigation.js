@@ -8,6 +8,8 @@
      visiteur, grâce à l'Intersection Observer.
 */
 
+import { MOUVEMENT_REDUIT } from "./mode.js";
+
 const pointsChronologie = document.querySelectorAll(".chronologie__point");
 
 // Pour chaque point, on retrouve la section visée par son lien (href="#...").

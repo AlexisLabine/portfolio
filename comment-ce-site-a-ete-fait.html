@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Comment ce site a été fait — Alexis Labine</title>
+<meta name="description" content="Ce qu’Alexis a décidé et réalisé, ce que l’IA Claude a accéléré, et les outils utilisés pour ce portfolio.">
+<meta name="theme-color" content="#161920">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/img/logo/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/logo/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_CA">
+<meta property="og:site_name" content="Alexis Labine">
+<meta property="og:title" content="Comment ce site a été fait — Alexis Labine">
+<meta property="og:description" content="Ce qu’Alexis a décidé et réalisé, ce que l’IA Claude a accéléré, et les outils utilisés pour ce portfolio.">
+<meta property="og:image" content="assets/img/partage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Alexis Labine, intégrateur multimédia · communication numérique">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Comment ce site a été fait — Alexis Labine">
+<meta name="twitter:description" content="Ce qu’Alexis a décidé et réalisé, ce que l’IA Claude a accéléré, et les outils utilisés pour ce portfolio.">
+<meta name="twitter:image" content="assets/img/partage.png">
+
+<!-- Polices de la charte (02, section 3) : encore sur Google Fonts jusqu'à la tâche 3.3. -->
+<link rel="preload" href="assets/fonts/oswald-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- projet.css est COMPILÉ à partir de assets/scss/projet.scss (ne pas modifier à la main).
+     Page sans JavaScript : elle marche seule, par son adresse (une URL par projet),
+     et fiche-projet.js (tâche 4.6) en reprend l'<article> pour la modale. -->
+<link rel="stylesheet" href="assets/css/projet.css">
+</head>
+
+<body class="page-projet">
+<a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+<header class="barre">
+  <div class="barre__interieur">
+    <p class="barre__marque">
+      <img src="assets/img/logo/logo-ligne-du-temps.png" width="30" height="24" alt="">
+      <span>Alexis Labine</span>
+    </p>
+    <nav class="barre__liens" aria-label="Navigation">
+      <a class="barre__lien" href="cv-express.html#realisations">←&nbsp;CV express</a>
+      <a class="barre__lien" href="index.html">Expérience&nbsp;→</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+  <div class="feuille">
+    <span class="punaise punaise--gauche" aria-hidden="true"></span>
+    <span class="punaise punaise--droite" aria-hidden="true"></span>
+    <p class="feuille__entete">
+      <span>Générique</span>
+      <span>Coulisses du site</span>
+    </p>
+
+    <article class="fiche" aria-labelledby="titre">
+      <header class="fiche__entete">
+        <p class="ruban">Générique · Ce site</p>
+        <h1 class="fiche__titre" id="titre">Comment ce site a été fait</h1>
+        <p class="fiche__ligne">Les décisions viennent d’Alexis ; l’IA Claude (Anthropic) a accéléré la production. Voici qui a fait quoi.</p>
+      </header>
+
+      <section class="fiche__rubrique" aria-labelledby="alexis">
+        <h2 class="fiche__rubrique-titre" id="alexis">Ce qu’Alexis a fait</h2>
+        <p class="fiche__texte">Il a fixé la direction : garder son univers de scènes en 3D, le rendre professionnel et en faire un CV interactif. Il a choisi le positionnement et l’accroche, l’univers unique des coulisses, les quatre portes (Web, Communication, Graphisme, Coordination) et les projets à montrer. Il a fourni les faits (rôles, dates, outils, résultats), les images et le logo du festival, et il a validé chaque grande étape : charte, maquettes, textes.</p>
+        <p class="fiche__texte">Le portfolio part de la première version qu’il avait conçue et intégrée lui-même : l’idée des scènes, la caméra en CSS 3D, le mur de production.</p>
+      </section>
+
+      <section class="fiche__rubrique" aria-labelledby="ia">
+        <h2 class="fiche__rubrique-titre" id="ia">Ce que l’IA a accéléré</h2>
+        <p class="fiche__texte">Claude, l’assistant d’Anthropic, a travaillé sous la direction d’Alexis, une tâche à la fois : l’audit de la première version, la charte, les maquettes, la reprise du code (SCSS, JavaScript, PHP), les pages des projets, le CV express et le CV en PDF, puis les tests (ordinateur, téléphone, « moins d’animations »). Les textes viennent des faits donnés par Alexis ; ce qui manquait lui a été demandé plutôt qu’inventé.</p>
+      </section>
+
+      <section class="fiche__rubrique" aria-labelledby="outils">
+        <h2 class="fiche__rubrique-titre" id="outils">Outils</h2>
+        <ul class="pastilles"><li>HTML</li><li>SCSS</li><li>JavaScript</li><li>GSAP</li><li>PHP</li><li>Figma</li><li>GitHub</li><li>Claude</li></ul>
+        <p class="fiche__texte">Pas de bibliothèque d’interface : du HTML sémantique, du SCSS construit sur des jetons de couleur, du JavaScript sans framework. Les polices et GSAP sont hébergées avec le site, et le code est public sur GitHub.</p>
+      </section>
+
+      <nav class="fiche__rubrique" aria-label="Liens">
+        <h2 class="fiche__rubrique-titre">Liens</h2>
+        <div class="fiche__liens">
+          <a class="bouton bouton--secondaire" href="https://github.com/AlexisLabine/portfolio" target="_blank" rel="noopener">Le code sur GitHub&nbsp;↗</a>
+          <a class="bouton bouton--ambre" href="index.html">Retour à l’expérience&nbsp;→</a>
+        </div>
+      </nav>
+    </article>
+  </div>
+</main>
+
+<footer class="pied">
+  <div class="pied__interieur">
+    <p>© 2026 Alexis Labine · <a href="mailto:labinealexis@gmail.com">labinealexis@gmail.com</a></p>
+    <p><a href="assets/Alexis_Labine_CV.pdf" download>CV (PDF)</a> · <a href="https://github.com/AlexisLabine">GitHub&nbsp;↗</a> · <a href="comment-ce-site-a-ete-fait.html">Comment ce site a été fait</a></p>
+  </div>
+</footer>
+</body>
+</html>

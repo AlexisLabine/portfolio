@@ -24,16 +24,14 @@
    comme une page normale.
 */
 
-gsap.registerPlugin(ScrollTrigger);
+import { MODE_TACTILE, MOUVEMENT_REDUIT } from "./mode.js";
 
-// Si la personne a demandé "moins d'animations" dans son système :
-// pas de rail au scroll, pas de balancement, pas de suivi de souris.
-const MOUVEMENT_REDUIT = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+gsap.registerPlugin(ScrollTrigger);
 
 const CLES_POSE = ["x", "y", "z", "distance", "rx", "ry"];
 
 // Garde seulement les valeurs de caméra d'un plan (0 si absente).
-function extrairePose(plan) {
+export function extrairePose(plan) {
   const pose = {};
   CLES_POSE.forEach((cle) => (pose[cle] = plan[cle] ?? 0));
   return pose;
@@ -61,7 +59,7 @@ function allumerAuPassage(scene) {
   observateur.observe(scene);
 }
 
-class Camera {
+export class Camera {
   constructor(scene) {
     this.scene = scene;
     this.visible = false;

@@ -6,8 +6,8 @@
 //
 //   --allumage (0 → 1)  la couleur monte pendant qu'on arrive (js/festival.js)
 //   .en-concert         le spectacle commence (dès le plan 1)
-//   [data-plan="2"]     la ligne backstage : le laissez-passer s'affiche
-//   [data-plan="3"]     le générique de fin
+//   [data-plan="1"]     la ligne backstage : le laissez-passer s'affiche
+//   [data-plan="2"]     le générique de fin (3 plans au plus, 02)
 //   .sans-rail          mouvement réduit : un seul plan, laissez-passer visible
 @use "../abstracts/jetons" as *;
 @use "../abstracts/mixins" as *;
@@ -19,12 +19,12 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   background: var(--fond-profond);
 
   // Le cadrage se décale pour laisser la place au HUD
-  &[data-plan="2"],
+  &[data-plan="1"],
   &.sans-rail {
     --centre-x: 36%;
   }
 
-  &[data-plan="3"] {
+  &[data-plan="2"] {
     --centre-x: 64%;
   }
 
@@ -33,13 +33,13 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   }
 
   @include sur-mobile {
-    &[data-plan="2"],
+    &[data-plan="1"],
     &.sans-rail {
       --centre-x: 50%;
       --centre-y: 28%;
     }
 
-    &[data-plan="3"],
+    &[data-plan="2"],
     &.en-examen {
       --centre-x: 50%;
       --centre-y: 24%;
@@ -581,7 +581,7 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
 }
 
 // Le laissez-passer n'apparaît que sur le plan de la ligne backstage.
-.scene--festival:not([data-plan="2"]):not(.sans-rail) .hud__passe {
+.scene--festival:not([data-plan="1"]):not(.sans-rail) .hud__passe {
   opacity: 0;
   visibility: hidden;
   translate: 40px -50%;
@@ -777,7 +777,16 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
 
   &__copyright {
     @include machine-a-ecrire(11px);
-    color: rgba(242, 239, 233, 0.5);
+    color: var(--texte-doux);
+
+    a {
+      color: var(--lumiere-texte);
+      text-underline-offset: 3px;
+
+      &:hover {
+        color: var(--texte);
+      }
+    }
   }
 }
 
@@ -805,13 +814,13 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   }
 }
 
-.scene--festival:not([data-plan="3"]) .hud__generique {
+.scene--festival:not([data-plan="2"]) .hud__generique {
   opacity: 0;
   visibility: hidden;
 }
 
 // Les lignes du générique apparaissent l'une après l'autre
-.scene--festival[data-plan="3"] .generique > * {
+.scene--festival[data-plan="2"] .generique > * {
   animation: apparition-ligne 0.7s ease both;
 
   &:nth-child(2) { animation-delay: 0.15s; }
@@ -925,9 +934,24 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
     }
   }
 
-  // Erreur seulement après une tentative d'envoi
-  &.est-verifie :invalid {
+  // Erreur seulement après une tentative d'envoi (aria-invalid posé par scene-finale.js)
+  [aria-invalid="true"] {
     border-color: var(--lumiere-1);
+  }
+
+  &__erreur {
+    margin: 0;
+    font-size: 14px;
+    color: var(--lumiere-1);
+  }
+
+  // Le champ-piège pour les robots : hors écran, jamais atteint au clavier.
+  &__piege {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 
   select option {
@@ -947,14 +971,10 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
     }
   }
 
-  &__note {
-    font-size: 13px;
-    color: rgba(242, 239, 233, 0.55);
-  }
-
   &__statut {
     @include machine-a-ecrire(13px);
     min-height: 1.5em;
+    text-transform: none; // une phrase entière : plus lisible en minuscules
     color: var(--lumiere-2);
 
     &.est-erreur {
@@ -1030,7 +1050,7 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   .modale__en-ligne,
   .cta-festival:hover,
   .cta-festival:focus-visible,
-  .scene--festival[data-plan="3"] .generique > * {
+  .scene--festival[data-plan="2"] .generique > * {
     animation: none;
   }
 }
