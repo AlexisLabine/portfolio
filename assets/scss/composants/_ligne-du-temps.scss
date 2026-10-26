@@ -1,8 +1,10 @@
 // ============================================================
-// CHRONOLOGIE DE L'OPÉRATION — navigation fixée à droite
+// LIGNE DU TEMPS — navigation verticale fixée à droite (ordinateur)
 // ============================================================
-// Gris acier par défaut, ambre quand actif, et le dernier point
-// (Le Festival) s'allume en néon rose/cyan.
+// Gris par défaut, ambre quand actif ; le dernier point (Contact)
+// s'allume en néon. L'étiquette de la scène active reste affichée
+// en ambre (02, composant 4). En mode tactile, elle devient la rangée
+// de libellés de la barre collante (composants/_barre-cv.scss).
 @use "../abstracts/jetons" as *;
 @use "../abstracts/mixins" as *;
 
@@ -145,6 +147,14 @@
 
   &__point:hover &__label,
   &__point:focus-visible &__label {
+    opacity: 1;
+    translate: 0 -50%;
+  }
+
+  // La scène active garde son étiquette, en ambre
+  &__point.est-actif &__label {
+    border-color: var(--accent);
+    color: var(--accent);
     opacity: 1;
     translate: 0 -50%;
   }

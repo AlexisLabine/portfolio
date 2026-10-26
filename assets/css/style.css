@@ -163,6 +163,10 @@ p {
   height: 100dvh;
   overflow: hidden;
 }
+html.mode-tactile .accueil {
+  height: calc(100vh - var(--hauteur-barre));
+  height: calc(100dvh - var(--hauteur-barre));
+}
 .accueil__revelation {
   position: absolute;
   inset: 0;
@@ -267,7 +271,7 @@ p {
 @media (max-width: 768px) {
   .plaque {
     gap: 10px;
-    width: min(100vw - 88px, 640px);
+    width: min(92vw, 640px);
     padding: 28px 20px;
   }
 }
@@ -1860,6 +1864,12 @@ p {
   opacity: 1;
   translate: 0 -50%;
 }
+.chronologie__point.est-actif .chronologie__label {
+  border-color: var(--accent);
+  color: var(--accent);
+  opacity: 1;
+  translate: 0 -50%;
+}
 
 @keyframes neon {
   from {
@@ -1869,6 +1879,150 @@ p {
     box-shadow: 0 0 12px var(--lumiere-1), 0 0 28px var(--lumiere-2);
   }
 }
+.barre-cv {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 60;
+  padding: 16px calc(24px + env(safe-area-inset-right)) 0 0;
+}
+.barre-cv__logo {
+  display: none;
+}
+.barre-cv__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.barre-cv__lien, .barre-cv__bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--fond) 88%, transparent);
+  color: var(--texte);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.2s, background 0.2s;
+}
+.barre-cv__lien:hover, .barre-cv__bouton:hover {
+  border-color: var(--texte);
+}
+.barre-cv__bouton {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.barre-cv__bouton:hover {
+  background: var(--accent);
+  color: var(--fond);
+}
+
+html.mode-tactile {
+  --hauteur-barre: calc(44px * 2 + 1px);
+  scroll-padding-top: var(--hauteur-barre);
+}
+html.mode-tactile .barre-cv {
+  position: sticky;
+  right: auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  padding: 0 calc(8px + env(safe-area-inset-right)) 0 calc(8px + env(safe-area-inset-left));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--fond);
+}
+html.mode-tactile .barre-cv__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+html.mode-tactile .barre-cv__logo img {
+  width: 28px;
+}
+html.mode-tactile .barre-cv__actions {
+  justify-content: flex-end;
+  gap: 8px;
+}
+html.mode-tactile .barre-cv__lien, html.mode-tactile .barre-cv__bouton {
+  min-height: 40px;
+  padding: 0 12px;
+  border-color: transparent;
+  background: none;
+}
+html.mode-tactile .barre-cv__lien {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+html.mode-tactile .barre-cv__bouton {
+  border-color: var(--accent);
+}
+html.mode-tactile .chronologie {
+  position: static;
+  grid-column: 1/-1;
+  translate: none;
+  flex-direction: row;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 -8px;
+}
+html.mode-tactile .chronologie__logo {
+  display: none;
+}
+html.mode-tactile .chronologie__liste {
+  flex-direction: row;
+  gap: 0;
+  padding: 0 8px;
+}
+html.mode-tactile .chronologie__liste::before {
+  display: none;
+}
+html.mode-tactile .chronologie__point {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 44px;
+  padding: 0 10px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  scale: 1;
+  animation: none;
+  color: var(--texte);
+  text-decoration: none;
+}
+html.mode-tactile .chronologie__point::before {
+  display: none;
+}
+html.mode-tactile .chronologie__point.est-actif, html.mode-tactile .chronologie__point--transition.est-actif, html.mode-tactile .chronologie__point--festival.est-actif {
+  border-color: var(--accent);
+  background: none;
+  box-shadow: none;
+  animation: none;
+}
+html.mode-tactile .chronologie__point.est-actif .chronologie__label {
+  color: var(--accent);
+}
+html.mode-tactile .chronologie__label {
+  position: static;
+  translate: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 13px;
+  opacity: 1;
+}
+
 .scene--festival {
   --allumage: 0;
   background: var(--fond-profond);
@@ -2827,13 +2981,13 @@ html.mode-tactile .scene {
   gap: 28px;
   height: auto;
   min-height: 100vh;
-  padding: 56px 48px 64px 16px;
+  padding: 56px 16px 64px;
   perspective: none;
 }
 @media (min-width: 768px) {
   html.mode-tactile .scene {
     gap: 36px;
-    padding: 104px 88px 112px 40px;
+    padding: 104px 40px 112px;
   }
 }
 html.mode-tactile .scene__echelle {
@@ -3185,12 +3339,12 @@ html.mode-tactile .modale__document {
 }
 html.mode-tactile .scene {
   padding-left: calc(16px + env(safe-area-inset-left));
-  padding-right: calc(48px + env(safe-area-inset-right));
+  padding-right: calc(16px + env(safe-area-inset-right));
 }
 @media (min-width: 768px) {
   html.mode-tactile .scene {
     padding-left: calc(40px + env(safe-area-inset-left));
-    padding-right: calc(88px + env(safe-area-inset-right));
+    padding-right: calc(40px + env(safe-area-inset-right));
   }
 }
 
