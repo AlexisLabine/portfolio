@@ -93,12 +93,12 @@ html.mode-tactile {
     gap: 28px;
     height: auto;
     min-height: 100vh;
-    padding: 56px 48px 64px 16px; // à droite : la place de la Chronologie
+    padding: 56px 16px 64px;
     perspective: none;
 
     @media (min-width: 768px) {
       gap: 36px;
-      padding: 104px 88px 112px 40px;
+      padding: 104px 40px 112px;
     }
   }
 
@@ -534,11 +534,11 @@ html.mode-tactile {
   // Encoche et coins arrondis (iPhone à l'horizontale) : env() vaut 0 ailleurs.
   .scene {
     padding-left: calc(16px + env(safe-area-inset-left));
-    padding-right: calc(48px + env(safe-area-inset-right));
+    padding-right: calc(16px + env(safe-area-inset-right));
 
     @media (min-width: 768px) {
       padding-left: calc(40px + env(safe-area-inset-left));
-      padding-right: calc(88px + env(safe-area-inset-right));
+      padding-right: calc(40px + env(safe-area-inset-right));
     }
   }
 

@@ -1,0 +1,187 @@
+// ============================================================
+// BARRE CV — « CV express » et « CV ↓ », toujours visibles (02, composant 3)
+// ============================================================
+// Ordinateur : deux boutons fixés en haut à droite, sur fond sombre, par-dessus
+// toutes les scènes ; la ligne du temps (composants/_ligne-du-temps.scss) reste
+// à droite, verticale.
+// Mode tactile : le <header> devient une barre collante en haut de la page :
+// ligne 1 = logo, CV express, CV ; ligne 2 = les 5 libellés de navigation,
+// la scène active en ambre (défilement horizontal si l'écran est étroit).
+@use "../abstracts/jetons" as *;
+@use "../abstracts/mixins" as *;
+
+$hauteur-ligne: 44px;
+
+.barre-cv {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 60;
+  padding: 16px calc(24px + env(safe-area-inset-right)) 0 0;
+
+  &__logo {
+    display: none; // le logo est déjà dans la ligne du temps sur ordinateur
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__lien,
+  &__bouton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: $hauteur-ligne;
+    padding: 0 16px;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--fond) 88%, transparent);
+    color: var(--texte);
+    font-family: $police-texte;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: border-color 0.2s, background 0.2s;
+
+    &:hover {
+      border-color: var(--texte);
+    }
+  }
+
+  &__bouton {
+    border-color: var(--accent);
+    color: var(--accent);
+
+    &:hover {
+      background: var(--accent);
+      color: var(--fond);
+    }
+  }
+}
+
+// ============================================================
+// MODE TACTILE : barre collante en haut
+// ============================================================
+html.mode-tactile {
+  --hauteur-barre: calc(#{$hauteur-ligne} * 2 + 1px); // deux lignes + la bordure
+  scroll-padding-top: var(--hauteur-barre);
+
+  .barre-cv {
+    position: sticky;
+    right: auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 0 calc(8px + env(safe-area-inset-right)) 0 calc(8px + env(safe-area-inset-left));
+    border-bottom: 1px solid rgb(255 255 255 / 0.14);
+    background: var(--fond);
+
+    &__logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $hauteur-ligne;
+      height: $hauteur-ligne;
+
+      img {
+        width: 28px;
+      }
+    }
+
+    &__actions {
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    &__lien,
+    &__bouton {
+      min-height: 40px;
+      padding: 0 12px;
+      border-color: transparent;
+      background: none;
+    }
+
+    &__lien {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    &__bouton {
+      border-color: var(--accent);
+    }
+  }
+
+  // La ligne du temps devient une rangée de libellés sous la ligne 1
+  .chronologie {
+    position: static;
+    grid-column: 1 / -1;
+    translate: none;
+    flex-direction: row;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 -8px;
+
+    &__logo {
+      display: none;
+    }
+
+    &__liste {
+      flex-direction: row;
+      gap: 0;
+      padding: 0 8px;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &__point {
+      display: flex;
+      align-items: center;
+      width: auto;
+      height: $hauteur-ligne;
+      padding: 0 10px;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      border-radius: 0;
+      background: none;
+      box-shadow: none;
+      scale: 1;
+      animation: none;
+      color: var(--texte);
+      text-decoration: none;
+
+      &::before {
+        display: none;
+      }
+
+      &.est-actif,
+      &--transition.est-actif,
+      &--festival.est-actif {
+        border-color: var(--accent);
+        background: none;
+        box-shadow: none;
+        animation: none;
+      }
+
+      &.est-actif .chronologie__label {
+        color: var(--accent);
+      }
+    }
+
+    &__label {
+      position: static;
+      translate: none;
+      padding: 0;
+      border: 0;
+      background: none;
+      font-size: 13px;
+      opacity: 1;
+    }
+  }
+}

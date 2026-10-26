@@ -1,5 +1,5 @@
 /* ============================================================
-   CHRONOLOGIE.JS — La Chronologie de l'Opération (navigation)
+   NAVIGATION.JS — La ligne du temps (ordinateur) et ses libellés (tactile)
    ============================================================
    - Le défilement fluide au clic est géré par le CSS
      (html { scroll-behavior: smooth; }) : les points sont de
@@ -24,6 +24,17 @@ function allumerPoint(idSection) {
     if (estActif) point.setAttribute("aria-current", "location");
     else point.removeAttribute("aria-current");
   });
+  centrerPointActif();
+}
+
+// Mode tactile : les libellés forment une rangée qui défile à l'horizontale
+// sur un petit écran. On y amène le libellé actif, sans toucher à la page.
+function centrerPointActif() {
+  const rangee = document.getElementById("chronologie");
+  const actif = rangee.querySelector(".est-actif");
+  if (!actif || rangee.scrollWidth <= rangee.clientWidth) return;
+  const gauche = actif.offsetLeft - (rangee.clientWidth - actif.offsetWidth) / 2;
+  rangee.scrollTo({ left: gauche, behavior: MOUVEMENT_REDUIT ? "auto" : "smooth" });
 }
 
 // rootMargin "-50% 0px -50% 0px" réduit la zone observée à une simple

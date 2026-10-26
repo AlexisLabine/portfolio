@@ -11,6 +11,12 @@
   height: 100dvh;
   overflow: hidden; // les portes qui glissent ne créent pas de scroll horizontal
 
+  // Mode tactile : la barre collante prend sa place en haut de la page
+  html.mode-tactile & {
+    height: calc(100vh - var(--hauteur-barre));
+    height: calc(100dvh - var(--hauteur-barre));
+  }
+
   // Ce qu'on découvre derrière les portes (apparaît avec GSAP)
   &__revelation {
     position: absolute;
@@ -117,7 +123,7 @@
 
   @include sur-mobile {
     gap: 10px;
-    width: min(calc(100vw - 88px), 640px); // dégage la ligne du temps, à droite
+    width: min(92vw, 640px);
     padding: 28px 20px;
   }
 

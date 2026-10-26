@@ -36,39 +36,51 @@
 <a class="lien-evitement" href="#a-propos">Passer l'entrée et aller au contenu</a>
 
 <!-- ============================================================
-     LIGNE DU TEMPS (navigation principale)
-     Ligne fixée à droite de l'écran, un point par scène.
+     BARRE CV + NAVIGATION (toujours visibles, sur toutes les scènes)
+     Ordinateur : « CV express » et « CV ↓ » en haut à droite, ligne du
+     temps verticale à droite. Mode tactile : une barre collante en haut
+     (logo, CV express, CV, puis les 5 libellés). Voir composants/_barre-cv.scss.
      ============================================================ -->
-<nav id="chronologie" class="chronologie" aria-label="Navigation par scène">
-  <img class="chronologie__logo" src="assets/img/logo/logo-ligne-du-temps.png" alt="">
-  <ol class="chronologie__liste">
-    <li>
-      <a class="chronologie__point" href="#accueil">
-        <span class="chronologie__label">Accueil</span>
-      </a>
-    </li>
-    <li>
-      <a class="chronologie__point" href="#a-propos">
-        <span class="chronologie__label">À propos</span>
-      </a>
-    </li>
-    <li>
-      <a class="chronologie__point" href="#competences">
-        <span class="chronologie__label">Compétences</span>
-      </a>
-    </li>
-    <li>
-      <a class="chronologie__point chronologie__point--transition" href="#realisations">
-        <span class="chronologie__label">Réalisations</span>
-      </a>
-    </li>
-    <li>
-      <a class="chronologie__point chronologie__point--festival" href="#contact">
-        <span class="chronologie__label">Contact</span>
-      </a>
-    </li>
-  </ol>
-</nav>
+<header class="barre-cv">
+  <a class="barre-cv__logo" href="#accueil">
+    <img src="assets/img/logo/logo-ligne-du-temps.png" alt="Alexis Labine, retour à l'accueil">
+  </a>
+  <div class="barre-cv__actions">
+    <a class="barre-cv__lien" href="cv-express.html">CV express</a>
+    <a class="barre-cv__bouton" href="assets/Alexis_Labine_CV.pdf" download>CV&nbsp;↓</a>
+  </div>
+
+  <nav id="chronologie" class="chronologie" aria-label="Navigation par scène">
+    <img class="chronologie__logo" src="assets/img/logo/logo-ligne-du-temps.png" alt="">
+    <ol class="chronologie__liste">
+      <li>
+        <a class="chronologie__point" href="#accueil">
+          <span class="chronologie__label">Accueil</span>
+        </a>
+      </li>
+      <li>
+        <a class="chronologie__point" href="#a-propos">
+          <span class="chronologie__label">À propos</span>
+        </a>
+      </li>
+      <li>
+        <a class="chronologie__point" href="#competences">
+          <span class="chronologie__label">Compétences</span>
+        </a>
+      </li>
+      <li>
+        <a class="chronologie__point chronologie__point--transition" href="#realisations">
+          <span class="chronologie__label">Réalisations</span>
+        </a>
+      </li>
+      <li>
+        <a class="chronologie__point chronologie__point--festival" href="#contact">
+          <span class="chronologie__label">Contact</span>
+        </a>
+      </li>
+    </ol>
+  </nav>
+</header>
 
 <main>
 
