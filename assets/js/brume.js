@@ -6,6 +6,8 @@
    Expose window.brumeBurst() pour le bouton « Entrer » (portes.js).
 */
 
+import { MOUVEMENT_REDUIT } from "./mode.js";
+
 // On détecte si l'utilisateur est sur un appareil tactile (téléphone/tablette)
 // ou si l'écran est petit, pour alléger l'effet sur mobile (moins de calculs).
 const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -209,7 +211,8 @@ if (gl) {
 
   // dpr = "device pixel ratio", pour un rendu net sur les écrans haute résolution
   // (Retina, etc). Plafonné pour ne pas surcharger le GPU, surtout sur mobile.
-  const maxDPR = isMobile ? 1.5 : 2;
+  // La brume est floue par nature : inutile de la calculer en pleine résolution.
+  const maxDPR = isMobile ? 1 : 1.25;
   const dpr = Math.min(window.devicePixelRatio || 1, maxDPR);
 
   // Position de la souris envoyée au shader (uMouse) : elle est "lissée"
@@ -424,7 +427,8 @@ if (gl) {
     mouseVel.y *= 0.85;
     recentSpeed *= 0.85;
 
-    requestAnimationFrame(render);
+    // « Moins d'animations » : une seule image, la brume reste immobile.
+    if (!MOUVEMENT_REDUIT) requestAnimationFrame(render);
   }
   render();
 }

@@ -10,7 +10,13 @@ let modaleOuverte = null;
 let elementAvantModale = null; // pour rendre le focus au bon endroit en fermant
 let actionALaFermeture = null;
 
-function ouvrirModale(modale, quandFermee) {
+// Quelle modale est ouverte ? (null si aucune.) Les autres fichiers posent
+// la question ici plutôt que de lire une variable partagée.
+export function modaleActive() {
+  return modaleOuverte;
+}
+
+export function ouvrirModale(modale, quandFermee) {
   elementAvantModale = document.activeElement;
   actionALaFermeture = quandFermee || null;
   modaleOuverte = modale;
@@ -19,7 +25,7 @@ function ouvrirModale(modale, quandFermee) {
   modale.querySelector("[data-fermer]").focus();
 }
 
-function fermerModale() {
+export function fermerModale() {
   if (!modaleOuverte) return;
   modaleOuverte.classList.remove("est-ouverte");
   document.body.classList.remove("modale-active");
@@ -37,7 +43,43 @@ document.querySelectorAll(".modale").forEach((modale) => {
   });
 });
 
-// Fermeture : touche Échap.
+// Piège à focus : la touche Tab reste à l'intérieur de la modale ouverte.
+// La fiche d'un projet vit dans un shadow DOM : on y entre pour trouver ses liens.
+const FOCALISABLES = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function elementsFocalisables(modale) {
+  const liste = [];
+  modale.querySelectorAll("*").forEach((el) => {
+    if (el.matches(FOCALISABLES) && el.offsetParent !== null) liste.push(el);
+    if (el.shadowRoot) {
+      el.shadowRoot.querySelectorAll(FOCALISABLES).forEach((enfant) => liste.push(enfant));
+    }
+  });
+  return liste;
+}
+
+function elementActif() {
+  let actif = document.activeElement;
+  while (actif && actif.shadowRoot && actif.shadowRoot.activeElement) {
+    actif = actif.shadowRoot.activeElement;
+  }
+  return actif;
+}
+
+// Échap ferme ; Tab boucle.
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") fermerModale();
+  if (e.key !== "Tab" || !modaleOuverte) return;
+  const liste = elementsFocalisables(modaleOuverte);
+  if (liste.length === 0) return;
+  const premier = liste[0];
+  const dernier = liste[liste.length - 1];
+  const actif = elementActif();
+  if (e.shiftKey && (actif === premier || !liste.includes(actif))) {
+    e.preventDefault();
+    dernier.focus();
+  } else if (!e.shiftKey && (actif === dernier || !liste.includes(actif))) {
+    e.preventDefault();
+    premier.focus();
+  }
 });

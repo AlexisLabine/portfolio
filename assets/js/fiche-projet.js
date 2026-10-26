@@ -12,6 +12,8 @@
    - Si le chargement échoue, on suit simplement le lien vers la page.
 */
 
+import { ouvrirModale, fermerModale, modaleActive } from "./modales.js";
+
 const modaleProjet = document.getElementById("modale-projet");
 const hoteProjet = modaleProjet.querySelector("[data-projet-hote]");
 const racineProjet = hoteProjet.attachShadow({ mode: "open" });
@@ -22,8 +24,12 @@ const etatProjet = modaleProjet.querySelector("[data-projet-etat]");
 const fichesChargees = {};
 let projetOuvert = null;
 
+// La racine du site, fixée au chargement : une fois l'adresse changée par
+// pushState (projets/…), les adresses relatives ne pointeraient plus au bon endroit.
+const RACINE = new URL("./", window.location.href).href;
+
 function adresseProjet(slug) {
-  return "projets/" + slug + ".html";
+  return new URL("projets/" + slug + ".html", RACINE).href;
 }
 
 // Va chercher l'article d'un projet et le met aux couleurs de la modale.
@@ -43,8 +49,8 @@ function corrigerAdresses(article) {
     ["src", "href", "poster"].forEach((attribut) => {
       const valeur = element.getAttribute(attribut);
       if (!valeur) return;
-      if (valeur.startsWith("../")) element.setAttribute(attribut, valeur.slice(3));
-      else if (/^[a-z0-9-]+\.html/.test(valeur)) element.setAttribute(attribut, "projets/" + valeur);
+      if (valeur.startsWith("../")) element.setAttribute(attribut, new URL(valeur.slice(3), RACINE).href);
+      else if (/^[a-z0-9-]+\.html/.test(valeur)) element.setAttribute(attribut, new URL("projets/" + valeur, RACINE).href);
     });
   });
 }
@@ -77,7 +83,7 @@ async function afficherFiche(slug) {
 
   const feuilleDeStyle = document.createElement("link");
   feuilleDeStyle.rel = "stylesheet";
-  feuilleDeStyle.href = "assets/css/projet.css";
+  feuilleDeStyle.href = new URL("assets/css/projet.css", RACINE).href;
 
   racineProjet.replaceChildren(feuilleDeStyle, hote);
   hoteProjet.scrollTop = 0;
@@ -89,10 +95,10 @@ async function afficherFiche(slug) {
 
 // Dans la modale, « Projet suivant » change de fiche au lieu de quitter le site.
 racineProjet.addEventListener("click", async (e) => {
-  const lien = e.target.closest("a[href^='projets/']");
+  const lien = e.target.closest("a[href*='/projets/']");
   if (!lien || e.ctrlKey || e.metaKey || e.shiftKey) return;
   e.preventDefault();
-  const slug = lien.getAttribute("href").replace("projets/", "").replace(".html", "");
+  const slug = lien.getAttribute("href").split("/projets/")[1].replace(".html", "");
   try {
     await afficherFiche(slug);
     projetOuvert = slug;
@@ -107,7 +113,7 @@ function pauseDesVideos() {
 }
 
 // quandFermee : ce que le mur doit faire à la fermeture (ramener la caméra).
-async function ouvrirProjet(slug, quandFermee) {
+export async function ouvrirProjet(slug, quandFermee) {
   try {
     await afficherFiche(slug);
   } catch {
@@ -127,7 +133,7 @@ async function ouvrirProjet(slug, quandFermee) {
 
 // Bouton « précédent » du navigateur : ferme la fiche.
 window.addEventListener("popstate", () => {
-  if (modaleOuverte === modaleProjet) fermerModale();
+  if (modaleActive() === modaleProjet) fermerModale();
 });
 
 boutonCopier.addEventListener("click", async () => {
