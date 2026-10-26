@@ -1,7 +1,8 @@
 /* ============================================================
    PORTES.JS — L'ouverture des portes (sans code, sans blocage)
    ============================================================
-   L'entrée des artistes : deux portes qui s'ouvrent sur la suite.
+   L'entrée des artistes : deux portes, une plaque (nom, titre, accroche)
+   et un bouton « Entrer ».
    Rien n'est verrouillé : la page défile dès le début, et les portes
    s'ouvrent de trois façons :
      1. un clic sur le bouton « Entrer » ;
@@ -22,7 +23,7 @@ function ouvrirPortes({ instantane = false } = {}) {
   portesOuvertes = true;
 
   const duree = instantane || MOUVEMENT_REDUIT ? 0 : 1.4;
-  const boutonEntree = document.getElementById("bouton-entree");
+  const plaque = document.getElementById("plaque");
 
   gsap.to("#porte-gauche", { xPercent: -100, duration: duree, ease: "power2.inOut" });
   gsap.to("#porte-droite", {
@@ -33,15 +34,17 @@ function ouvrirPortes({ instantane = false } = {}) {
   });
   gsap.to("#brume", { opacity: 0, duration: duree ? 1 : 0, delay: duree ? 0.2 : 0 });
   gsap.to("#accueil-revelation", { opacity: 1, duration: duree ? 1 : 0, delay: duree ? 0.6 : 0 });
-  gsap.to(boutonEntree, {
+  // La plaque s'efface, puis on la retire de l'ordre de tabulation (inert).
+  gsap.to(plaque, {
     opacity: 0,
     duration: duree ? 0.5 : 0,
     delay: duree ? 0.3 : 0,
     onComplete: () => {
-      boutonEntree.style.display = "none";
+      plaque.style.display = "none";
+      plaque.inert = true;
+      document.querySelector(".accueil__consigne").style.display = "none";
     },
   });
-  boutonEntree.disabled = true;
 }
 
 /* ------------------------------------------------------------
