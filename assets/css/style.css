@@ -1043,7 +1043,7 @@ html.mode-tactile .accueil {
   z-index: 2;
   box-shadow: 0 0 0 3px var(--accent), 0 0 18px rgba(244, 183, 64, 0.6);
 }
-.autocollant--ps, .autocollant--ai, .autocollant--xd {
+.autocollant--ps, .autocollant--ai, .autocollant--ae, .autocollant--xd {
   min-width: 0;
   width: 2.6em;
   height: 2.4em;
@@ -1059,6 +1059,10 @@ html.mode-tactile .accueil {
 .autocollant--ai {
   background: #330000;
   color: #FF9A00;
+}
+.autocollant--ae {
+  background: #00005B;
+  color: #9999FF;
 }
 .autocollant--xd {
   background: #470137;
@@ -1086,6 +1090,11 @@ html.mode-tactile .accueil {
 }
 .autocollant--php {
   background: #777BB4;
+  color: #fff;
+  border-radius: 999px;
+}
+.autocollant--wp {
+  background: #21759B;
   color: #fff;
   border-radius: 999px;
 }
@@ -1123,6 +1132,28 @@ html.mode-tactile .accueil {
   min-height: 4.5em;
   font-size: 16px;
 }
+.fiche__outils {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 18px;
+  font-size: 14px;
+}
+.fiche__outils dt {
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--signature);
+}
+.fiche__outils dd {
+  margin: 0;
+}
+.fiche__langues {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--pointille);
+  font-size: 14px;
+}
 .fiche__sous-titre {
   margin-bottom: 10px;
   font-family: "Oswald", "Arial Narrow", sans-serif;
@@ -1147,8 +1178,10 @@ html.mode-tactile .accueil {
 .hud__fiche {
   position: absolute;
   top: 50%;
-  right: 7vw;
+  right: max(7vw, 190px);
   width: min(420px, 34vw);
+  max-height: calc(100% - 120px);
+  overflow-y: auto;
   translate: 0 -50%;
   rotate: 1.5deg;
   pointer-events: auto;

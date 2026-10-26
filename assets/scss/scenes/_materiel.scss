@@ -127,6 +127,7 @@
   // Suite Adobe : tuiles carrées aux couleurs officielles
   &--ps,
   &--ai,
+  &--ae,
   &--xd {
     min-width: 0;
     width: 2.6em;
@@ -139,6 +140,7 @@
 
   &--ps { background: #001E36; color: #31A8FF; }
   &--ai { background: #330000; color: #FF9A00; }
+  &--ae { background: #00005B; color: #9999FF; }
   &--xd { background: #470137; color: #FF61F6; }
 
   // Figma : fond noir et bande aux cinq couleurs du logo
@@ -156,6 +158,7 @@
   &--scss { background: #CD6799; color: #fff; }
   &--js { background: #F7DF1E; color: var(--encre); border-radius: 4px; }
   &--php { background: #777BB4; color: #fff; border-radius: 999px; }
+  &--wp { background: #21759B; color: #fff; border-radius: 999px; }
 }
 
 // --- La fiche technique : un document posé dans le HUD ---
@@ -190,6 +193,30 @@
     font-size: 16px;
   }
 
+  // La liste complète des outils : visible sans clic (02, composant 12)
+  &__outils {
+    display: grid;
+    gap: 8px;
+    margin: 0 0 18px;
+    font-size: 14px;
+
+    dt {
+      @include machine-a-ecrire;
+      color: var(--signature);
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+
+  &__langues {
+    margin: 14px 0 0;
+    padding-top: 12px;
+    border-top: 1px dashed var(--pointille);
+    font-size: 14px;
+  }
+
   &__sous-titre {
     margin-bottom: 10px;
     font-family: $police-titre;
@@ -217,8 +244,10 @@
 .hud__fiche {
   position: absolute;
   top: 50%;
-  right: 7vw;
+  right: max(7vw, 190px); // laisse la place à l'étiquette de la ligne du temps
   width: min(420px, 34vw);
+  max-height: calc(100% - 120px);
+  overflow-y: auto;
   translate: 0 -50%;
   rotate: 1.5deg;
   pointer-events: auto;
