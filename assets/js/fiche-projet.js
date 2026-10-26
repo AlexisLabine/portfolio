@@ -23,6 +23,7 @@ const etatProjet = modaleProjet.querySelector("[data-projet-etat]");
 
 const fichesChargees = {};
 let projetOuvert = null;
+let defilementAvant = 0; // la position de la page quand on ouvre une fiche
 
 // La racine du site, fixée au chargement : une fois l'adresse changée par
 // pushState (projets/…), les adresses relatives ne pointeraient plus au bon endroit.
@@ -108,8 +109,22 @@ racineProjet.addEventListener("click", async (e) => {
   }
 });
 
+// « Page du projet » : l'adresse affichée est déjà celle de la page. On remet d'abord
+// celle du mur dans l'historique, sinon le navigateur confond les deux et le bouton
+// « précédent » laisse la page projet sous l'adresse du mur.
+lienPageProjet.addEventListener("click", () => {
+  history.replaceState(null, "", new URL("#realisations", RACINE).href);
+});
+
 function pauseDesVideos() {
   racineProjet.querySelectorAll("video").forEach((video) => video.pause());
+}
+
+// En revenant à l'adresse du mur, le navigateur saute au début de la scène :
+// on remet la page là où elle était quand on a ouvert la fiche.
+function remettreLeDefilement() {
+  const y = defilementAvant;
+  [0, 200, 600].forEach((delai) => setTimeout(() => window.scrollTo({ top: y, behavior: "instant" }), delai));
 }
 
 // quandFermee : ce que le mur doit faire à la fermeture (ramener la caméra).
@@ -121,10 +136,12 @@ export async function ouvrirProjet(slug, quandFermee) {
     return;
   }
   projetOuvert = slug;
+  defilementAvant = window.scrollY;
   history.pushState({ projet: slug }, "", adresseProjet(slug));
   ouvrirModale(modaleProjet, () => {
     pauseDesVideos();
     projetOuvert = null;
+    remettreLeDefilement();
     // Fermé par la modale : on retire l'entrée d'historique que l'ouverture a ajoutée.
     if (history.state && history.state.projet) history.back();
     if (quandFermee) quandFermee();

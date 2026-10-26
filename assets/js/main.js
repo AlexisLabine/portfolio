@@ -18,3 +18,4 @@ import "./fiche-projet.js";
 import "./scenes/mur.js";
 import "./scenes/scene-finale.js";
 import "./navigation.js";
+import "./retour.js";

@@ -7,7 +7,7 @@
       (mode tactile : la fiche s'ouvre tout de suite, sans caméra)
 */
 
-import { MODE_TACTILE, MOUVEMENT_REDUIT } from "../mode.js";
+import { MODE_TACTILE } from "../mode.js";
 import { Camera, extrairePose } from "../camera.js";
 import { ouvrirModale, modaleActive } from "../modales.js";
 
@@ -77,7 +77,8 @@ function examinerObjet(nomObjet) {
   // Mode tactile : pas de gros plan, on ouvre directement la fiche.
   if (MODE_TACTILE) {
     if (nomObjet === "telephone") {
-      document.getElementById("contact").scrollIntoView({ behavior: MOUVEMENT_REDUIT ? "auto" : "smooth" });
+      // Saut direct : un défilement doux ferait traverser tout le mur de production.
+      document.getElementById("contact").scrollIntoView({ behavior: "instant" });
     } else {
       ouvrirModale(document.getElementById(MODALE_PAR_OBJET[nomObjet]));
     }
@@ -99,7 +100,8 @@ function examinerObjet(nomObjet) {
     // On "décroche" : la caméra s'approche, puis direction le contact.
     gsap.delayedCall(0.9, () => {
       terminerExamen();
-      document.getElementById("contact").scrollIntoView({ behavior: MOUVEMENT_REDUIT ? "auto" : "smooth" });
+      // Saut direct : un défilement doux ferait traverser tout le mur de production.
+      document.getElementById("contact").scrollIntoView({ behavior: "instant" });
     });
     return;
   }
