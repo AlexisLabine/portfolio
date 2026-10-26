@@ -1,0 +1,50 @@
+// ============================================================
+// RESET — réglages globaux
+// ============================================================
+// Première moitié de _base.scss de la v1 (tâche 3.1).
+@use "../abstracts/jetons" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// Défilement fluide pour les liens d'ancrage (navigation, téléphone...)
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable; // la page ne "saute" pas quand le scroll est bloqué
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--noir-bleute);
+  color: var(--blanc-casse);
+  font-family: $police-texte;
+  font-size: 17px;
+  line-height: 1.5;
+  overflow-x: hidden;
+
+  // Pas de scroll : avant le code des portes, ou quand une modale est ouverte
+  // (« verrouille » disparaît à la tâche 3.2)
+  &.verrouille,
+  &.modale-active {
+    overflow: hidden;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}

@@ -1,0 +1,28 @@
+// ============================================================
+// MIXINS — bouts de style réutilisés
+// ============================================================
+// Copie des mixins de _variables.scss de la v1 (tâche 3.1).
+@use "jetons" as *;
+
+// Texte "machine à écrire" : dates, mentions, étiquettes.
+@mixin machine-a-ecrire($taille: 13px) {
+  font-family: $police-document;
+  font-size: $taille;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+// Feuille de papier posée sur le bureau (fiche, modales).
+@mixin papier {
+  background: var(--blanc-casse);
+  color: var(--anthracite);
+  border-radius: 2px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.55);
+}
+
+// Raccourci pour les écrans de téléphone.
+@mixin sur-mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
