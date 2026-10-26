@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Alexis Labine — Intégrateur multimédia · Communication numérique</title>
 <meta name="description" content="Intégrateur multimédia · Communication numérique. Je fais le pont entre l’idée, l’équipe et l’écran. Réalisations en web, communication, graphisme et coordination.">
+<meta name="theme-color" content="#161920">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/img/logo/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/logo/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_CA">
+<meta property="og:site_name" content="Alexis Labine">
+<meta property="og:title" content="Alexis Labine — Intégrateur multimédia · Communication numérique">
+<meta property="og:description" content="Intégrateur multimédia · Communication numérique. Je fais le pont entre l’idée, l’équipe et l’écran. Réalisations en web, communication, graphisme et coordination.">
+<meta property="og:image" content="assets/img/partage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Alexis Labine, intégrateur multimédia · communication numérique">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Alexis Labine — Intégrateur multimédia · Communication numérique">
+<meta name="twitter:description" content="Intégrateur multimédia · Communication numérique. Je fais le pont entre l’idée, l’équipe et l’écran. Réalisations en web, communication, graphisme et coordination.">
+<meta name="twitter:image" content="assets/img/partage.png">
 
 <!-- Polices (charte, section 3), hébergées dans assets/fonts/ et déclarées dans
      assets/scss/base/_polices.scss : Oswald = titres, Inter = texte courant,
@@ -94,8 +111,8 @@
       <a class="accueil__descendre" href="#a-propos">Explorez la suite <span aria-hidden="true">↓</span></a>
     </div>
 
-    <img id="porte-gauche" class="porte" src="assets/img/portes/porte-de-gauche.webp" alt="">
-    <img id="porte-droite" class="porte" src="assets/img/portes/porte-droite.webp" alt="">
+    <picture><source media="(max-width: 768px)" srcset="assets/img/portes/porte-de-gauche-petite.webp"><img id="porte-gauche" class="porte" src="assets/img/portes/porte-de-gauche.webp" width="800" height="891" alt="" fetchpriority="high"></picture>
+    <picture><source media="(max-width: 768px)" srcset="assets/img/portes/porte-droite-petite.webp"><img id="porte-droite" class="porte" src="assets/img/portes/porte-droite.webp" width="800" height="891" alt="" fetchpriority="high"></picture>
 
     <canvas id="brume" width="410" height="945"></canvas>
 
@@ -145,9 +162,9 @@
           <span class="ombre-contact" style="--px: 1100px; --py: 295px; --largeur: 280px;"></span>
 
           <!-- Objet 02 : la vraie cocarde du Festival de l'Âme à l'Écran, posée à plat -->
-          <button class="objet objet--cocarde" type="button" data-objet="cocarde" aria-label="Ouvrir les intérêts et les langues">
+          <button class="objet objet--cocarde" type="button" data-objet="cocarde">
             <img class="cocarde" src="assets/img/regie/cocarde.webp" alt="">
-            <span class="objet__legende" aria-hidden="true"><span class="objet__numero">02</span>Intérêts et langues</span>
+            <span class="objet__legende"><span class="objet__numero" aria-hidden="true">02</span>Intérêts et langues</span>
           </button>
         </div>
         <div class="bureau__facade" style="--y: 150px; --z: 310px;"></div>
@@ -163,15 +180,15 @@
         <div class="faisceau billboard" style="--y: 150px; --z: -10px;" aria-hidden="true"></div>
 
         <!-- Objet 01 : la pochette (profil et parcours) -->
-        <button class="objet objet--pochette billboard" type="button" data-objet="profil" style="--x: -420px; --y: 162px; --z: -40px;" aria-label="Ouvrir le profil et le parcours">
+        <button class="objet objet--pochette billboard" type="button" data-objet="profil" style="--x: -420px; --y: 162px; --z: -40px;">
           <img src="assets/img/regie/pochette.webp" alt="">
-          <span class="objet__legende" aria-hidden="true"><span class="objet__numero">01</span>Profil et parcours</span>
+          <span class="objet__legende"><span class="objet__numero" aria-hidden="true">01</span>Profil et parcours</span>
         </button>
 
         <!-- Le téléphone rouge : ligne directe vers le contact (la scène finale) -->
-        <a class="objet objet--telephone billboard" href="#contact" data-objet="telephone" style="--x: 400px; --y: 160px; --z: -20px;" aria-label="Décrocher la ligne backstage (aller au contact)">
+        <a class="objet objet--telephone billboard" href="#contact" data-objet="telephone" style="--x: 400px; --y: 160px; --z: -20px;">
           <img src="assets/img/regie/telephone-rouge.webp" alt="">
-          <span class="objet__legende" aria-hidden="true"><span class="objet__numero">03</span>Contact</span>
+          <span class="objet__legende"><span class="objet__numero" aria-hidden="true">03</span>Contact</span>
         </a>
       </div>
     </div>
@@ -425,8 +442,8 @@
               <span class="note__titre">École de musique du Bas-Saguenay</span>
               <span class="note__texte">Mandat client en cours</span>
             </div>
-            <a class="polaroid polaroid--en-cours" id="p-ecole" href="projets/ecole-de-musique-du-bas-saguenay.html" data-projet="ecole-de-musique-du-bas-saguenay" data-portes="coordination web graphisme communication" style="--bx: 1200px; --by: 1330px; --rotation: 2deg;" aria-label="École de musique du Bas-Saguenay : Projet en cours">
-              <span class="polaroid__carte"><strong>Projet en cours</strong><small>livraison prévue fin mars 2027</small></span><span class="polaroid__legende">Projet en cours</span>
+            <a class="polaroid polaroid--en-cours" id="p-ecole" href="projets/ecole-de-musique-du-bas-saguenay.html" data-projet="ecole-de-musique-du-bas-saguenay" data-portes="coordination web graphisme communication" style="--bx: 1200px; --by: 1330px; --rotation: 2deg;" aria-label="Projet en cours : École de musique du Bas-Saguenay, livraison prévue fin mars 2027">
+              <span class="polaroid__carte" aria-hidden="true"><strong>Projet en cours</strong><small>livraison prévue fin mars 2027</small></span><span class="polaroid__legende">Projet en cours</span>
             </a>
 
             <!-- ===== PROJET 07 — TIMELINE : ZERO ===== -->
@@ -569,9 +586,9 @@
         <div class="decor caisse billboard" style="--x: 820px; --y: 200px; --z: 130px;" aria-hidden="true">
           <span class="caisse__pochoir">Backstage</span>
         </div>
-        <a class="objet objet--telephone objet--ligne billboard" href="#modale-contact" data-objet="telephone" style="--x: 820px; --y: 44px; --z: 130px;" aria-label="Décrocher la ligne backstage (formulaire de contact)">
+        <a class="objet objet--telephone objet--ligne billboard" href="#modale-contact" data-objet="telephone" style="--x: 820px; --y: 44px; --z: 130px;">
           <img src="assets/img/regie/telephone-rouge.webp" alt="">
-          <span class="objet__legende" aria-hidden="true"><span class="objet__numero">Ligne backstage</span>Décrocher<small>pour m'écrire</small></span>
+          <span class="objet__legende"><span class="objet__numero">Ligne backstage</span>Décrocher<small>pour m'écrire</small></span>
         </a>
 
         <!-- La foule en contre-jour (deux rangées, remplies par assets/js/scenes/scene-finale.js) -->
@@ -807,15 +824,6 @@
 
 
 <!-- Scripts : chacun gère une seule partie du site -->
-<script src="assets/js/brume.js"></script>
-<script src="assets/js/portes.js"></script>
-<script src="assets/js/camera.js"></script>
-<script src="assets/js/modales.js"></script>
-<script src="assets/js/scenes/regie.js"></script>
-<script src="assets/js/scenes/materiel.js"></script>
-<script src="assets/js/fiche-projet.js"></script>
-<script src="assets/js/scenes/mur.js"></script>
-<script src="assets/js/scenes/scene-finale.js"></script>
-<script src="assets/js/navigation.js"></script>
+<script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

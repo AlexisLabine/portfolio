@@ -7,6 +7,10 @@
       (mode tactile : la fiche s'ouvre tout de suite, sans caméra)
 */
 
+import { MODE_TACTILE, MOUVEMENT_REDUIT } from "../mode.js";
+import { Camera, extrairePose } from "../camera.js";
+import { ouvrirModale, modaleActive } from "../modales.js";
+
 const sceneRegie = document.getElementById("a-propos");
 const cameraRegie = new Camera(sceneRegie);
 
@@ -125,6 +129,6 @@ invite.addEventListener("click", () => examinerObjet(planActuelRegie.objet));
 
 document.addEventListener("keydown", (e) => {
   const dansUnChamp = e.target.closest("input, textarea");
-  if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleOuverte) return;
+  if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
   if (cameraRegie.visible && planActuelRegie.objet) examinerObjet(planActuelRegie.objet);
 });

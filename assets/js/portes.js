@@ -13,6 +13,8 @@
    les autres scripts (brume, caméra) l'écoutent pour se mettre à jour.
 */
 
+import { MOUVEMENT_REDUIT } from "./mode.js";
+
 let portesOuvertes = false;
 
 // Ouvre les deux battants avec GSAP, estompe la brume et fait apparaître
@@ -22,6 +24,15 @@ function ouvrirPortes({ instantane = false } = {}) {
   if (portesOuvertes) return;
   portesOuvertes = true;
 
+  // Au clavier, un Tab peut déclencher l'ouverture (la page défile) : si la mise
+  // en page change, le navigateur perd le focus. On le rend à l'élément d'avant.
+  const avant = document.activeElement;
+  const rendreLeFocus = () => {
+    if (document.activeElement !== document.body) return;
+    if (!avant || avant === document.body || !avant.isConnected || avant.closest("[inert]")) return;
+    avant.focus({ preventScroll: true });
+  };
+
   const duree = instantane || MOUVEMENT_REDUIT ? 0 : 1.4;
   const plaque = document.getElementById("plaque");
 
@@ -30,7 +41,10 @@ function ouvrirPortes({ instantane = false } = {}) {
     xPercent: 100,
     duration: duree,
     ease: "power2.inOut",
-    onComplete: () => document.dispatchEvent(new CustomEvent("porte:ouverte")),
+    onComplete: () => {
+      document.dispatchEvent(new CustomEvent("porte:ouverte"));
+      rendreLeFocus();
+    },
   });
   gsap.to("#brume", { opacity: 0, duration: duree ? 1 : 0, delay: duree ? 0.2 : 0 });
   gsap.to("#accueil-revelation", { opacity: 1, duration: duree ? 1 : 0, delay: duree ? 0.6 : 0 });
@@ -43,6 +57,7 @@ function ouvrirPortes({ instantane = false } = {}) {
       plaque.style.display = "none";
       plaque.inert = true;
       document.querySelector(".accueil__consigne").style.display = "none";
+      rendreLeFocus();
     },
   });
 }

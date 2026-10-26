@@ -11,6 +11,11 @@
    script ajoute seulement l'examen de la caméra et la fiche en modale.
 */
 
+import { MODE_TACTILE, MOUVEMENT_REDUIT } from "../mode.js";
+import { Camera } from "../camera.js";
+import { modaleActive } from "../modales.js";
+import { ouvrirProjet } from "../fiche-projet.js";
+
 const sceneMur = document.getElementById("realisations");
 const cameraMur = new Camera(sceneMur);
 const polaroidsMur = [...sceneMur.querySelectorAll(".polaroid")];
@@ -155,6 +160,6 @@ inviteMur.addEventListener("click", ouvrirProjetDuPlan);
 
 document.addEventListener("keydown", (e) => {
   const dansUnChamp = e.target.closest("input, textarea");
-  if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleOuverte) return;
+  if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
   if (cameraMur.visible) ouvrirProjetDuPlan();
 });

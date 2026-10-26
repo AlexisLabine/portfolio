@@ -9,6 +9,10 @@
    5. Le formulaire de contact
 */
 
+import { MODE_TACTILE, MOUVEMENT_REDUIT } from "../mode.js";
+import { Camera, extrairePose } from "../camera.js";
+import { ouvrirModale, modaleActive } from "../modales.js";
+
 const sceneFestival = document.getElementById("contact");
 const COURRIEL_CONTACT = "labinealexis@gmail.com";
 
@@ -193,7 +197,7 @@ sceneFestival.querySelectorAll("[data-ouvrir-contact]").forEach((bouton) => {
 
 document.addEventListener("keydown", (e) => {
   const dansUnChamp = e.target.closest("input, textarea, select");
-  if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleOuverte) return;
+  if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
   if (cameraFestival.visible && planActuelFestival.objet) decrocher();
 });
 
