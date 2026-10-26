@@ -111,7 +111,7 @@ class Camera {
     const changerPlan = (index) => {
       if (index === this.indexPlan) return;
       this.indexPlan = index;
-      this.scene.dataset.plan = index; // utilisé par le CSS (bandes cinéma, titre...)
+      this.scene.dataset.plan = index; // utilisé par le CSS (titre...)
       const etiquette = this.scene.querySelector("[data-nom-plan]");
       if (etiquette) etiquette.textContent = plans[index].nom;
       if (quandPlanChange) quandPlanChange(plans[index], index);

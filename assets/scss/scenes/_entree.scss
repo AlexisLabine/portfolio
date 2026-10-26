@@ -1,5 +1,5 @@
 // ============================================================
-// BLOC 1 — ACCUEIL : portes, brume et clavier à code
+// L'ENTRÉE DES ARTISTES — portes, brume et bouton « Entrer »
 // ============================================================
 @use "../abstracts/jetons" as *;
 @use "../abstracts/mixins" as *;
@@ -88,87 +88,52 @@
   height: 100%;
   z-index: 3;
   touch-action: pan-y;
-  /* La brume passe devant le clavier (visuellement), donc on la rend
-     "transparente aux clics" pour que les touches restent cliquables en dessous. */
+  /* La brume passe devant le bouton (visuellement), donc on la rend
+     "transparente aux clics" pour que le bouton reste cliquable en dessous. */
   pointer-events: none;
 }
 
-/* ============================================================
-   LE CLAVIER À CODE — z-index 2, au-dessus des portes mais
-   sous la brume (qui passe devant, voile légèrement le clavier)
-   ============================================================ */
-#clavier-code {
+// --- Le bouton « Entrer » : au-dessus de la brume, toujours lisible ---
+// (Il sera remplacé par la plaque nom / titre / accroche à la tâche 4.2.)
+.bouton-entree {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  pointer-events: auto;
-  background: #1c1e22;
-  border: 2px solid var(--gris-acier);
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
-  text-align: center;
-  font-family: "Courier New", monospace;
-
-  &.erreur { animation: secousse 0.3s ease; }
-}
-
-#code-affichage {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.chiffre {
-  width: 30px;
-  height: 38px;
-  background: var(--noir-bleute);
-  border: 1px solid var(--gris-acier);
-  border-radius: 4px;
-  color: var(--blanc-casse);
-  font-size: 20px;
+  z-index: 4;
+  translate: -50% -50%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#code-erreur {
-  color: var(--rouge-dossier);
-  font-size: 11px;
-  letter-spacing: 1px;
-  height: 14px;
-  margin-bottom: 8px;
-  opacity: 0;
-  transition: opacity 0.2s;
-
-  &.visible { opacity: 1; }
-}
-
-#code-pave {
-  display: grid;
-  grid-template-columns: repeat(3, 42px);
-  gap: 6px;
-}
-
-.touche {
-  width: 42px;
-  height: 42px;
-  background: #2b2e33;
-  border: 1px solid var(--gris-acier);
-  border-radius: 4px;
+  min-width: 210px;
+  min-height: 64px;
+  padding: 18px 36px;
+  border: 2px solid var(--gris-acier);
+  border-radius: 8px;
+  background: #1c1e22;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   color: var(--blanc-casse);
-  font-size: 16px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, border-color 0.2s;
 
-  &:hover { background: #3b3e44; }
-  &:active { background: var(--jaune-ambre); color: #1c1e22; }
-}
+  &__texte {
+    margin-right: -0.3em; // compense l'espacement après la dernière lettre
+    font-family: $police-titre;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
 
-@keyframes secousse {
-  0%, 100% { transform: translate(-50%, -50%) translateX(0); }
-  25% { transform: translate(-50%, -50%) translateX(-8px); }
-  75% { transform: translate(-50%, -50%) translateX(8px); }
+  &:hover,
+  &:active {
+    border-color: var(--jaune-ambre);
+    background: #2b2e33;
+  }
+
+  &:focus-visible {
+    outline: 2px dashed var(--jaune-ambre);
+    outline-offset: 6px;
+  }
 }

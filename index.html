@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-CA">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Portfolio | Alexis Labine</title>
+<title>Alexis Labine — Intégrateur multimédia · Communication numérique</title>
+<meta name="description" content="Intégrateur multimédia · Communication numérique. Je fais le pont entre l’idée, l’équipe et l’écran. Réalisations en web, communication, graphisme et coordination.">
 
-<!-- Polices (charte, section 4) : Oswald = titres, Barlow Condensed = sous-titres,
-     Inter = texte courant, Special Elite = mentions "machine à écrire",
-     Bungee = titre du Festival (Bloc 5 seulement) -->
+<!-- Polices (charte, section 3) : Oswald = titres, Barlow Condensed = sous-titres
+     (retirée en 3.3), Inter = texte courant, Special Elite = mentions "machine à écrire" -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Bungee&family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&family=Special+Elite&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&family=Special+Elite&display=swap">
 
 <!-- style.css est COMPILÉ à partir de assets/scss/style.scss (ne pas modifier à la main) -->
 <link rel="stylesheet" href="assets/css/style.css">
@@ -31,24 +31,23 @@
 </script>
 </head>
 
-<!-- "verrouille" bloque le scroll tant que le code des portes n'est pas trouvé -->
-<body class="verrouille">
+<body>
 
 <!-- ============================================================
-     CHRONOLOGIE DE L'OPÉRATION (navigation principale)
-     Ligne fixée à droite de l'écran, un point par section.
+     LIGNE DU TEMPS (navigation principale)
+     Ligne fixée à droite de l'écran, un point par scène.
      ============================================================ -->
-<nav id="chronologie" class="chronologie" aria-label="Chronologie de l'Opération">
+<nav id="chronologie" class="chronologie" aria-label="Navigation par scène">
   <img class="chronologie__logo" src="assets/img/logo/logo-ligne-du-temps.png" alt="">
   <ol class="chronologie__liste">
     <li>
       <a class="chronologie__point" href="#accueil">
-        <span class="chronologie__label">Les portes</span>
+        <span class="chronologie__label">Accueil</span>
       </a>
     </li>
     <li>
-      <a class="chronologie__point" href="#salle-de-crise">
-        <span class="chronologie__label">Salle de crise</span>
+      <a class="chronologie__point" href="#a-propos">
+        <span class="chronologie__label">À propos</span>
       </a>
     </li>
     <li>
@@ -57,13 +56,13 @@
       </a>
     </li>
     <li>
-      <a class="chronologie__point chronologie__point--transition" href="#mur-enquete">
-        <span class="chronologie__label">Mur d'enquête</span>
+      <a class="chronologie__point chronologie__point--transition" href="#realisations">
+        <span class="chronologie__label">Réalisations</span>
       </a>
     </li>
     <li>
-      <a class="chronologie__point chronologie__point--festival" href="#le-festival">
-        <span class="chronologie__label">Le Festival</span>
+      <a class="chronologie__point chronologie__point--festival" href="#contact">
+        <span class="chronologie__label">Contact</span>
       </a>
     </li>
   </ol>
@@ -72,14 +71,13 @@
 <main>
 
   <!-- ============================================================
-       BLOC 1 — ACCUEIL : portes, brume et clavier à code
+       L'ENTRÉE DES ARTISTES — Accueil : portes, brume et bouton « Entrer »
        ============================================================ -->
   <section id="accueil" class="accueil">
     <!-- Ce qu'on découvre derrière les portes une fois ouvertes -->
     <div id="accueil-revelation" class="accueil__revelation">
-      <p class="mention-dossier">Accès autorisé</p>
-      <p class="accueil__revelation-titre">La salle de crise</p>
-      <a class="accueil__descendre" href="#salle-de-crise">Explorez la suite <span aria-hidden="true">↓</span></a>
+      <p class="accueil__revelation-titre">La régie</p>
+      <a class="accueil__descendre" href="#a-propos">Explorez la suite <span aria-hidden="true">↓</span></a>
     </div>
 
     <img id="porte-gauche" class="porte" src="assets/img/portes/porte-de-gauche.png" alt="">
@@ -87,39 +85,15 @@
 
     <canvas id="brume" width="410" height="945"></canvas>
 
-    <div id="clavier-code" role="group" aria-label="Clavier à code">
-      <div id="code-affichage">
-        <span class="chiffre" data-index="0"></span>
-        <span class="chiffre" data-index="1"></span>
-        <span class="chiffre" data-index="2"></span>
-      </div>
-      <div id="code-erreur">CODE INCORRECT</div>
-      <div id="code-pave">
-        <button class="touche" data-chiffre="1">1</button>
-        <button class="touche" data-chiffre="2">2</button>
-        <button class="touche" data-chiffre="3">3</button>
-        <button class="touche" data-chiffre="4">4</button>
-        <button class="touche" data-chiffre="5">5</button>
-        <button class="touche" data-chiffre="6">6</button>
-        <button class="touche" data-chiffre="7">7</button>
-        <button class="touche" data-chiffre="8">8</button>
-        <button class="touche" data-chiffre="9">9</button>
-        <button class="touche" id="touche-effacer" aria-label="Effacer">✕</button>
-        <button class="touche" data-chiffre="0">0</button>
-        <button class="touche" id="touche-valider" aria-label="Valider">✓</button>
-      </div>
-    </div>
-
-    <!-- Téléphone et tablette : un simple bouton remplace le clavier à code -->
-    <button id="bouton-entree" class="bouton-entree" type="button" aria-label="Entrer">
-      <span class="bouton-entree__mention"><span class="bouton-entree__voyant" aria-hidden="true"></span>Accès restreint</span>
+    <!-- Un bouton pour ouvrir les portes (elles s'ouvrent aussi au défilement) -->
+    <button id="bouton-entree" class="bouton-entree" type="button">
       <span class="bouton-entree__texte">Entrer</span>
     </button>
   </section>
 
 
   <!-- ============================================================
-       BLOC 2 — SALLE DE CRISE : À propos
+       LA RÉGIE — À propos
        Une vraie scène 3D filmée par une caméra (assets/js/camera.js).
        Le scroll déplace la caméra de plan en plan ; un clic sur
        un objet déclenche un gros plan puis ouvre la pièce.
@@ -129,7 +103,7 @@
        Le point 0,0,0 est le centre du bureau ; le dessus du bureau
        est à --y: 150px.
        ============================================================ -->
-  <section id="salle-de-crise" class="scene scene--salle" aria-labelledby="titre-salle">
+  <section id="a-propos" class="scene scene--salle" aria-labelledby="titre-salle">
 
     <!-- LE MONDE 3D -->
     <div class="scene__echelle">
@@ -143,58 +117,55 @@
           <span class="ombre-contact" style="--px: 280px; --py: 280px; --largeur: 320px;"></span>
           <span class="ombre-contact" style="--px: 1100px; --py: 295px; --largeur: 280px;"></span>
 
-          <!-- Pièce 02 : la vraie cocarde du festival De l'âme à l'écran, posée à plat -->
-          <button class="objet objet--cocarde" type="button" data-objet="cocarde" aria-label="Examiner le laissez-passer">
-            <img class="cocarde" src="assets/img/salle-de-crise/cocarde.jpg" alt="">
-            <span class="objet__legende" aria-hidden="true"><span class="objet__numero">Pièce 02</span>Le laissez-passer<small>Intérêts · langues</small></span>
+          <!-- Objet 02 : la vraie cocarde du Festival de l'Âme à l'Écran, posée à plat -->
+          <button class="objet objet--cocarde" type="button" data-objet="cocarde" aria-label="Ouvrir les intérêts et les langues">
+            <img class="cocarde" src="assets/img/regie/cocarde.jpg" alt="">
+            <span class="objet__legende" aria-hidden="true"><span class="objet__numero">02</span>Intérêts et langues</span>
           </button>
         </div>
         <div class="bureau__facade" style="--y: 150px; --z: 310px;"></div>
         <div class="bureau__cote" style="--x: -700px; --y: 150px;"></div>
         <div class="bureau__cote" style="--x: 700px; --y: 150px;"></div>
 
-        <!-- La lampe, son faisceau et la poussière qui flotte dedans -->
+        <!-- La lampe et son faisceau -->
         <div class="lampe billboard" style="--y: -330px;" aria-hidden="true">
           <span class="lampe__fil"></span>
           <span class="lampe__abat-jour"></span>
           <span class="lampe__ampoule"></span>
         </div>
         <div class="faisceau billboard" style="--y: 150px; --z: -10px;" aria-hidden="true"></div>
-        <canvas class="poussiere billboard" width="450" height="240" style="--y: 150px; --z: 30px;" aria-hidden="true"></canvas>
 
-        <!-- Pièce 01 : le dossier -->
-        <button class="objet objet--pochette billboard" type="button" data-objet="dossier" style="--x: -420px; --y: 162px; --z: -40px;" aria-label="Examiner le dossier">
-          <img src="assets/img/salle-de-crise/pochette.png" alt="">
-          <span class="objet__legende" aria-hidden="true"><span class="objet__numero">Pièce 01</span>Le dossier<small>Profil · parcours · formation</small></span>
+        <!-- Objet 01 : la pochette (profil et parcours) -->
+        <button class="objet objet--pochette billboard" type="button" data-objet="profil" style="--x: -420px; --y: 162px; --z: -40px;" aria-label="Ouvrir le profil et le parcours">
+          <img src="assets/img/regie/pochette.png" alt="">
+          <span class="objet__legende" aria-hidden="true"><span class="objet__numero">01</span>Profil et parcours</span>
         </button>
 
-        <!-- Le téléphone rouge : ligne directe vers le contact (Bloc 5) -->
-        <a class="objet objet--telephone billboard" href="#le-festival" data-objet="telephone" style="--x: 400px; --y: 160px; --z: -20px;" aria-label="Décrocher la ligne backstage (aller au contact)">
-          <img src="assets/img/salle-de-crise/telephone-rouge.png" alt="">
-          <span class="objet__legende" aria-hidden="true"><span class="objet__numero">Pièce 03</span>La ligne backstage<small>Me contacter</small></span>
+        <!-- Le téléphone rouge : ligne directe vers le contact (la scène finale) -->
+        <a class="objet objet--telephone billboard" href="#contact" data-objet="telephone" style="--x: 400px; --y: 160px; --z: -20px;" aria-label="Décrocher la ligne backstage (aller au contact)">
+          <img src="assets/img/regie/telephone-rouge.png" alt="">
+          <span class="objet__legende" aria-hidden="true"><span class="objet__numero">03</span>Contact</span>
         </a>
       </div>
     </div>
 
-    <!-- POST-TRAITEMENT (comme dans un jeu) : obscurité, vignettage, grain, bandes cinéma -->
+    <!-- POST-TRAITEMENT (comme dans un jeu) : obscurité, vignettage, grain -->
     <div class="scene__obscurite" aria-hidden="true"></div>
     <div class="scene__vignette" aria-hidden="true"></div>
     <div class="scene__grain" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--haut" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--bas" aria-hidden="true"></div>
 
     <!-- HUD : l'interface par-dessus l'image -->
     <div class="hud">
       <p class="hud__camera" aria-hidden="true"><span class="hud__point"></span>Cam 02 — <span data-nom-plan></span></p>
 
       <header class="hud__chapitre">
-        <p class="mention-dossier">Chapitre 02 — Dossier n° 582</p>
-        <h1 id="titre-salle" class="titre-bloc">La salle de crise</h1>
-        <h2 class="sous-titre">Qui orchestre l'opération en coulisses&nbsp;?</h2>
+        <p class="mention">La régie</p>
+        <h1 id="titre-salle" class="titre-bloc">À propos</h1>
+        <h2 class="sous-titre">Le profil, le parcours et la méthode.</h2>
       </header>
 
       <p class="hud__defiler" aria-hidden="true">Défilez pour faire avancer la caméra</p>
-      <p class="hud__consigne">Touchez un objet du bureau pour l'examiner</p>
+      <p class="hud__consigne">Touchez un objet du bureau pour l'ouvrir</p>
 
       <button class="hud__invite" type="button" hidden>
         <kbd>E</kbd><span data-texte-invite></span>
@@ -204,7 +175,7 @@
 
 
   <!-- ============================================================
-       BLOC 3 — COMPÉTENCES : l'entrepôt technique
+       LE MATÉRIEL — Compétences : l'entrepôt technique
        Même moteur de caméra. Le flight case est posé au sol sous un
        projecteur ; chaque autocollant remplit la fiche technique.
        Le sol est à --y: 320px.
@@ -216,7 +187,6 @@
       <div class="camera">
         <div class="decor decor--mur decor--entrepot" style="--y: -300px; --z: -700px;" aria-hidden="true">
           <span class="pochoir">Zone technique</span>
-          <span class="pochoir pochoir--petit">Matériel classé — accès restreint</span>
         </div>
         <div class="decor decor--sol sol" style="--y: 320px; --z: -300px;">
           <span class="flaque-lumiere"></span>
@@ -224,27 +194,26 @@
         </div>
 
         <div class="projecteur billboard" style="--y: 320px; --z: -20px;" aria-hidden="true"></div>
-        <canvas class="poussiere billboard" width="450" height="560" style="--y: 320px; --z: 40px;" aria-hidden="true"></canvas>
 
         <div class="flight-case billboard" style="--y: 330px;">
-          <img class="flight-case__image" src="assets/img/salle-de-crise/flight-case.png" alt="Flight case ouvert couvert d'autocollants">
+          <img class="flight-case__image" src="assets/img/regie/flight-case.png" alt="Flight case ouvert couvert d'autocollants">
 
           <!-- --x / --y = position sur l'image (en %), --rotation = angle de l'autocollant -->
           <!-- Couvercle : la suite Adobe -->
           <button class="autocollant autocollant--ps" type="button" style="--x: 43%; --y: 15%; --rotation: -9deg;"
             data-categorie="Suite Adobe"
             data-titre="Photoshop"
-            data-description="Photobashing, détourage, textures et ombres portées. Tous les objets de cette pièce sont passés par là.">Ps</button>
+            data-description="Photomontage, détourage, textures et ombres portées.">Ps</button>
 
           <button class="autocollant autocollant--ai" type="button" style="--x: 70%; --y: 13%; --rotation: 7deg;"
             data-categorie="Suite Adobe"
             data-titre="Illustrator"
-            data-description="Logo, monogramme et typographie vectorielle : l'identité de l'opération est née ici.">Ai</button>
+            data-description="Logos, affiches et typographie vectorielle.">Ai</button>
 
           <button class="autocollant autocollant--xd" type="button" style="--x: 49%; --y: 30%; --rotation: -3deg;"
             data-categorie="Suite Adobe"
             data-titre="Adobe XD"
-            data-description="Zoning, wireframes et prototypes : le zoning d'Abysscore est né ici.">Xd</button>
+            data-description="Zonage, wireframes et prototypes interactifs.">Xd</button>
 
           <!-- Figma : maquettes et prototypes -->
           <button class="autocollant autocollant--figma" type="button" style="--x: 76%; --y: 30%; --rotation: 8deg;"
@@ -261,7 +230,7 @@
           <button class="autocollant autocollant--scss" type="button" style="--x: 36%; --y: 72%; --rotation: -7deg;"
             data-categorie="Développement web"
             data-titre="CSS / SCSS"
-            data-description="Mise en page, animations et architecture SCSS, notamment pour la refonte du site du Festival Des Âmes à l'Écran.">SCSS</button>
+            data-description="Mise en page, animations et architecture SCSS, notamment pour la refonte du site du Festival de l'Âme à l'Écran.">SCSS</button>
 
           <button class="autocollant autocollant--js" type="button" style="--x: 55%; --y: 65%; --rotation: 10deg;"
             data-categorie="Développement web"
@@ -271,7 +240,7 @@
           <button class="autocollant autocollant--php" type="button" style="--x: 25%; --y: 80%; --rotation: -4deg;"
             data-categorie="Développement web"
             data-titre="PHP &amp; SQL"
-            data-description="Intégration d'une base de données au site du Festival Des Âmes à l'Écran.">PHP·SQL</button>
+            data-description="Intégration d'une base de données au site du Festival de l'Âme à l'Écran.">PHP·SQL</button>
         </div>
       </div>
     </div>
@@ -280,17 +249,15 @@
     <div class="scene__obscurite" aria-hidden="true"></div>
     <div class="scene__vignette" aria-hidden="true"></div>
     <div class="scene__grain" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--haut" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--bas" aria-hidden="true"></div>
 
     <!-- HUD -->
     <div class="hud">
       <p class="hud__camera" aria-hidden="true"><span class="hud__point"></span>Cam 03 — <span data-nom-plan></span></p>
 
       <header class="hud__chapitre">
-        <p class="mention-dossier">Chapitre 03 — Inventaire du matériel</p>
-        <h1 id="titre-competences" class="titre-bloc">Classé&nbsp;: Compétences</h1>
-        <h2 class="sous-titre">Le flight case de l'opération</h2>
+        <p class="mention">Le matériel</p>
+        <h1 id="titre-competences" class="titre-bloc">Compétences</h1>
+        <h2 class="sous-titre">Les outils dans le flight case, le reste sur la fiche.</h2>
       </header>
 
       <p class="hud__defiler" aria-hidden="true">Défilez pour faire avancer la caméra</p>
@@ -298,8 +265,6 @@
 
       <!-- Fiche technique : son contenu est remplacé par assets/js/scenes/materiel.js -->
       <article class="fiche hud__fiche">
-        <span class="tampon fiche__tampon" aria-hidden="true">Classé</span>
-
         <div class="fiche__selection" aria-live="polite">
           <p class="fiche__categorie" id="fiche-categorie">Fiche technique</p>
           <h3 class="fiche__titre" id="fiche-titre">Aucun autocollant sélectionné</h3>
@@ -320,7 +285,7 @@
 
 
   <!-- ============================================================
-       BLOC 4 — LE MUR D'ENQUÊTE : Réalisations
+       LE MUR DE PRODUCTION — Réalisations
        Même moteur de caméra. Un panneau de liège de 3200 × 1600 px :
        chaque polaroïd y est placé avec --bx / --by (position sur le
        liège, depuis le coin en haut à gauche) et --rotation.
@@ -328,24 +293,24 @@
        Le contenu des projets (textes, images, vidéos) est aussi dans
        assets/js/scenes/mur.js (objet PROJETS).
        ============================================================ -->
-  <section id="mur-enquete" class="scene scene--mur" aria-labelledby="titre-mur">
+  <section id="realisations" class="scene scene--mur" aria-labelledby="titre-mur">
 
     <!-- LE MONDE 3D -->
     <div class="scene__echelle">
       <div class="camera">
-        <div class="decor decor--mur decor--mur-enquete" style="--y: -50px; --z: -220px;" aria-hidden="true"></div>
+        <div class="decor decor--mur decor--mur-production" style="--y: -50px; --z: -220px;" aria-hidden="true"></div>
 
-        <!-- Le néon : premier signe du Festival qui approche -->
+        <!-- Le néon : premier signe de la scène qui approche -->
         <p class="neon" style="--y: -1010px; --z: -120px;" aria-hidden="true">Réalisations</p>
 
         <div class="panneau" style="--y: -50px;">
           <div class="panneau__liege">
 
-            <!-- ===== DOSSIER 01 — TIMELINE : ZERO ===== -->
+            <!-- ===== PROJET 01 — TIMELINE : ZERO ===== -->
             <div class="fiche-dossier" style="--bx: 330px; --by: 170px; --rotation: -2deg;">
-              <span class="fiche-dossier__numero">Dossier 01</span>
+              <span class="fiche-dossier__numero">Projet 01</span>
               <span class="fiche-dossier__titre">Timeline&nbsp;: Zero</span>
-              <span class="fiche-dossier__note">Concept de jeu vidéo cyberpunk</span>
+              <span class="fiche-dossier__note">Direction artistique d'un jeu cyberpunk</span>
             </div>
             <button class="polaroid" id="p-tz-moodboard" type="button" data-projet="timeline-zero" data-media="0" style="--bx: 250px; --by: 500px; --rotation: -4deg;" aria-label="Timeline : Zero — moodboard">
               <img loading="lazy" src="assets/img/projets/vignettes/tz-moodboard.jpg" alt=""><span class="polaroid__legende">Moodboard</span>
@@ -363,11 +328,11 @@
               <img loading="lazy" src="assets/img/projets/vignettes/ville-neon.jpg" alt=""><span class="polaroid__legende">Ville néon</span>
             </button>
 
-            <!-- ===== DOSSIER 02 — GAME JAM ===== -->
+            <!-- ===== PROJET 02 — GAME JAM ===== -->
             <div class="fiche-dossier" style="--bx: 1470px; --by: 170px; --rotation: 2deg;">
-              <span class="fiche-dossier__numero">Dossier 02</span>
+              <span class="fiche-dossier__numero">Projet 02</span>
               <span class="fiche-dossier__titre">Game Jam</span>
-              <span class="fiche-dossier__note">5 jours, 1 jeu — univers arcade</span>
+              <span class="fiche-dossier__note">Affiche et mapping vidéo</span>
             </div>
             <button class="polaroid" id="p-gj-affiche" type="button" data-projet="game-jam" data-media="0" style="--bx: 1350px; --by: 480px; --rotation: -3deg;" aria-label="Game Jam — affiche">
               <img loading="lazy" src="assets/img/projets/vignettes/gj-affiche.jpg" alt=""><span class="polaroid__legende">L'affiche</span>
@@ -376,9 +341,9 @@
               <img loading="lazy" src="assets/img/projets/vignettes/gj-mapping.jpg" alt=""><span class="polaroid__legende">Le mapping ▶</span>
             </button>
 
-            <!-- ===== DOSSIER 03 — ABYSSCORE ===== -->
+            <!-- ===== PROJET 03 — ABYSSCORE ===== -->
             <div class="fiche-dossier" style="--bx: 1420px; --by: 820px; --rotation: -1deg;">
-              <span class="fiche-dossier__numero">Dossier 03</span>
+              <span class="fiche-dossier__numero">Projet 03</span>
               <span class="fiche-dossier__titre">Abysscore</span>
               <span class="fiche-dossier__note">Interface de jeu sous-marin</span>
             </div>
@@ -392,27 +357,27 @@
               <img loading="lazy" src="assets/img/projets/vignettes/ab-mission.jpg" alt=""><span class="polaroid__legende">La mission</span>
             </button>
 
-            <!-- ===== DOSSIER 04 — DE L'ÂME À L'ÉCRAN (l'affaire principale) ===== -->
+            <!-- ===== PROJET 04 — FESTIVAL DE L'ÂME À L'ÉCRAN (le projet vedette) ===== -->
             <div class="fiche-dossier fiche-dossier--principale" style="--bx: 2640px; --by: 160px; --rotation: -1deg;">
-              <span class="fiche-dossier__numero">Dossier 04 — Affaire principale</span>
-              <span class="fiche-dossier__titre">De l'âme à l'écran</span>
-              <span class="fiche-dossier__note">Aide-coordonnateur, graphisme, GO et développement web</span>
+              <span class="fiche-dossier__numero">Projet vedette</span>
+              <span class="fiche-dossier__titre">Festival de l'Âme à l'Écran</span>
+              <span class="fiche-dossier__note">Webmaster et comité de communication</span>
             </div>
-            <button class="polaroid" id="p-dae-festival" type="button" data-projet="dae-festival" data-media="0" style="--bx: 2240px; --by: 470px; --rotation: -3deg;" aria-label="De l'âme à l'écran — le festival et mon rôle">
+            <button class="polaroid" id="p-dae-festival" type="button" data-projet="dae-festival" data-media="0" style="--bx: 2240px; --by: 470px; --rotation: -3deg;" aria-label="Festival de l'Âme à l'Écran — le festival et mon rôle">
               <img loading="lazy" src="assets/img/projets/vignettes/dae-evenement.jpg" alt=""><span class="polaroid__legende">Le festival</span>
             </button>
-            <button class="polaroid" id="p-dae-site" type="button" data-projet="dae-site" data-media="0" style="--bx: 2510px; --by: 440px; --rotation: 2deg;" aria-label="De l'âme à l'écran — le site actuel">
+            <button class="polaroid" id="p-dae-site" type="button" data-projet="dae-site" data-media="0" style="--bx: 2510px; --by: 440px; --rotation: 2deg;" aria-label="Festival de l'Âme à l'Écran — le site actuel">
               <img loading="lazy" src="assets/img/projets/vignettes/dae-site.jpg" alt=""><span class="polaroid__legende">Le site actuel</span>
             </button>
-            <button class="polaroid" id="p-dae-theme" type="button" data-projet="dae-theme" data-media="0" style="--bx: 2780px; --by: 480px; --rotation: -2deg;" aria-label="De l'âme à l'écran — le nouveau thème">
+            <button class="polaroid" id="p-dae-theme" type="button" data-projet="dae-theme" data-media="0" style="--bx: 2780px; --by: 480px; --rotation: -2deg;" aria-label="Festival de l'Âme à l'Écran — le nouveau thème">
               <img loading="lazy" src="assets/img/projets/vignettes/dae-theme.jpg" alt=""><span class="polaroid__legende">Le nouveau thème</span>
             </button>
 
-            <!-- ===== DOSSIER 05 — RENTRÉE MAGIQUE 101 ===== -->
+            <!-- ===== PROJET 05 — RENTRÉE MAGIQUE 101 ===== -->
             <div class="fiche-dossier" style="--bx: 2560px; --by: 830px; --rotation: 2deg;">
-              <span class="fiche-dossier__numero">Dossier 05</span>
+              <span class="fiche-dossier__numero">Projet 05</span>
               <span class="fiche-dossier__titre">Rentrée Magique 101</span>
-              <span class="fiche-dossier__note">Site WordPress immersif</span>
+              <span class="fiche-dossier__note">Site WordPress</span>
             </div>
             <button class="polaroid" id="p-rm-moodboard" type="button" data-projet="rentree-magique" data-media="1" style="--bx: 2420px; --by: 1140px; --rotation: 3deg;" aria-label="Rentrée Magique 101 — moodboard">
               <img loading="lazy" src="assets/img/projets/vignettes/rm-moodboard.jpg" alt=""><span class="polaroid__legende">Moodboard</span>
@@ -421,11 +386,11 @@
               <img loading="lazy" src="assets/img/projets/vignettes/rm-site.jpg" alt=""><span class="polaroid__legende">Le site</span>
             </button>
 
-            <!-- ===== DOSSIER 06 — PIÈCES ISOLÉES ===== -->
+            <!-- ===== PROJET 06 — PIÈCES COURTES ===== -->
             <div class="fiche-dossier" style="--bx: 1000px; --by: 1060px; --rotation: 3deg;">
-              <span class="fiche-dossier__numero">Dossier 06</span>
-              <span class="fiche-dossier__titre">Pièces isolées</span>
-              <span class="fiche-dossier__note">Logo animé et affiche publicitaire</span>
+              <span class="fiche-dossier__numero">Projet 06</span>
+              <span class="fiche-dossier__titre">Pièces courtes</span>
+              <span class="fiche-dossier__note">Logo animé, affiche et photomontage</span>
             </div>
             <button class="polaroid" id="p-nova" type="button" data-projet="nova" data-media="0" style="--bx: 300px; --by: 1320px; --rotation: 4deg;" aria-label="NOVA — affiche publicitaire">
               <img loading="lazy" src="assets/img/projets/vignettes/nova.jpg" alt=""><span class="polaroid__legende">NOVA</span>
@@ -448,27 +413,23 @@
     <div class="scene__obscurite" aria-hidden="true"></div>
     <div class="scene__vignette" aria-hidden="true"></div>
     <div class="scene__grain" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--haut" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--bas" aria-hidden="true"></div>
 
     <!-- HUD -->
     <div class="hud">
       <p class="hud__camera" aria-hidden="true"><span class="hud__point"></span>Cam 04 — <span data-nom-plan></span></p>
 
       <header class="hud__chapitre">
-        <p class="mention-dossier">Chapitre 04 — Pièces à conviction</p>
-        <h1 id="titre-mur" class="titre-bloc">Le mur d'enquête</h1>
-        <h2 class="sous-titre">Chaque fil relie deux affaires.</h2>
+        <p class="mention">Le mur de production</p>
+        <h1 id="titre-mur" class="titre-bloc">Réalisations</h1>
+        <h2 class="sous-titre">Huit réalisations, quatre portes.</h2>
       </header>
 
       <p class="hud__defiler" aria-hidden="true">Défilez pour faire avancer la caméra</p>
-      <p class="hud__consigne">Touchez un polaroïd pour ouvrir son dossier</p>
+      <p class="hud__consigne">Touchez un polaroïd pour ouvrir le projet</p>
 
-      <!-- Légende des fils -->
-      <ul class="hud__legende" aria-label="Légende des fils">
+      <!-- Légende du fil -->
+      <ul class="hud__legende" aria-label="Légende du fil">
         <li class="hud__legende-item hud__legende-item--rouge">Étapes d'un même projet</li>
-        <li class="hud__legende-item hud__legende-item--rose">Piste commune : le jeu vidéo</li>
-        <li class="hud__legende-item hud__legende-item--cyan">Même inspiration</li>
       </ul>
 
       <button class="hud__invite" type="button" hidden>
@@ -478,7 +439,7 @@
   </section>
 
   <!-- ============================================================
-       BLOC 5 — LE FESTIVAL : Contact
+       LA SCÈNE — Contact
        Même moteur de caméra que les Blocs 2 à 4, mais la règle
        s'inverse : la couleur domine, le noir n'est plus que la toile
        de fond. Plan 0 = juste avant le spectacle (scène éteinte) ;
@@ -487,7 +448,7 @@
        à --y: 200px, l'écran géant au fond (--z: -600px).
        La foule est dessinée par assets/js/scenes/scene-finale.js.
        ============================================================ -->
-  <section id="le-festival" class="scene scene--festival" aria-labelledby="titre-festival">
+  <section id="contact" class="scene scene--festival" aria-labelledby="titre-festival">
 
     <!-- LE MONDE 3D -->
     <div class="scene__echelle">
@@ -505,8 +466,8 @@
           <p class="ecran-geant__veille">Le spectacle va commencer</p>
           <div class="ecran-geant__contenu">
             <img class="ecran-geant__logo" src="assets/img/logo/logo-ligne-du-temps.png" alt="">
-            <p class="ecran-geant__titre">Le Festival</p>
-            <p class="ecran-geant__texte">Le Mastermind, c'est moi.</p>
+            <p class="ecran-geant__titre">Alexis Labine</p>
+            <p class="ecran-geant__texte">Je fais le pont entre l'idée, l'équipe et l'écran.</p>
           </div>
         </div>
 
@@ -536,12 +497,12 @@
         <!-- La fumée de scène -->
         <div class="fumee billboard" style="--y: 230px; --z: -60px;" aria-hidden="true"></div>
 
-        <!-- La ligne backstage : le téléphone rouge du Bloc 2, sur une caisse de tournée -->
+        <!-- La ligne backstage : le téléphone rouge de la régie, sur une caisse de tournée -->
         <div class="decor caisse billboard" style="--x: 820px; --y: 200px; --z: 130px;" aria-hidden="true">
           <span class="caisse__pochoir">Backstage</span>
         </div>
         <a class="objet objet--telephone objet--ligne billboard" href="#modale-contact" data-objet="telephone" style="--x: 820px; --y: 44px; --z: 130px;" aria-label="Décrocher la ligne backstage (formulaire de contact)">
-          <img src="assets/img/salle-de-crise/telephone-rouge.png" alt="">
+          <img src="assets/img/regie/telephone-rouge.png" alt="">
           <span class="objet__legende" aria-hidden="true"><span class="objet__numero">Ligne backstage</span>Décrocher<small>pour m'écrire</small></span>
         </a>
 
@@ -551,23 +512,20 @@
       </div>
     </div>
 
-    <!-- POST-TRAITEMENT : la couleur monte au scroll (désaturation), confettis, puis le reste comme les autres scènes -->
+    <!-- POST-TRAITEMENT : la couleur monte au scroll (désaturation), puis le reste comme les autres scènes -->
     <div class="scene__desature" aria-hidden="true"></div>
     <div class="scene__obscurite" aria-hidden="true"></div>
-    <canvas class="confettis" aria-hidden="true"></canvas>
     <div class="scene__vignette" aria-hidden="true"></div>
     <div class="scene__grain" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--haut" aria-hidden="true"></div>
-    <div class="scene__barre scene__barre--bas" aria-hidden="true"></div>
 
     <!-- HUD -->
     <div class="hud">
       <p class="hud__camera" aria-hidden="true"><span class="hud__point"></span>Cam 05 — <span data-nom-plan></span></p>
 
       <header class="hud__chapitre">
-        <p class="mention-dossier">Chapitre 05 — Affaire résolue</p>
-        <h1 id="titre-festival" class="titre-bloc titre-festival">Le Festival</h1>
-        <h2 class="sous-titre">Le rideau se lève sur le Mastermind.</h2>
+        <p class="mention">La scène</p>
+        <h1 id="titre-festival" class="titre-bloc titre-festival">Contact</h1>
+        <h2 class="sous-titre">Le rideau s'ouvre sur le contact et le CV.</h2>
       </header>
 
       <p class="hud__defiler" aria-hidden="true">Défilez pour lancer le spectacle</p>
@@ -576,12 +534,7 @@
       <aside class="passe hud__passe" aria-labelledby="titre-passe">
         <p class="passe__type">All access — Backstage</p>
         <h3 id="titre-passe" class="passe__titre">La ligne backstage est ouverte</h3>
-        <p class="passe__texte">
-          Un stage, un événement à coordonner, un projet numérique à lancer&nbsp;?
-          Les coulisses vous attendent.
-        </p>
-        <!-- À FAIRE : remplacer href="#" par l'adresse de ton profil LinkedIn.
-             Tant que c'est "#", ce lien reste caché (voir _tactile.scss, « Retouches »). -->
+        <p class="passe__texte">Un stage, un emploi, un mandat&nbsp;? Écrivez-moi.</p>
         <ul class="passe__canaux">
           <li>
             <a class="canal" href="mailto:labinealexis@gmail.com">
@@ -590,42 +543,40 @@
             </a>
           </li>
           <li>
-            <a class="canal canal--cyan" href="#" target="_blank" rel="noopener">
-              <span class="canal__type">LinkedIn</span>
-              <span class="canal__valeur">Le dossier résumé ↗</span>
+            <a class="canal canal--cyan" href="https://github.com/AlexisLabine" target="_blank" rel="noopener">
+              <span class="canal__type">GitHub</span>
+              <span class="canal__valeur">github.com/AlexisLabine ↗</span>
+            </a>
+          </li>
+          <li>
+            <a class="canal" href="assets/Alexis_Labine_CV.pdf" download>
+              <span class="canal__type">CV</span>
+              <span class="canal__valeur">Télécharger le CV (PDF) ↓</span>
             </a>
           </li>
         </ul>
         <button class="cta-festival" type="button" data-ouvrir-contact>Décrocher la ligne</button>
-        <p class="passe__dispo">
-          <span class="passe__voyant" aria-hidden="true"></span>
-          Rôle visé&nbsp;: coordination · communication numérique
-        </p>
       </aside>
 
       <!-- Le générique de fin -->
       <div class="generique hud__generique">
-        <!-- Le visage du Mastermind, en polaroïd, à côté du titre -->
+        <!-- Le visage d'Alexis, en polaroïd, à côté du titre -->
         <div class="generique__entete">
           <figure class="generique__photo">
             <img src="assets/img/moi/alexis.jpg" alt="Alexis Labine, souriant, en chemise">
-            <figcaption>Le Mastermind</figcaption>
+            <figcaption>Alexis Labine</figcaption>
           </figure>
-          <p class="generique__titre">Fin de l'enquête</p>
+          <p class="generique__titre">Générique</p>
         </div>
         <dl class="generique__credits">
-          <div><dt>Direction artistique</dt><dd>Alexis Labine</dd></div>
-          <div><dt>Code &amp; animation</dt><dd>Alexis Labine</dd></div>
-          <div><dt>Assistance IA</dt><dd>Claude, d'Anthropic</dd></div>
-          <div><dt>Coordination</dt><dd>Alexis Labine</dd></div>
-          <div><dt>Dans le rôle du Mastermind</dt><dd>Alexis Labine</dd></div>
+          <div><dt>Direction, design, intégration</dt><dd>Alexis Labine</dd></div>
+          <div><dt>Assistance IA</dt><dd>Claude (Anthropic)</dd></div>
         </dl>
-        <p class="generique__slogan">«&nbsp;Derrière chaque projet, une enquête. Derrière chaque enquête, une explosion.&nbsp;»</p>
         <div class="generique__actions">
           <button class="cta-festival" type="button" data-ouvrir-contact>Décrocher la ligne backstage</button>
-          <a class="generique__retour" href="#accueil">Revenir aux portes <span aria-hidden="true">↑</span></a>
+          <a class="generique__retour" href="#accueil">Revenir à l'entrée <span aria-hidden="true">↑</span></a>
         </div>
-        <p class="generique__copyright">© 2026 Alexis Labine — Opération Coulisses</p>
+        <p class="generique__copyright">© 2026 Alexis Labine · Intégrateur multimédia · Communication numérique</p>
         <p class="generique__copyright">Site réalisé avec l'aide de l'IA Claude (Anthropic) — versions ordinateur, téléphone et iPad.</p>
       </div>
 
@@ -639,23 +590,21 @@
 
 
 <!-- ============================================================
-     FENÊTRES MODALES (charte, section 13) :
+     FENÊTRES MODALES :
      cachées en display: none, affichées en display: flex au clic.
      ============================================================ -->
 
-<!-- Modale : le dossier -->
-<div id="modale-dossier" class="modale" role="dialog" aria-modal="true" aria-labelledby="titre-modale-dossier">
+<!-- Modale : profil et parcours (la pochette) -->
+<div id="modale-profil" class="modale" role="dialog" aria-modal="true" aria-labelledby="titre-modale-profil">
   <div class="modale__document">
-    <button class="modale__fermer" type="button" data-fermer aria-label="Fermer le dossier">✕</button>
-    <span class="tampon modale__tampon" aria-hidden="true">Top secret</span>
+    <button class="modale__fermer" type="button" data-fermer aria-label="Fermer">✕</button>
 
-    <p class="mention-dossier">Pièce 01 — Profil du sujet</p>
-    <h2 id="titre-modale-dossier" class="modale__titre">Alexis Labine</h2>
+    <p class="mention">Profil et parcours</p>
+    <h2 id="titre-modale-profil" class="modale__titre">Alexis Labine</h2>
 
     <dl class="modale__identite">
-      <div><dt>Fonction</dt><dd>Intégration multimédia &amp; coordination</dd></div>
-      <div><dt>Base d'opération</dt><dd>Jonquière (Québec)</dd></div>
-      <div><dt>Signe distinctif</dt><dd>Réservé au premier abord</dd></div>
+      <div><dt>Rôle</dt><dd>Intégration multimédia &amp; coordination</dd></div>
+      <div><dt>Lieu</dt><dd>Jonquière (Québec)</dd></div>
     </dl>
 
     <h3 class="modale__section">Profil</h3>
@@ -666,10 +615,10 @@
       donne le meilleur de moi-même dans les environnements dynamiques.
     </p>
 
-    <h3 class="modale__section">Antécédents</h3>
+    <h3 class="modale__section">Expérience</h3>
     <ul class="modale__liste">
       <li>
-        <strong>Festival Des Âmes à l'Écran (DAE)</strong> — Cégep de Jonquière, depuis octobre 2025<br>
+        <strong>Festival de l'Âme à l'Écran (DAE)</strong> — Cégep de Jonquière, depuis octobre 2025<br>
         Plans de communication, conception promotionnelle, refonte du site web (SCSS et base de
         données), logistique du festival et gestion des urgences sur les réseaux.
       </li>
@@ -696,16 +645,16 @@
   </div>
 </div>
 
-<!-- Modale : la cocarde -->
+<!-- Modale : intérêts et langues (la cocarde) -->
 <div id="modale-cocarde" class="modale" role="dialog" aria-modal="true" aria-labelledby="titre-modale-cocarde">
   <div class="modale__document">
-    <button class="modale__fermer" type="button" data-fermer aria-label="Fermer le laissez-passer">✕</button>
+    <button class="modale__fermer" type="button" data-fermer aria-label="Fermer">✕</button>
 
-    <p class="mention-dossier">Pièce 02 — Laissez-passer</p>
+    <p class="mention">Intérêts et langues</p>
     <h2 id="titre-modale-cocarde" class="modale__titre">Hors des heures de bureau</h2>
 
     <figure class="modale__visuel">
-      <img src="assets/img/salle-de-crise/cocarde.jpg" alt="Cocarde d'Alexis Labine, équipe Organisation du festival De l'âme à l'écran, Cégep de Jonquière">
+      <img src="assets/img/regie/cocarde.jpg" alt="Cocarde d'Alexis Labine, équipe Organisation du festival De l'âme à l'écran, Cégep de Jonquière">
       <figcaption>Cocarde officielle — équipe Organisation, festival De l'âme à l'écran.</figcaption>
     </figure>
 
@@ -735,13 +684,12 @@
   </div>
 </div>
 
-<!-- Modale : un projet du mur d'enquête (remplie par assets/js/scenes/mur.js) -->
+<!-- Modale : un projet du mur (remplie par assets/js/scenes/mur.js ; remplacée par fiche-projet.js en 4.6) -->
 <div id="modale-projet" class="modale modale--projet" role="dialog" aria-modal="true" aria-labelledby="titre-modale-projet">
   <div class="modale__document">
-    <button class="modale__fermer" type="button" data-fermer aria-label="Fermer le dossier">✕</button>
-    <span class="tampon modale__tampon" aria-hidden="true">Classé</span>
+    <button class="modale__fermer" type="button" data-fermer aria-label="Fermer">✕</button>
 
-    <p class="mention-dossier" data-projet-numero></p>
+    <p class="mention" data-projet-numero></p>
     <h2 id="titre-modale-projet" class="modale__titre" data-projet-titre></h2>
 
     <dl class="modale__identite">
@@ -761,22 +709,22 @@
     </figure>
     <div class="galerie__vignettes" data-projet-vignettes></div>
 
-    <h3 class="modale__section">Le rapport</h3>
+    <h3 class="modale__section">Le projet</h3>
     <p data-projet-description></p>
 
     <div data-projet-bloc-fil>
-      <h3 class="modale__section">Le fil de l'enquête</h3>
+      <h3 class="modale__section">Le fil rouge</h3>
       <p data-projet-fil></p>
     </div>
   </div>
 </div>
 
-<!-- Modale : la ligne backstage (formulaire de contact, envoyé par assets/js/scenes/scene-finale.js) -->
+<!-- Modale : la ligne backstage (formulaire de contact, envoyé par assets/js/scenes/scene-finale.js ; api/contact.php en 4.7) -->
 <div id="modale-contact" class="modale modale--festival" role="dialog" aria-modal="true" aria-labelledby="titre-modale-contact">
   <div class="modale__document">
     <button class="modale__fermer" type="button" data-fermer aria-label="Raccrocher (fermer)">✕</button>
 
-    <p class="mention-dossier"><span class="modale__en-ligne" aria-hidden="true"></span>Ligne backstage — en communication</p>
+    <p class="mention"><span class="modale__en-ligne" aria-hidden="true"></span>Ligne backstage</p>
     <h2 id="titre-modale-contact" class="modale__titre">Transmettre un message</h2>
 
     <form class="formulaire" id="formulaire-contact" novalidate>
@@ -819,7 +767,6 @@
 <script src="assets/js/portes.js"></script>
 <script src="assets/js/textures.js"></script>
 <script src="assets/js/camera.js"></script>
-<script src="assets/js/poussiere.js"></script>
 <script src="assets/js/modales.js"></script>
 <script src="assets/js/scenes/regie.js"></script>
 <script src="assets/js/scenes/materiel.js"></script>

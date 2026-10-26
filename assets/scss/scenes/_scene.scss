@@ -98,8 +98,7 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
    ============================================================ */
 .scene__obscurite,
 .scene__vignette,
-.scene__grain,
-.scene__barre {
+.scene__grain {
   position: absolute;
   pointer-events: none;
 }
@@ -123,39 +122,12 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
   background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.8) 100%);
 }
 
-// Le grain de pellicule (bruit SVG qui tremble)
+// Le grain de pellicule (bruit SVG, fixe et léger : 02, section 7)
 .scene__grain {
   inset: -50%;
   z-index: 3;
   opacity: 0.07;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  animation: grain 0.8s steps(5) infinite;
-}
-
-// Les bandes noires "cinéma" : larges sur le plan d'ouverture et pendant un examen
-.scene__barre {
-  left: 0;
-  right: 0;
-  z-index: 4;
-  height: 12vh;
-  background: #000;
-  transform: scaleY(0.35);
-  transition: transform 0.9s $courbe-camera;
-
-  &--haut {
-    top: 0;
-    transform-origin: top;
-  }
-
-  &--bas {
-    bottom: 0;
-    transform-origin: bottom;
-  }
-}
-
-.scene[data-plan="0"] .scene__barre,
-.scene.en-examen .scene__barre {
-  transform: scaleY(1);
 }
 
 /* ============================================================
@@ -334,14 +306,6 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
   40% { opacity: 0.15; }
   44% { opacity: 0.6; }
   60%, 100% { opacity: 0; }
-}
-
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-4%, 3%); }
-  40% { transform: translate(3%, -5%); }
-  60% { transform: translate(-6%, -2%); }
-  80% { transform: translate(5%, 4%); }
 }
 
 @keyframes clignote {

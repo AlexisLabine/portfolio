@@ -66,7 +66,7 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
 }
-body.verrouille, body.modale-active {
+body.modale-active {
   overflow: hidden;
 }
 
@@ -82,7 +82,7 @@ p {
   margin: 0;
 }
 
-.mention-dossier {
+.mention {
   font-family: "Special Elite", "Courier New", monospace;
   font-size: 13px;
   letter-spacing: 0.1em;
@@ -118,22 +118,6 @@ p {
 .entete__intro {
   font-size: 16px;
   color: rgba(242, 239, 233, 0.75);
-}
-
-.tampon {
-  font-family: "Special Elite", "Courier New", monospace;
-  font-size: 20px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--rouge-dossier);
-  border: 3px solid currentColor;
-  border-radius: 4px;
-  padding: 4px 12px;
-  opacity: 0.8;
-  rotate: -12deg;
-  mix-blend-mode: multiply;
-  pointer-events: none;
 }
 
 .accueil {
@@ -220,102 +204,50 @@ p {
   height: 100%;
   z-index: 3;
   touch-action: pan-y;
-  /* La brume passe devant le clavier (visuellement), donc on la rend
-     "transparente aux clics" pour que les touches restent cliquables en dessous. */
+  /* La brume passe devant le bouton (visuellement), donc on la rend
+     "transparente aux clics" pour que le bouton reste cliquable en dessous. */
   pointer-events: none;
 }
 
-/* ============================================================
-   LE CLAVIER À CODE — z-index 2, au-dessus des portes mais
-   sous la brume (qui passe devant, voile légèrement le clavier)
-   ============================================================ */
-#clavier-code {
+.bouton-entree {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  pointer-events: auto;
-  background: #1c1e22;
-  border: 2px solid var(--gris-acier);
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
-  text-align: center;
-  font-family: "Courier New", monospace;
-}
-#clavier-code.erreur {
-  animation: secousse 0.3s ease;
-}
-
-#code-affichage {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.chiffre {
-  width: 30px;
-  height: 38px;
-  background: var(--noir-bleute);
-  border: 1px solid var(--gris-acier);
-  border-radius: 4px;
-  color: var(--blanc-casse);
-  font-size: 20px;
+  z-index: 4;
+  translate: -50% -50%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#code-erreur {
-  color: var(--rouge-dossier);
-  font-size: 11px;
-  letter-spacing: 1px;
-  height: 14px;
-  margin-bottom: 8px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-#code-erreur.visible {
-  opacity: 1;
-}
-
-#code-pave {
-  display: grid;
-  grid-template-columns: repeat(3, 42px);
-  gap: 6px;
-}
-
-.touche {
-  width: 42px;
-  height: 42px;
-  background: #2b2e33;
-  border: 1px solid var(--gris-acier);
-  border-radius: 4px;
+  min-width: 210px;
+  min-height: 64px;
+  padding: 18px 36px;
+  border: 2px solid var(--gris-acier);
+  border-radius: 8px;
+  background: #1c1e22;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   color: var(--blanc-casse);
-  font-size: 16px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, border-color 0.2s;
 }
-.touche:hover {
-  background: #3b3e44;
+.bouton-entree__texte {
+  margin-right: -0.3em;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
 }
-.touche:active {
-  background: var(--jaune-ambre);
-  color: #1c1e22;
+.bouton-entree:hover, .bouton-entree:active {
+  border-color: var(--jaune-ambre);
+  background: #2b2e33;
+}
+.bouton-entree:focus-visible {
+  outline: 2px dashed var(--jaune-ambre);
+  outline-offset: 6px;
 }
 
-@keyframes secousse {
-  0%, 100% {
-    transform: translate(-50%, -50%) translateX(0);
-  }
-  25% {
-    transform: translate(-50%, -50%) translateX(-8px);
-  }
-  75% {
-    transform: translate(-50%, -50%) translateX(8px);
-  }
-}
 .scene {
   --echelle: 1;
   --centre-x: 50%;
@@ -390,8 +322,7 @@ p {
    ============================================================ */
 .scene__obscurite,
 .scene__vignette,
-.scene__grain,
-.scene__barre {
+.scene__grain {
   position: absolute;
   pointer-events: none;
 }
@@ -418,30 +349,6 @@ p {
   z-index: 3;
   opacity: 0.07;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  animation: grain 0.8s steps(5) infinite;
-}
-
-.scene__barre {
-  left: 0;
-  right: 0;
-  z-index: 4;
-  height: 12vh;
-  background: #000;
-  transform: scaleY(0.35);
-  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.scene__barre--haut {
-  top: 0;
-  transform-origin: top;
-}
-.scene__barre--bas {
-  bottom: 0;
-  transform-origin: bottom;
-}
-
-.scene[data-plan="0"] .scene__barre,
-.scene.en-examen .scene__barre {
-  transform: scaleY(1);
 }
 
 /* ============================================================
@@ -639,23 +546,6 @@ p {
     opacity: 0;
   }
 }
-@keyframes grain {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(-4%, 3%);
-  }
-  40% {
-    transform: translate(3%, -5%);
-  }
-  60% {
-    transform: translate(-6%, -2%);
-  }
-  80% {
-    transform: translate(5%, 4%);
-  }
-}
 @keyframes clignote {
   50% {
     opacity: 0;
@@ -774,17 +664,8 @@ p {
   opacity: 0;
 }
 
-.scene--salle .poussiere {
-  width: 900px;
-  height: 480px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 2s ease 1s;
-}
-
 .scene.plongee .lampe,
 .scene.plongee .faisceau,
-.scene.plongee .poussiere,
 .scene.plongee .decor--mur {
   visibility: hidden;
 }
@@ -796,9 +677,6 @@ p {
 .scene--salle.lumiere-allumee .lampe__ampoule {
   background: #ffe2a6;
   box-shadow: 0 0 40px 14px rgba(244, 183, 64, 0.7), 0 0 120px 40px rgba(244, 183, 64, 0.25);
-}
-.scene--salle.lumiere-allumee .poussiere {
-  opacity: 1;
 }
 
 .objet {
@@ -915,12 +793,6 @@ p {
   text-transform: uppercase;
   color: rgba(242, 239, 233, 0.05);
 }
-.pochoir--petit {
-  font-family: "Special Elite", "Courier New", monospace;
-  font-size: 60px;
-  letter-spacing: 0.3em;
-  color: rgba(179, 18, 43, 0.14);
-}
 
 .scene--competences .decor--sol {
   height: 1800px;
@@ -947,20 +819,9 @@ p {
   opacity: 0;
 }
 
-.scene--competences .poussiere {
-  width: 900px;
-  height: 1120px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 2s ease 1s;
-}
-
 .scene--competences.lumiere-allumee .projecteur,
 .scene--competences.lumiere-allumee .flaque-lumiere {
   animation: allumage 1.4s linear forwards;
-}
-.scene--competences.lumiere-allumee .poussiere {
-  opacity: 1;
 }
 
 .flight-case {
@@ -1057,11 +918,6 @@ p {
   position: relative;
   padding: 40px 32px 32px;
   background-image: repeating-linear-gradient(transparent 0 31px, rgba(28, 28, 30, 0.06) 31px 32px);
-}
-.fiche__tampon {
-  position: absolute;
-  top: 18px;
-  right: 18px;
 }
 .fiche__selection {
   margin-bottom: 20px;
@@ -1174,7 +1030,7 @@ p {
   filter: blur(4px) brightness(0.6);
 }
 
-.decor--mur-enquete {
+.decor--mur-production {
   width: 8000px;
   height: 4200px;
   background: radial-gradient(ellipse 30% 35% at 50% 40%, rgba(255, 46, 154, 0.06), transparent 70%), linear-gradient(180deg, rgba(4, 5, 6, 0.95), rgba(4, 5, 6, 0.6) 50%, rgba(4, 5, 6, 0.95)), var(--texture-beton, #15171c);
@@ -1211,7 +1067,7 @@ p {
   position: relative;
   width: 3200px;
   height: 1600px;
-  background: url("../img/mur-enquete/liege.jpg") repeat;
+  background: url("../img/mur/liege.jpg") repeat;
   background-size: 612px;
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7);
 }
@@ -1363,32 +1219,6 @@ p {
 .fil--rouge {
   stroke: #c0182f;
 }
-.fil--rose {
-  stroke: var(--rose-neon);
-  stroke-dasharray: 16 10;
-  filter: drop-shadow(0 0 6px rgba(255, 46, 154, 0.8));
-}
-.fil--cyan {
-  stroke: var(--cyan-neon);
-  stroke-dasharray: 16 10;
-  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.8));
-}
-
-.fil__etiquette {
-  font-family: "Special Elite", "Courier New", monospace;
-  font-size: 26px;
-  letter-spacing: 0.05em;
-  text-anchor: middle;
-  paint-order: stroke;
-  stroke: rgba(5, 5, 7, 0.85);
-  stroke-width: 8px;
-}
-.fil__etiquette--rose {
-  fill: #ffd0e8;
-}
-.fil__etiquette--cyan {
-  fill: #c9f9ff;
-}
 
 .hud__legende {
   position: absolute;
@@ -1424,12 +1254,6 @@ p {
 }
 .hud__legende-item--rouge::before {
   background: #c0182f;
-}
-.hud__legende-item--rose::before {
-  background: repeating-linear-gradient(90deg, var(--rose-neon) 0 6px, transparent 6px 10px);
-}
-.hud__legende-item--cyan::before {
-  background: repeating-linear-gradient(90deg, var(--cyan-neon) 0 6px, transparent 6px 10px);
 }
 
 .scene--mur .hud__chapitre,
@@ -1490,7 +1314,7 @@ p {
 .modale__document p {
   font-size: 16px;
 }
-.modale__document .mention-dossier {
+.modale__document .mention {
   color: var(--rouge-dossier);
 }
 .modale__fermer {
@@ -1509,11 +1333,6 @@ p {
 .modale__fermer:hover, .modale__fermer:focus-visible {
   background: var(--anthracite);
   color: var(--blanc-casse);
-}
-.modale__tampon {
-  position: absolute;
-  top: 28px;
-  right: 64px;
 }
 .modale__titre {
   margin: 6px 0 20px;
@@ -1764,10 +1583,6 @@ p {
   gap: 18px;
   transition: opacity 0.6s ease, visibility 0.6s;
 }
-body.verrouille .chronologie {
-  opacity: 0;
-  visibility: hidden;
-}
 @media (max-width: 768px) {
   .chronologie {
     right: calc(10px + env(safe-area-inset-right));
@@ -1916,7 +1731,7 @@ body.verrouille .chronologie {
 .scene--festival .hud__chapitre::before {
   background: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
 }
-.scene--festival .hud__chapitre .mention-dossier {
+.scene--festival .hud__chapitre .mention {
   color: var(--cyan-neon);
 }
 .scene--festival .objet:hover img,
@@ -1925,7 +1740,7 @@ body.verrouille .chronologie {
 }
 
 .titre-festival {
-  font-family: "Bungee", "Arial Black", sans-serif;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
   font-weight: 400;
   font-size: clamp(40px, 6vw, 64px);
   letter-spacing: 0.03em;
@@ -2038,7 +1853,7 @@ body.verrouille .chronologie {
   filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 18px var(--rose-neon)) drop-shadow(0 0 40px var(--cyan-neon));
 }
 .ecran-geant__titre {
-  font-family: "Bungee", "Arial Black", sans-serif;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
   font-size: 150px;
   line-height: 1;
   text-transform: uppercase;
@@ -2207,8 +2022,7 @@ body.verrouille .chronologie {
 /* ============================================================
    POST-TRAITEMENT PROPRE AU FESTIVAL
    ============================================================ */
-.scene__desature,
-.confettis {
+.scene__desature {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -2219,11 +2033,6 @@ body.verrouille .chronologie {
   background: #808080;
   mix-blend-mode: saturation;
   opacity: calc(1 - var(--allumage));
-}
-
-.confettis {
-  width: 100%;
-  height: 100%;
 }
 
 /* ============================================================
@@ -2257,7 +2066,7 @@ body.verrouille .chronologie {
   border-radius: 12px 12px 0 0;
   background: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
   color: var(--noir-profond);
-  font-family: "Bungee", "Arial Black", sans-serif;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
   font-size: 15px;
   text-transform: uppercase;
 }
@@ -2390,7 +2199,7 @@ body.verrouille .chronologie {
   border-radius: 4px;
   background: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
   color: var(--noir-profond);
-  font-family: "Bungee", "Arial Black", sans-serif;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
   font-size: 16px;
   text-transform: uppercase;
   cursor: pointer;
@@ -2445,7 +2254,7 @@ body.verrouille .chronologie {
 }
 .generique__titre {
   flex: 1 1 180px;
-  font-family: "Bungee", "Arial Black", sans-serif;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
   font-size: clamp(30px, 4vw, 42px);
   line-height: 1.05;
   text-transform: uppercase;
@@ -2574,14 +2383,14 @@ body.verrouille .chronologie {
   box-shadow: 0 0 50px rgba(139, 47, 224, 0.4), 0 0 120px rgba(255, 46, 154, 0.15);
   color: var(--blanc-casse);
 }
-.modale--festival .modale__document .mention-dossier {
+.modale--festival .modale__document .mention {
   display: flex;
   align-items: center;
   gap: 10px;
   color: var(--cyan-neon);
 }
 .modale--festival .modale__titre {
-  font-family: "Bungee", "Arial Black", sans-serif;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
   font-weight: 400;
   font-size: clamp(24px, 4vw, 32px);
 }
@@ -2770,7 +2579,6 @@ body.verrouille .chronologie {
     animation: none;
   }
   .ecran-geant__veille,
-  .passe__voyant,
   .modale__en-ligne,
   .cta-festival:hover,
   .cta-festival:focus-visible,
@@ -2778,71 +2586,9 @@ body.verrouille .chronologie {
     animation: none;
   }
 }
-.bouton-entree,
 .hud__consigne,
 .objet__legende {
   display: none;
-}
-
-.bouton-entree {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 4;
-  translate: -50% -50%;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  min-width: 210px;
-  padding: 18px 36px 22px;
-  border: 2px solid var(--gris-acier);
-  border-radius: 8px;
-  background: #1c1e22;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  color: var(--blanc-casse);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.2s, border-color 0.2s;
-}
-.bouton-entree__mention {
-  font-family: "Special Elite", "Courier New", monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--jaune-ambre);
-}
-.bouton-entree__voyant {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--rouge-dossier);
-  box-shadow: 0 0 10px var(--rouge-dossier);
-  animation: clignote 1.2s steps(2) infinite;
-}
-.bouton-entree__texte {
-  margin-right: -0.3em;
-  font-family: "Oswald", "Arial Narrow", sans-serif;
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 1;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-}
-.bouton-entree:active {
-  border-color: var(--jaune-ambre);
-  background: #2b2e33;
-}
-.bouton-entree:focus-visible {
-  outline: 2px dashed var(--jaune-ambre);
-  outline-offset: 6px;
-}
-.bouton-entree.est-ouvert .bouton-entree__voyant {
-  background: #3dff8a;
-  box-shadow: 0 0 10px #3dff8a;
-  animation: none;
 }
 
 .hud__consigne {
@@ -2903,14 +2649,8 @@ body.verrouille .chronologie {
 /* ============================================================
    TOUT CE QUI SUIT : SEULEMENT EN MODE TACTILE
    ============================================================ */
-html.mode-tactile:has(> body.verrouille), html.mode-tactile:has(> body.modale-active) {
+html.mode-tactile:has(> body.modale-active) {
   overflow: hidden;
-}
-html.mode-tactile #clavier-code {
-  display: none;
-}
-html.mode-tactile .bouton-entree {
-  display: flex;
 }
 html.mode-tactile .scene {
   display: grid;
@@ -2950,7 +2690,6 @@ html.mode-tactile .bureau__facade,
 html.mode-tactile .bureau__cote,
 html.mode-tactile .lampe,
 html.mode-tactile .faisceau,
-html.mode-tactile .poussiere,
 html.mode-tactile .projecteur,
 html.mode-tactile .truss,
 html.mode-tactile .rayon,
@@ -2960,7 +2699,6 @@ html.mode-tactile .fils,
 html.mode-tactile .scene__obscurite,
 html.mode-tactile .scene__vignette,
 html.mode-tactile .scene__grain,
-html.mode-tactile .scene__barre,
 html.mode-tactile .scene__desature,
 html.mode-tactile .hud__camera,
 html.mode-tactile .hud__defiler,
@@ -3258,10 +2996,6 @@ html.mode-tactile .hud__generique {
   order: 5;
   width: min(100%, 560px);
 }
-html.mode-tactile .confettis {
-  bottom: auto;
-  height: 100vh;
-}
 html.mode-tactile .modale {
   background: rgba(5, 5, 7, 0.75);
 }
@@ -3277,10 +3011,6 @@ html.mode-tactile .modale__document {
 /* ============================================================
    RETOUCHES TÉLÉPHONE ET TABLETTE
    ============================================================ */
-.canal[href="#"] {
-  display: none;
-}
-
 @media (min-width: 600px) {
   .accueil__revelation {
     padding-inline: 64px;
@@ -3294,19 +3024,6 @@ html.mode-tactile .scene {
   html.mode-tactile .scene {
     padding-left: calc(40px + env(safe-area-inset-left));
     padding-right: calc(88px + env(safe-area-inset-right));
-  }
-}
-@media (max-width: 600px) {
-  html.mode-tactile .hud__fiche {
-    padding-top: 76px;
-  }
-  html.mode-tactile .modale__tampon {
-    top: 22px;
-    right: 64px;
-    font-size: 15px;
-  }
-  html.mode-tactile .modale__tampon ~ .mention-dossier {
-    margin-top: 34px;
   }
 }
 

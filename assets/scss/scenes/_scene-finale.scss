@@ -51,12 +51,12 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     }
   }
 
-  // Le titre du chapitre : Bungee, en dégradé néon (charte, section 4)
+  // Le titre du chapitre : en dégradé néon
   .hud__chapitre::before {
     background: $degrade-neon;
   }
 
-  .hud__chapitre .mention-dossier {
+  .hud__chapitre .mention {
     color: var(--cyan-neon);
   }
 
@@ -71,7 +71,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 }
 
 .titre-festival {
-  font-family: $police-festival;
+  font-family: $police-titre;
   font-weight: 400;
   font-size: clamp(40px, 6vw, 64px);
   letter-spacing: 0.03em;
@@ -216,7 +216,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   &__titre {
-    font-family: $police-festival;
+    font-family: $police-titre;
     font-size: 150px;
     line-height: 1;
     text-transform: uppercase;
@@ -444,8 +444,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
    POST-TRAITEMENT PROPRE AU FESTIVAL
    ============================================================ */
 // Le gris qui se retire au scroll : la saturation monte avec --allumage
-.scene__desature,
-.confettis {
+.scene__desature {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -456,11 +455,6 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   background: #808080;
   mix-blend-mode: saturation;
   opacity: calc(1 - var(--allumage));
-}
-
-.confettis {
-  width: 100%;
-  height: 100%;
 }
 
 /* ============================================================
@@ -499,7 +493,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     border-radius: 12px 12px 0 0;
     background: $degrade-neon;
     color: var(--noir-profond);
-    font-family: $police-festival;
+    font-family: $police-titre;
     font-size: 15px;
     text-transform: uppercase;
   }
@@ -646,7 +640,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   border-radius: 4px;
   background: $degrade-neon;
   color: var(--noir-profond);
-  font-family: $police-festival;
+  font-family: $police-titre;
   font-size: 16px;
   text-transform: uppercase;
   cursor: pointer;
@@ -683,7 +677,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     gap: 22px;
   }
 
-  // La photo du Mastermind, en polaroïd, avec un halo néon
+  // La photo d’Alexis, en polaroïd, avec un halo néon
   &__photo {
     flex: none;
     width: 104px;
@@ -713,7 +707,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
   &__titre {
     flex: 1 1 180px; // à côté de la photo s'il reste 180px, sinon dessous
-    font-family: $police-festival;
+    font-family: $police-titre;
     font-size: clamp(30px, 4vw, 42px);
     line-height: 1.05;
     text-transform: uppercase;
@@ -841,7 +835,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     box-shadow: 0 0 50px rgba(139, 47, 224, 0.4), 0 0 120px rgba(255, 46, 154, 0.15);
     color: var(--blanc-casse);
 
-    .mention-dossier {
+    .mention {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -850,7 +844,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   .modale__titre {
-    font-family: $police-festival;
+    font-family: $police-titre;
     font-weight: 400;
     font-size: clamp(24px, 4vw, 32px);
   }
@@ -1033,7 +1027,6 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   .ecran-geant__veille,
-  .passe__voyant,
   .modale__en-ligne,
   .cta-festival:hover,
   .cta-festival:focus-visible,

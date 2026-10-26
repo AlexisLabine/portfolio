@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPETENCES.JS — Bloc 3 : le flight case (Compétences)
+   MATERIEL.JS — Le matériel : le flight case (Compétences)
    ============================================================
    1. Les plans de caméra, parcourus au scroll
    2. La fiche technique, remplie par les autocollants

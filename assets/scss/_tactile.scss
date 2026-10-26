@@ -3,11 +3,10 @@
 // ============================================================
 // La classe "mode-tactile" est posée sur <html> par le petit script
 // du <head> (index.html). Dans ce mode :
-//   - les portes s'ouvrent avec un bouton « Entrer » (pas de clavier)
 //   - les caméras 3D sont coupées (js/camera.js ne fait rien) : chaque
 //     scène est mise à plat et défile comme une page normale
 //   - on touche les objets pour lire leur contenu (modales)
-//   - à la fin : les retouches téléphone et tablette (encoche, tampons...)
+//   - à la fin : les retouches téléphone et tablette (encoche...)
 //
 // Dans une scène à plat, .hud devient "display: contents" : ses
 // enfants (titre, fiche, laissez-passer...) se rangent dans la même
@@ -18,76 +17,9 @@
 $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
 
 // Ces éléments n'existent qu'en mode tactile : cachés sur ordinateur.
-.bouton-entree,
 .hud__consigne,
 .objet__legende {
   display: none;
-}
-
-// --- Le bouton « Entrer » des portes ---
-.bouton-entree {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 4; // au-dessus de la brume : toujours lisible
-  translate: -50% -50%;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  min-width: 210px;
-  padding: 18px 36px 22px;
-  border: 2px solid var(--gris-acier);
-  border-radius: 8px;
-  background: #1c1e22;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  color: var(--blanc-casse);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.2s, border-color 0.2s;
-
-  &__mention {
-    @include machine-a-ecrire(11px);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--jaune-ambre);
-  }
-
-  &__voyant {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--rouge-dossier);
-    box-shadow: 0 0 10px var(--rouge-dossier);
-    animation: clignote 1.2s steps(2) infinite;
-  }
-
-  &__texte {
-    margin-right: -0.3em; // compense l'espacement après la dernière lettre
-    font-family: $police-titre;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 1;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
-
-  &:active {
-    border-color: var(--jaune-ambre);
-    background: #2b2e33;
-  }
-
-  &:focus-visible {
-    outline: 2px dashed var(--jaune-ambre);
-    outline-offset: 6px;
-  }
-
-  // Le bon geste : le voyant passe au vert
-  &.est-ouvert .bouton-entree__voyant {
-    background: #3dff8a;
-    box-shadow: 0 0 10px #3dff8a;
-    animation: none;
-  }
 }
 
 // --- La consigne "Touchez..." sous le titre de chaque scène ---
@@ -148,18 +80,8 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
    ============================================================ */
 html.mode-tactile {
   // Sur iPhone et iPad, bloquer le <body> ne suffit pas à bloquer le scroll.
-  &:has(> body.verrouille),
   &:has(> body.modale-active) {
     overflow: hidden;
-  }
-
-  // ===== BLOC 1 : le bouton remplace le clavier =====
-  #clavier-code {
-    display: none;
-  }
-
-  .bouton-entree {
-    display: flex;
   }
 
   // ===== LES SCÈNES, À PLAT =====
@@ -206,7 +128,6 @@ html.mode-tactile {
   .bureau__cote,
   .lampe,
   .faisceau,
-  .poussiere,
   .projecteur,
   .truss,
   .rayon,
@@ -216,7 +137,6 @@ html.mode-tactile {
   .scene__obscurite,
   .scene__vignette,
   .scene__grain,
-  .scene__barre,
   .scene__desature,
   .hud__camera,
   .hud__defiler,
@@ -582,12 +502,6 @@ html.mode-tactile {
     width: min(100%, 560px);
   }
 
-  // Les confettis tombent sur le premier écran de la scène seulement.
-  .confettis {
-    bottom: auto;
-    height: 100vh;
-  }
-
   // ===== LES MODALES =====
   // Fond sombre uni (pas de gros plan de caméra derrière) ;
   // sur iPad, le document est centré.
@@ -607,11 +521,6 @@ html.mode-tactile {
 /* ============================================================
    RETOUCHES TÉLÉPHONE ET TABLETTE
    ============================================================ */
-
-// Le lien LinkedIn reste caché tant que sa vraie adresse n'est pas entrée.
-.canal[href="#"] {
-  display: none;
-}
 
 // La révélation derrière les portes laisse la place à la Chronologie
 // (sinon, sur un téléphone à l'horizontale, le titre passe dessous).
@@ -633,22 +542,6 @@ html.mode-tactile {
     }
   }
 
-  // Petit écran : les tampons « Classé » ne recouvrent plus le texte.
-  @media (max-width: 600px) {
-    .hud__fiche {
-      padding-top: 76px; // le tampon a sa propre ligne, au-dessus du titre
-    }
-
-    .modale__tampon {
-      top: 22px;
-      right: 64px;
-      font-size: 15px;
-    }
-
-    .modale__tampon ~ .mention-dossier {
-      margin-top: 34px; // la mention passe sous le tampon
-    }
-  }
 }
 
 // Téléphone à l'horizontale (écran bas) : titre de la révélation plus petit.

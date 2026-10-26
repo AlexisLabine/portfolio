@@ -38,13 +38,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(242, 239, 233, 0.05);
-
-  &--petit {
-    font-family: $police-document;
-    font-size: 60px;
-    letter-spacing: 0.3em;
-    color: rgba(179, 18, 43, 0.14);
-  }
 }
 
 // Sol de l'entrepôt : même béton que la salle, plus une flaque de lumière
@@ -74,22 +67,10 @@
   opacity: 0;
 }
 
-.scene--competences .poussiere {
-  width: 900px;
-  height: 1120px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 2s ease 1s;
-}
-
 .scene--competences.lumiere-allumee {
   .projecteur,
   .flaque-lumiere {
     animation: allumage 1.4s linear forwards;
-  }
-
-  .poussiere {
-    opacity: 1;
   }
 }
 
@@ -183,12 +164,6 @@
   position: relative;
   padding: 40px 32px 32px;
   background-image: repeating-linear-gradient(transparent 0 31px, rgba(28, 28, 30, 0.06) 31px 32px);
-
-  &__tampon {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-  }
 
   &__selection {
     margin-bottom: 20px;
