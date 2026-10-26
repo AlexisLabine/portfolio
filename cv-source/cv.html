@@ -20,26 +20,26 @@
 @page { size: Letter; margin: 0; }
 * { box-sizing: border-box; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body { margin: 0; background: var(--papier); color: var(--encre); font: 400 9.8pt/1.55 "Inter", sans-serif; }
+body { margin: 0; background: var(--papier); color: var(--encre); font: 400 8.3pt/1.37 "Inter", sans-serif; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, p, ul { margin: 0; }
 ul { padding: 0; list-style: none; }
 
 /* En-tête sombre */
-.entete { background: var(--fond); color: var(--texte); padding: 32px 46px 24px; border-bottom: 3px solid var(--accent); }
+.entete { background: var(--fond); color: var(--texte); padding: 16px 40px 11px; border-bottom: 3px solid var(--accent); }
 .entete__haut { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
-.entete h1 { font: 600 34pt/1 "Oswald", sans-serif; letter-spacing: .05em; text-transform: uppercase; }
-.entete__poste { margin-top: 10px; font: 500 11.5pt/1.2 "Oswald", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-.entete__accroche { margin-top: 12px; font: 400 10.5pt/1.3 "Inter", sans-serif; color: var(--texte); }
+.entete h1 { font: 600 29pt/1 "Oswald", sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.entete__poste { margin-top: 5px; font: 500 11.5pt/1.2 "Oswald", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.entete__accroche { margin-top: 6px; font: 400 10.5pt/1.3 "Inter", sans-serif; color: var(--texte); }
 .entete img { width: 54px; height: auto; }
-.contact { display: flex; flex-wrap: wrap; gap: 6px 28px; margin-top: 18px; padding-top: 13px; border-top: 1px solid #2A2E37; font-size: 8.6pt; color: var(--texte-doux); }
+.contact { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: 10px; padding-top: 8px; border-top: 1px solid #2A2E37; font-size: 8.6pt; color: var(--texte-doux); }
 .contact strong { font: 400 7.4pt "Special Elite", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-right: 6px; }
 
 /* Deux colonnes */
-.page { display: grid; grid-template-columns: 196px 1fr; gap: 0 38px; padding: 28px 46px 0; }
-h2 { display: flex; align-items: baseline; gap: 8px; padding-bottom: 5px; margin-bottom: 12px; border-bottom: 1px dotted var(--pointille); font: 600 11pt/1.1 "Oswald", sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.page { display: grid; grid-template-columns: 176px 1fr; gap: 0 26px; padding: 14px 40px 0; }
+h2 { display: flex; align-items: baseline; gap: 8px; padding-bottom: 3px; margin-bottom: 6px; border-bottom: 1px dotted var(--pointille); font: 600 11pt/1.1 "Oswald", sans-serif; letter-spacing: .07em; text-transform: uppercase; }
 h2 span { font: 400 8pt "Special Elite", monospace; letter-spacing: .1em; color: var(--accent-papier); }
-section { margin-bottom: 26px; break-inside: avoid; }
+section { margin-bottom: 9px; break-inside: avoid; }
 .date { white-space: nowrap; font: 400 8pt "Special Elite", monospace; color: var(--accent-papier); letter-spacing: .03em; }
 .petit { color: var(--encre-douce); }
 
@@ -50,24 +50,24 @@ section { margin-bottom: 26px; break-inside: avoid; }
 .bandeau span { font: 500 9pt "Oswald", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 
 /* Colonne de gauche */
-.cote section > p, .cote li { margin-bottom: 6px; }
-.cote h3 { margin: 12px 0 6px; font: 400 7.6pt "Special Elite", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-douce); }
-.cote .diplome { margin-bottom: 13px; }
+.cote section > p, .cote li { margin-bottom: 2px; }
+.cote h3 { margin: 5px 0 3px; font: 400 7.6pt "Special Elite", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-douce); }
+.cote .diplome { margin-bottom: 6px; }
 .cote .diplome strong { display: block; font-weight: 600; }
-.pastilles { display: flex; flex-wrap: wrap; gap: 5px; }
-.pastilles li { margin: 0; padding: 2px 7px; border: 1px solid var(--encre-douce); border-radius: 2px; font: 400 7.8pt "Special Elite", monospace; }
+.pastilles { display: flex; flex-wrap: wrap; gap: 3px; }
+.pastilles li { margin: 0; padding: 1px 5px; border: 1px solid var(--encre-douce); border-radius: 2px; font: 400 7.8pt "Special Elite", monospace; }
 
 /* Colonne de droite */
-.profil { font-size: 10.2pt; line-height: 1.6; }
-.poste { margin-bottom: 20px; break-inside: avoid; }
+.profil { font-size: 8.8pt; line-height: 1.45; }
+.poste { margin-bottom: 6px; break-inside: avoid; }
 .poste__tete { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.poste h3 { font-weight: 600; font-size: 10.2pt; line-height: 1.3; }
-.poste__lieu { color: var(--encre-douce); margin-bottom: 7px; }
-.poste li { position: relative; padding-left: 14px; margin-bottom: 4px; }
+.poste h3 { font-weight: 600; font-size: 9pt; line-height: 1.3; }
+.poste__lieu { color: var(--encre-douce); margin-bottom: 2px; }
+.poste li { position: relative; padding-left: 12px; margin-bottom: 1.5px; }
 .poste li::before { content: ""; position: absolute; left: 1px; top: .55em; width: 4px; height: 4px; background: var(--signature); }
-.sous { margin: 10px 0 5px; font: 600 8.6pt "Inter", sans-serif; }
+.sous { margin: 4px 0 2px; font: 600 8.6pt "Inter", sans-serif; }
 
-.projets li { margin-bottom: 14px; break-inside: avoid; }
+.projets li { margin-bottom: 3px; break-inside: avoid; }
 .projets strong { font-weight: 600; }
 .ruban { display: inline-block; margin-left: 6px; padding: 0 5px; background: var(--signature); color: var(--texte); font: 400 6.8pt/1.5 "Special Elite", monospace; letter-spacing: .06em; text-transform: uppercase; vertical-align: 1px; }
 </style>
@@ -87,7 +87,6 @@ section { margin-bottom: 26px; break-inside: avoid; }
     <span><strong>Courriel</strong>labinealexis@gmail.com</span>
     <span><strong>Téléphone</strong>579-766-5907</span>
     <span><strong>Lieu</strong>Jonquière (Québec)</span>
-    <span><strong>GitHub</strong><a href="https://github.com/AlexisLabine">github.com/AlexisLabine</a></span>
   </p>
 </header>
 
@@ -112,42 +111,7 @@ section { margin-bottom: 26px; break-inside: avoid; }
       <ul class="pastilles"><li>Unreal Engine</li><li>Unity</li></ul>
     </section>
 
-  </aside>
 
-  <!-- ============ COLONNE DE DROITE ============ -->
-  <main>
-    <section>
-      <h2><span>03</span>Profil</h2>
-      <p class="profil">J’ai été webmaster et membre du comité de communication de l’édition 2026 du Festival de l’Âme à l’Écran. Je fais le lien entre les besoins des clients et l’équipe technique, et je suis autant à l’aise sur le terrain qu’en production.</p>
-    </section>
-
-    <section>
-      <h2><span>04</span>Expérience</h2>
-
-      <div class="poste">
-        <div class="poste__tete"><h3>Implication étudiante et coordination de projets multimédias</h3><span class="date">Oct. 2025 – aujourd’hui</span></div>
-        <p class="poste__lieu">Cégep de Jonquière</p>
-        <p class="sous">Festival de l’Âme à l’Écran (DAE)</p>
-        <ul>
-          <li>Webmaster et membre du comité de communication de l’édition 2026 : trois jours de festival, une vingtaine de films d’écoles de partout au Québec.</li>
-          <li>Au comité, aide aux affiches (Photoshop, Illustrator), aux réseaux sociaux (Instagram, TikTok) et aux communications d’urgence.</li>
-          <li>Refonte du site de l’édition 2027, seul : architecture SCSS, intégration de la base de données et back-office sécurisé.</li>
-        </ul>
-        <p class="sous">Conseil ATM (conseil du département)</p>
-        <ul>
-          <li>Représenter les étudiants d’Intégration multimédia.</li>
-          <li>Collaborer étroitement avec le corps professoral et la direction du département ATM.</li>
-          <li>Organiser des événements étudiants et coordonner des campagnes de financement.</li>
-        </ul>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<div class="bandeau"><strong>Alexis Labine</strong><span>Intégrateur multimédia · Communication numérique</span></div>
-<div class="page">
-  <aside class="cote">
     <section>
       <h2><span>05</span>Humaines</h2>
       <ul>
@@ -179,10 +143,35 @@ section { margin-bottom: 26px; break-inside: avoid; }
       </ul>
     </section>
   </aside>
+
+  <!-- ============ COLONNE DE DROITE ============ -->
   <main>
     <section>
-      <h2><span>04</span>Expérience (suite)</h2>
+      <h2><span>03</span>Profil</h2>
+      <p class="profil">J’ai été webmaster et membre du comité de communication de l’édition 2026 du Festival de l’Âme à l’Écran. Je fais le lien entre les besoins des clients et l’équipe technique, et je suis autant à l’aise sur le terrain qu’en production.</p>
+    </section>
 
+    <section>
+      <h2><span>04</span>Expérience</h2>
+
+      <div class="poste">
+        <div class="poste__tete"><h3>Implication étudiante et coordination de projets multimédias</h3><span class="date">Oct. 2025 – aujourd’hui</span></div>
+        <p class="poste__lieu">Cégep de Jonquière</p>
+        <p class="sous">Festival de l’Âme à l’Écran (DAE)</p>
+        <ul>
+          <li>Webmaster et membre du comité de communication de l’édition 2026 : trois jours de festival, une vingtaine de films d’écoles de partout au Québec.</li>
+          <li>Au comité, aide aux affiches (Photoshop, Illustrator), aux réseaux sociaux (Instagram, TikTok) et aux communications d’urgence.</li>
+          <li>Refonte du site de l’édition 2027, seul : architecture SCSS, intégration de la base de données et back-office sécurisé.</li>
+        </ul>
+        <p class="sous">Conseil ATM (conseil du département)</p>
+        <ul>
+          <li>Représenter les étudiants d’Intégration multimédia.</li>
+          <li>Collaborer étroitement avec le corps professoral et la direction du département ATM.</li>
+          <li>Organiser des événements étudiants et coordonner des campagnes de financement.</li>
+        </ul>
+      </div>
+
+    <section>
       <div class="poste">
         <div class="poste__tete"><h3>Journalier étudiant</h3><span class="date">Juin 2026 – aujourd’hui</span></div>
         <p class="poste__lieu">Produits Kruger, Crabtree</p>
@@ -202,6 +191,7 @@ section { margin-bottom: 26px; break-inside: avoid; }
         </ul>
       </div>
     </section>
+
 
     <section>
       <h2><span>08</span>Réalisations</h2>
