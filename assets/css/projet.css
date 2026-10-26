@@ -1,0 +1,599 @@
+@charset "UTF-8";
+/* PROJET.CSS — FICHIER COMPILÉ à partir de assets/scss/projet.scss.
+   Ne pas le modifier à la main : éditer les partials, puis recompiler. */
+:root {
+  --noir-bleute: #0D0F14;
+  --brun-bois: #3B2E27;
+  --rouge-dossier: #B3122B;
+  --jaune-ambre: #F4B740;
+  --gris-acier: #8A8F98;
+  --blanc-casse: #F2EFE9;
+  --anthracite: #1C1C1E;
+  --rose-neon: #FF2E9A;
+  --cyan-neon: #00E5FF;
+  --violet-neon: #8B2FE0;
+  --noir-profond: #050507;
+}
+
+:root {
+  --fond: #0D0F14;
+  --fond-eleve: #161920;
+  --trait: #2A2E37;
+  --bordure-champ: #646A76;
+  --texte: #F2EFE9;
+  --texte-doux: #A9ADB5;
+  --bois: #3B2E27;
+  --papier: #F2EFE9;
+  --papier-note: #EFE8D8;
+  --encre: #1C1C1E;
+  --encre-douce: #4A4F58;
+  --bordure-papier: #8A8478;
+  --pointille: #A9A396;
+  --accent: #F4B740;
+  --accent-papier: #8A5A00;
+  --signature: #B3122B;
+  --lumiere-1: #FF2E9A;
+  --lumiere-2: #00E5FF;
+  --lumiere-3: #8B2FE0;
+  --lumiere-texte: #7FF2FF;
+  --fond-scene: #0A0810;
+  --ombre-papier: 0 12px 32px rgb(0 0 0 / 0.45);
+  --ombre-portee: drop-shadow(0 14px 16px rgb(0 0 0 / 0.55));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--noir-bleute);
+  color: var(--blanc-casse);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+body.verrouille, body.modale-active {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.page-cv,
+.page-projet {
+  min-height: 100vh;
+  background: var(--bois) url("../img/mur-enquete/liege.jpg") repeat;
+  color: var(--encre);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: visible;
+}
+@media (min-width: 768px) {
+  .page-cv,
+  .page-projet {
+    background: var(--fond);
+  }
+}
+.page-cv a,
+.page-projet a {
+  color: var(--accent-papier);
+}
+.page-cv :focus-visible,
+.page-projet :focus-visible {
+  outline: 2px solid var(--accent-papier);
+  outline-offset: 3px;
+}
+
+.lien-evitement {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  z-index: 20;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: var(--fond) !important;
+  font-weight: 600;
+  transform: translateY(-120%);
+}
+.lien-evitement:focus-visible {
+  transform: none;
+  outline-color: var(--texte);
+}
+
+.barre {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--fond-eleve);
+  border-bottom: 1px solid var(--trait);
+}
+.barre__interieur {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 760px;
+  min-height: 56px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.barre__marque {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texte);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.barre__lien {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent) !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+.barre__lien:hover {
+  text-decoration: underline;
+}
+.barre :focus-visible {
+  outline-color: var(--accent);
+}
+
+.feuille {
+  position: relative;
+  margin: 26px 10px 0;
+  padding: 30px 20px 24px;
+  background: var(--papier);
+  border-radius: 2px;
+  box-shadow: var(--ombre-papier);
+}
+@media (min-width: 768px) {
+  .feuille {
+    max-width: 760px;
+    margin: 48px auto 0;
+    padding: 40px 56px 40px;
+  }
+}
+.feuille__entete {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--encre);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.punaise {
+  position: absolute;
+  top: -7px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--signature), var(--texte) 55%), var(--signature) 55%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+.punaise--gauche {
+  left: 24px;
+}
+.punaise--droite {
+  right: 24px;
+}
+.punaise--petite {
+  left: 50%;
+  top: -6px;
+  margin-left: -8px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.bouton {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+}
+.bouton--principal {
+  background: var(--fond);
+  color: var(--texte) !important;
+}
+.bouton--principal:hover {
+  background: var(--fond-eleve);
+}
+.bouton--secondaire {
+  border-color: var(--encre);
+  color: var(--encre) !important;
+}
+.bouton--secondaire:hover {
+  background: var(--papier-note);
+}
+.bouton--ambre {
+  background: var(--accent);
+  color: var(--fond) !important;
+}
+
+.ruban {
+  display: inline-block;
+  max-width: 100%;
+  padding: 2px 8px;
+  background: var(--signature);
+  color: var(--texte);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pastilles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pastilles li {
+  padding: 3px 9px;
+  border: 1px solid var(--encre-douce);
+  border-radius: 2px;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.pied {
+  margin-top: 36px;
+  background: var(--fond-eleve);
+  color: var(--texte-doux);
+  font-size: 13px;
+}
+.pied__interieur {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.pied a {
+  color: var(--accent);
+}
+.pied :focus-visible {
+  outline-color: var(--accent);
+}
+
+.sr-seulement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.barre__liens {
+  display: flex;
+  align-items: center;
+  gap: 4px 18px;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .barre__marque span {
+    display: none;
+  }
+}
+
+.fiche__entete {
+  margin-top: 22px;
+}
+.fiche__titre {
+  margin-top: 12px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+@media (min-width: 768px) {
+  .fiche__titre {
+    font-size: 48px;
+  }
+}
+.fiche__ligne {
+  margin-top: 12px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1.3;
+}
+@media (min-width: 768px) {
+  .fiche__ligne {
+    font-size: 22px;
+  }
+}
+.fiche__portes {
+  margin-top: 14px;
+}
+.fiche__rubrique {
+  margin-top: 32px;
+}
+.fiche__rubrique-titre {
+  padding-bottom: 6px;
+  border-bottom: 1px dotted var(--pointille);
+  color: var(--encre-douce);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.fiche__texte {
+  margin-top: 12px;
+}
+.fiche__texte + .fiche__texte {
+  margin-top: 8px;
+}
+.fiche__mention {
+  margin-top: 20px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--accent-papier);
+  background: var(--papier-note);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.fiche__liens {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+@media (min-width: 768px) {
+  .fiche__liens {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+.fiche__liens .bouton {
+  flex: 0 0 auto;
+}
+
+.pastilles--portes li {
+  border-color: var(--accent-papier);
+  color: var(--accent-papier);
+  font-weight: 600;
+}
+
+.avap {
+  margin-top: 8px;
+}
+.avap__etiquette {
+  color: var(--accent-papier);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.coulisses {
+  position: relative;
+  display: grid;
+  gap: 26px;
+  margin: 18px 0 0;
+  padding: 0 0 0 26px;
+  list-style: none;
+}
+.coulisses::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 4px;
+  width: 2px;
+  background: var(--signature);
+}
+
+.etape {
+  position: relative;
+}
+.etape::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -29px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--signature);
+  box-shadow: 0 0 0 3px var(--papier);
+}
+.etape__titre {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.etape__numero {
+  color: var(--accent-papier);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+.etape__texte {
+  margin-top: 8px;
+}
+.etape__medias {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+@media (min-width: 768px) {
+  .etape__medias {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+.etape__medias--hauteur {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 220px));
+  justify-content: start;
+}
+
+.media {
+  margin: 0;
+}
+.media__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--bordure-papier);
+  background: var(--papier-note);
+}
+.media__legende {
+  margin-top: 6px;
+  color: var(--encre-douce);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.media--video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--bordure-papier);
+  background: var(--fond);
+}
+
+.carte-etape {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 12px 16px;
+  background: var(--fond-eleve);
+  color: var(--texte);
+  border-radius: 2px;
+}
+.carte-etape__numero {
+  color: var(--accent);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1;
+}
+.carte-etape__texte {
+  color: var(--texte-doux);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.carte-etape--cours .carte-etape__texte {
+  color: var(--accent);
+}
+
+.avancement {
+  width: 100%;
+  margin-top: 14px;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.avancement caption {
+  padding-bottom: 6px;
+  text-align: left;
+  color: var(--encre-douce);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.avancement th,
+.avancement td {
+  padding: 8px 10px;
+  border-bottom: 1px dotted var(--pointille);
+  text-align: left;
+  vertical-align: top;
+}
+.avancement th {
+  font-weight: 600;
+}
+.avancement__etat {
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.pieces {
+  display: grid;
+  gap: 28px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.piece__titre {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.piece__texte {
+  margin-top: 8px;
+}
+.piece__medias {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+@media (min-width: 768px) {
+  .piece__medias {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}

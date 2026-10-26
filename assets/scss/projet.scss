@@ -1,0 +1,13 @@
+// ============================================================
+// PROJET.SCSS — point d'entrée des pages projets/*.html
+// ============================================================
+// Comme cv-express.scss : une feuille de style à part, pour que chaque
+// page de projet reste légère (< 500 Ko, 04) et sans le moteur 3D.
+// Compilation, depuis la racine du dépôt :
+//   sass --no-source-map assets/scss/projet.scss assets/css/projet.css
+
+/* PROJET.CSS — FICHIER COMPILÉ à partir de assets/scss/projet.scss.
+   Ne pas le modifier à la main : éditer les partials, puis recompiler. */
+
+@use "base/reset";
+@use "pages/projet";

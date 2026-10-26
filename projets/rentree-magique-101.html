@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Rentrée Magique 101 — Alexis Labine</title>
+<meta name="description" content="Un site WordPress qui guide les nouveaux élèves d’une école de sorcellerie.">
+<meta name="theme-color" content="#161920">
+
+<!-- Polices de la charte (02, section 3) : encore sur Google Fonts jusqu'à la tâche 3.3. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&family=Special+Elite&display=swap">
+
+<!-- projet.css est COMPILÉ à partir de assets/scss/projet.scss (ne pas modifier à la main).
+     Page sans JavaScript : elle marche seule, par son adresse (une URL par projet),
+     et fiche-projet.js (tâche 4.6) en reprend l'<article> pour la modale. -->
+<link rel="stylesheet" href="../assets/css/projet.css">
+</head>
+
+<body class="page-projet">
+<a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+<header class="barre">
+  <div class="barre__interieur">
+    <p class="barre__marque">
+      <img src="../assets/img/logo/logo-ligne-du-temps.png" width="30" height="24" alt="">
+      <span>Alexis Labine</span>
+    </p>
+    <nav class="barre__liens" aria-label="Navigation">
+      <a class="barre__lien" href="../cv-express.html#realisations">←&nbsp;CV express</a>
+      <a class="barre__lien" href="../index.html">Expérience&nbsp;→</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+  <div class="feuille">
+    <span class="punaise punaise--gauche" aria-hidden="true"></span>
+    <span class="punaise punaise--droite" aria-hidden="true"></span>
+    <p class="feuille__entete">
+      <span>Fiche projet</span>
+      <span>03&nbsp;/&nbsp;08</span>
+    </p>
+
+    <!-- ===== L'ARTICLE REPRIS EN MODALE PAR fiche-projet.js (4.6) ===== -->
+    <article class="fiche" aria-labelledby="titre">
+      <header class="fiche__entete">
+        <p class="ruban">Projet 03 · Hiver 2026 · Projet de session</p>
+        <h1 class="fiche__titre" id="titre">Rentrée Magique 101</h1>
+        <p class="fiche__ligne">Un site WordPress qui guide les nouveaux élèves d’une école de sorcellerie.</p>
+      <div class="fiche__portes"><ul class="pastilles pastilles--portes" aria-label="Portes"><li>Web</li></ul></div>
+      </header>
+
+    <section class="fiche__rubrique" aria-labelledby="role">
+      <h2 class="fiche__rubrique-titre" id="role">Mon rôle</h2>
+          <p class="fiche__texte">Seul&nbsp;: thème, contenu et design.</p>
+    </section>
+    <section class="fiche__rubrique" aria-labelledby="outils">
+      <h2 class="fiche__rubrique-titre" id="outils">Outils</h2>
+      <ul class="pastilles"><li>WordPress (thème Frost)</li><li>CSS</li><li>HurryTimer</li></ul>
+    </section>
+
+    <section class="fiche__rubrique" aria-labelledby="coulisses">
+      <h2 class="fiche__rubrique-titre" id="coulisses">Côté coulisses</h2>
+      <ol class="coulisses">
+      <li class="etape">
+        <h3 class="etape__titre"><span class="etape__numero" aria-hidden="true">01</span>Brief</h3>
+        <div class="etape__texte">
+          <p>Livrer un site WordPress complet, en projet final du cours Système de gestion de contenu 1.</p>
+        </div>
+        <div class="etape__medias">
+          <div class="carte-etape" aria-hidden="true">
+            <span class="carte-etape__numero">01</span>
+            <span class="carte-etape__texte">Brief</span>
+          </div>
+        </div>
+      </li>
+      <li class="etape">
+        <h3 class="etape__titre"><span class="etape__numero" aria-hidden="true">02</span>Plan</h3>
+        <div class="etape__texte">
+          <p>Un moodboard (typographies, blasons, palette) et un parcours&nbsp;: lettre d’admission, Chemin de Traverse, train de la rentrée, répartition dans les maisons, blogue.</p>
+        </div>
+        <div class="etape__medias">
+          <figure class="media">
+            <img class="media__image" src="../assets/img/projets/rentree-magique/moodboard.webp" width="900" height="506" alt="Moodboard&nbsp;: le titre Rentrée Magique 101 dans deux typographies, des blasons de maisons et une palette de noir, brun, or et crème." loading="lazy" decoding="async">
+            <figcaption class="media__legende">Le moodboard</figcaption>
+          </figure>
+        </div>
+      </li>
+      <li class="etape">
+        <h3 class="etape__titre"><span class="etape__numero" aria-hidden="true">03</span>Production</h3>
+        <div class="etape__texte">
+          <p>Le thème Frost retravaillé en CSS pour une esthétique «&nbsp;Dark Academia&nbsp;», avec un compte à rebours avant le départ du train.</p>
+        </div>
+        <div class="etape__medias">
+          <figure class="media">
+            <img class="media__image" src="../assets/img/projets/rentree-magique/site-chemin.webp" width="900" height="562" alt="Page Le Chemin de Traverse&nbsp;: une rue de boutiques sombres sous un titre doré." loading="lazy" decoding="async">
+            <figcaption class="media__legende">Le Chemin de Traverse</figcaption>
+          </figure>
+          <figure class="media">
+            <img class="media__image" src="../assets/img/projets/rentree-magique/site-express.webp" width="900" height="562" alt="Page Le Poudlard Express&nbsp;: un compte à rebours avant le départ du train." loading="lazy" decoding="async">
+            <figcaption class="media__legende">Le train, avec son compte à rebours</figcaption>
+          </figure>
+        </div>
+      </li>
+      <li class="etape">
+        <h3 class="etape__titre"><span class="etape__numero" aria-hidden="true">04</span>Résultat</h3>
+        <div class="etape__texte">
+          <p>Site en ligne. Note&nbsp;: 90 %.</p>
+        </div>
+        <div class="etape__medias">
+          <figure class="media">
+            <img class="media__image" src="../assets/img/projets/rentree-magique/site-accueil.webp" width="900" height="562" alt="Accueil du site&nbsp;: une lettre d’admission sur fond de décor sombre." loading="lazy" decoding="async">
+            <figcaption class="media__legende">La lettre d’admission</figcaption>
+          </figure>
+          <figure class="media">
+            <img class="media__image" src="../assets/img/projets/rentree-magique/site-repartition.webp" width="900" height="562" alt="Page La cérémonie de la répartition, avec la présentation de la maison Gryffondor." loading="lazy" decoding="async">
+            <figcaption class="media__legende">La répartition dans les maisons</figcaption>
+          </figure>
+        </div>
+      </li>
+      </ol>
+    </section>
+
+    <p class="fiche__mention">Projet scolaire inspiré de l’univers de Harry Potter.</p>
+
+      <nav class="fiche__rubrique" aria-label="Liens du projet">
+        <h2 class="fiche__rubrique-titre">Liens</h2>
+        <div class="fiche__liens">
+      <a class="bouton bouton--principal" href="https://alexis-labine.techniquesmedia.com/sgc1/rm101/" target="_blank" rel="noopener">Voir le site&nbsp;↗<span class="sr-seulement"> (s’ouvre dans un nouvel onglet)</span></a>
+          <a class="bouton bouton--secondaire" href="rentree-magique-101.html">Lien direct</a>
+          <a class="bouton bouton--ambre" href="tontour.html">Projet suivant&nbsp;: TonTour&nbsp;→</a>
+        </div>
+      </nav>
+    </article>
+    <!-- ===== FIN DE L'ARTICLE ===== -->
+  </div>
+</main>
+
+<footer class="pied">
+  <div class="pied__interieur">
+    <p>© 2026 Alexis Labine · <a href="mailto:labinealexis@gmail.com">labinealexis@gmail.com</a></p>
+    <p><a href="../assets/Alexis_Labine_CV.pdf" download>CV (PDF)</a> · <a href="https://github.com/AlexisLabine">GitHub&nbsp;↗</a> · <a href="../comment-ce-site-a-ete-fait.html">Comment ce site a été fait</a></p>
+  </div>
+</footer>
+</body>
+</html>
