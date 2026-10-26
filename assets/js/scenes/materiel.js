@@ -34,7 +34,11 @@ function afficherCompetence(autocollantChoisi) {
 // Survol (souris), focus (clavier) ou clic (tactile) : même résultat.
 autocollants.forEach((autocollant) => {
   autocollant.setAttribute("aria-pressed", "false");
-  autocollant.addEventListener("mouseenter", () => afficherCompetence(autocollant));
+  // Le survol n'existe pas au toucher : un mouseenter simulé après un défilement
+  // changerait la fiche sans que la personne ait touché quoi que ce soit.
+  autocollant.addEventListener("mouseenter", () => {
+    if (!MODE_TACTILE) afficherCompetence(autocollant);
+  });
   autocollant.addEventListener("focus", () => afficherCompetence(autocollant));
   autocollant.addEventListener("click", () => {
     afficherCompetence(autocollant);
@@ -51,14 +55,14 @@ if (MODE_TACTILE) ficheDescription.textContent = "Touchez un autocollant sur le 
 /* ------------------------------------------------------------
    PARTIE 2 — LES PLANS DE CAMÉRA
    ------------------------------------------------------------
+   Trois plans au plus (02) : la vue d'ensemble, le couvercle, la façade.
    Le sol est à y = 320 ; le flight case va de y = -280 à 320.
    "selection" = l'autocollant affiché dans la fiche en arrivant sur le plan.
 */
 const plansCompetences = [
   { nom: "Vue d'ensemble", x: 0, y: 0, z: 0, distance: -350, rx: -4, ry: 0 },
   { nom: "Le couvercle", selection: "ps", x: 50, y: -150, z: 0, distance: 280, rx: -3, ry: 10 },
-  { nom: "La façade", selection: "html", x: -50, y: 140, z: 0, distance: 280, rx: -14, ry: -8 },
-  { nom: "Plan de sortie", x: 0, y: 30, z: 0, distance: -150, rx: -10, ry: 0 },
+  { nom: "La façade", selection: "html", x: 60, y: 60, z: 0, distance: 80, rx: -8, ry: -6 },
 ];
 
 cameraCompetences.creerRail(plansCompetences, (plan) => {
