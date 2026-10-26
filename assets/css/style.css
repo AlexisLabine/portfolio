@@ -952,6 +952,11 @@ html.mode-tactile .accueil {
   }
 }
 
+@media (min-width: 769px) {
+  .scene--competences .hud__chapitre .sous-titre {
+    max-width: 300px;
+  }
+}
 .decor--entrepot {
   width: 5000px;
   height: 2400px;
@@ -1457,6 +1462,17 @@ html.mode-tactile .accueil {
   stroke: var(--signature);
 }
 
+.filtres__etiquette {
+  align-self: center;
+  padding-right: 6px;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
 .filtres {
   position: absolute;
   left: 28px;
@@ -1464,7 +1480,7 @@ html.mode-tactile .accueil {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  max-width: 46vw;
+  max-width: 64vw;
   pointer-events: auto;
   transition: opacity 0.4s ease, visibility 0.4s;
 }

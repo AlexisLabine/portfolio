@@ -14,6 +14,13 @@
   }
 }
 
+// Sur ordinateur, le sous-titre passe à la ligne : il ne recouvre plus le couvercle du flight case.
+@media (min-width: 769px) {
+  .scene--competences .hud__chapitre .sous-titre {
+    max-width: 300px;
+  }
+}
+
 // --- Le mur de l'entrepôt, avec ses inscriptions au pochoir ---
 .decor--entrepot {
   width: 5000px;

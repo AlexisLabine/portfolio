@@ -288,6 +288,14 @@
 }
 
 // --- Les filtres par porte : des onglets de papier (02, composant 11) ---
+.filtres__etiquette {
+  align-self: center;
+  padding-right: 6px;
+  @include machine-a-ecrire(12px);
+  color: var(--texte);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
 .filtres {
   position: absolute;
   left: 28px;
@@ -295,7 +303,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  max-width: 46vw;
+  max-width: 64vw;
   pointer-events: auto;
 
   transition: opacity 0.4s ease, visibility 0.4s;
