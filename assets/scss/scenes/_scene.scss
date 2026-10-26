@@ -1,0 +1,368 @@
+// ============================================================
+// SCÈNES 3D — le moteur commun (salle de crise + compétences)
+// ============================================================
+//  .scene              l'écran ; sa perspective = l'objectif de la caméra
+//   └ .scene__echelle  adapte la taille du monde à l'écran
+//      └ .camera       le monde entier, déplacé par js/camera.js
+//         └ éléments   placés avec --x, --y, --z (en px, 0 = centre)
+@use "../abstracts/jetons" as *;
+@use "../abstracts/mixins" as *;
+
+$courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
+
+.scene {
+  --echelle: 1; //    calculée par camera.js
+  --centre-x: 50%; // où tombe le centre de l'image (décalé pendant un examen)
+  --centre-y: 50%;
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #040506;
+  perspective: calc(1000px * var(--echelle));
+  perspective-origin: var(--centre-x) var(--centre-y);
+  transition: perspective-origin 0.9s $courbe-camera;
+
+  &__echelle {
+    position: absolute;
+    left: var(--centre-x);
+    top: var(--centre-y);
+    transform: scale3d(var(--echelle), var(--echelle), var(--echelle));
+    transform-style: preserve-3d;
+    transition: left 0.9s $courbe-camera, top 0.9s $courbe-camera;
+  }
+}
+
+// --- Le monde ---
+.camera {
+  --cam-ry: 0deg; // angle de la caméra, mis à jour par camera.js
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-style: preserve-3d;
+  transform-origin: 0 0;
+
+  // Chaque élément du monde : placé en 3D, orienté, puis centré sur son point d'ancrage.
+  > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    transform:
+      translate3d(var(--x, 0px), var(--y, 0px), var(--z, 0px))
+      var(--orientation, rotate(0deg))
+      translate(-50%, var(--ancre, -50%));
+  }
+}
+
+// Posé à plat (sol, dessus du bureau)
+.sol {
+  --orientation: rotateX(90deg);
+}
+
+// Toujours tourné vers la caméra et posé par sa base,
+// comme les "sprites" des jeux vidéo.
+.billboard {
+  --orientation: rotateY(calc(var(--cam-ry) * -1));
+  --ancre: -100%;
+}
+
+// Ombre douce sous un objet, dessinée sur le sol ou le bureau
+.ombre-contact {
+  position: absolute;
+  left: var(--px);
+  top: var(--py);
+  width: var(--largeur);
+  height: calc(var(--largeur) * 0.35);
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.75), transparent 70%);
+  pointer-events: none;
+}
+
+// Profondeur de champ : pendant un examen, tout le reste devient flou.
+.decor,
+.objet {
+  transition: filter 0.8s ease;
+}
+
+.scene.en-examen {
+  .decor,
+  .objet:not(.est-examine) {
+    filter: blur(4px) brightness(0.6);
+  }
+}
+
+/* ============================================================
+   POST-TRAITEMENT (par-dessus l'image, comme dans un jeu)
+   ============================================================ */
+.scene__obscurite,
+.scene__vignette,
+.scene__grain,
+.scene__barre {
+  position: absolute;
+  pointer-events: none;
+}
+
+// Le noir complet avant que la lumière s'allume
+.scene__obscurite {
+  inset: 0;
+  z-index: 1;
+  background: #020304;
+  opacity: 0.92;
+}
+
+.scene.lumiere-allumee .scene__obscurite {
+  animation: obscurite-dissipee 1.4s linear forwards;
+}
+
+// Les bords de l'image assombris
+.scene__vignette {
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+// Le grain de pellicule (bruit SVG qui tremble)
+.scene__grain {
+  inset: -50%;
+  z-index: 3;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  animation: grain 0.8s steps(5) infinite;
+}
+
+// Les bandes noires "cinéma" : larges sur le plan d'ouverture et pendant un examen
+.scene__barre {
+  left: 0;
+  right: 0;
+  z-index: 4;
+  height: 12vh;
+  background: #000;
+  transform: scaleY(0.35);
+  transition: transform 0.9s $courbe-camera;
+
+  &--haut {
+    top: 0;
+    transform-origin: top;
+  }
+
+  &--bas {
+    bottom: 0;
+    transform-origin: bottom;
+  }
+}
+
+.scene[data-plan="0"] .scene__barre,
+.scene.en-examen .scene__barre {
+  transform: scaleY(1);
+}
+
+/* ============================================================
+   HUD — l'interface par-dessus l'image
+   ============================================================ */
+.hud {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+
+  // L'étiquette de caméra, en haut à gauche
+  &__camera {
+    @include machine-a-ecrire(12px);
+    position: absolute;
+    top: 22px;
+    left: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(242, 239, 233, 0.7);
+
+    @include sur-mobile {
+      top: 14px;
+      left: 16px;
+    }
+  }
+
+  &__point {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rouge-dossier);
+    animation: clignote 1.2s steps(2) infinite;
+  }
+
+  // Le titre de chapitre, visible seulement sur le plan d'ouverture
+  &__chapitre {
+    position: absolute;
+    top: calc(12vh + 40px); // juste sous la bande cinéma du haut
+    left: 7vw;
+    display: grid;
+    gap: 10px;
+    max-width: 600px;
+    transition: opacity 0.6s ease, translate 0.6s ease;
+
+    &::before {
+      content: "";
+      width: 64px;
+      height: 2px;
+      background: var(--jaune-ambre);
+    }
+
+    @include sur-mobile {
+      left: 16px;
+      right: 48px;
+    }
+  }
+
+  &__defiler {
+    @include machine-a-ecrire(12px);
+    position: absolute;
+    left: 50%;
+    bottom: 4vh;
+    translate: -50% 0;
+    color: rgba(242, 239, 233, 0.6);
+    white-space: nowrap;
+    transition: opacity 0.6s ease;
+  }
+
+  // "[E] Examiner le dossier"
+  &__invite {
+    position: absolute;
+    left: 50%;
+    bottom: 15vh;
+    translate: -50% 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px 8px 8px;
+    border: 1px solid rgba(242, 239, 233, 0.25);
+    border-radius: 4px;
+    background: rgba(8, 9, 12, 0.7);
+    backdrop-filter: blur(6px);
+    color: var(--blanc-casse);
+    font-family: $police-sous-titre;
+    font-size: 17px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    pointer-events: auto;
+    animation: apparition-invite 0.5s ease;
+    transition: opacity 0.4s ease;
+
+    &[hidden] {
+      display: none;
+    }
+
+    kbd {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 2px solid currentColor;
+      border-radius: 6px;
+      font-family: $police-texte;
+      font-weight: 600;
+      font-size: 15px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    &:hover kbd,
+    &:focus-visible kbd {
+      background: var(--jaune-ambre);
+      border-color: var(--jaune-ambre);
+      color: var(--noir-bleute);
+    }
+
+    &:focus-visible {
+      outline: 2px dashed var(--jaune-ambre);
+      outline-offset: 4px;
+    }
+
+    // Écrans tactiles : pas de clavier, donc pas de touche "E"
+    @media (hover: none) {
+      padding: 12px 20px;
+      font-size: 15px;
+
+      kbd {
+        display: none;
+      }
+    }
+  }
+}
+
+// Hors du plan d'ouverture : le titre et l'aide au scroll s'effacent.
+.scene:not([data-plan="0"]) {
+  .hud__chapitre {
+    opacity: 0;
+    translate: 0 -24px;
+  }
+
+  .hud__defiler {
+    opacity: 0;
+  }
+}
+
+.scene.en-examen .hud__invite {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+// Clignotement façon néon qui s'allume, puis reste allumé
+@keyframes allumage {
+  0% { opacity: 0; }
+  10% { opacity: 0.8; }
+  14% { opacity: 0.1; }
+  22% { opacity: 0.9; }
+  26% { opacity: 0.2; }
+  40% { opacity: 1; }
+  44% { opacity: 0.4; }
+  60%, 100% { opacity: 1; }
+}
+
+// Le même clignotement, à l'envers, pour le voile noir
+@keyframes obscurite-dissipee {
+  0% { opacity: 0.92; }
+  10% { opacity: 0.4; }
+  14% { opacity: 0.85; }
+  22% { opacity: 0.3; }
+  26% { opacity: 0.8; }
+  40% { opacity: 0.15; }
+  44% { opacity: 0.6; }
+  60%, 100% { opacity: 0; }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -5%); }
+  60% { transform: translate(-6%, -2%); }
+  80% { transform: translate(5%, 4%); }
+}
+
+@keyframes clignote {
+  50% { opacity: 0; }
+}
+
+@keyframes apparition-invite {
+  from {
+    opacity: 0;
+    translate: -50% 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene.lumiere-allumee .scene__obscurite {
+    animation: none;
+    opacity: 0;
+  }
+
+  .scene__grain,
+  .hud__point {
+    animation: none;
+  }
+}
