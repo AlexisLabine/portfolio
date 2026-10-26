@@ -87,10 +87,23 @@
 
     <canvas id="brume" width="410" height="945"></canvas>
 
-    <!-- Un bouton pour ouvrir les portes (elles s'ouvrent aussi au défilement) -->
-    <button id="bouton-entree" class="bouton-entree" type="button">
-      <span class="bouton-entree__texte">Entrer</span>
-    </button>
+    <!-- La plaque : le nom, le titre et l'accroche, lisibles dès la porte.
+         Elle disparaît quand les portes s'ouvrent (portes.js). -->
+    <div id="plaque" class="plaque">
+      <p class="plaque__ruban">Entrée des artistes</p>
+      <h1 class="plaque__nom">Alexis Labine</h1>
+      <p class="plaque__titre">Intégrateur multimédia · Communication numérique</p>
+      <span class="plaque__trait" aria-hidden="true"></span>
+      <p class="plaque__accroche">Je fais le pont entre l’idée, l’équipe et l’écran.</p>
+      <div class="plaque__actions">
+        <button id="bouton-entree" class="plaque__bouton plaque__bouton--principal" type="button">Entrer</button>
+        <a class="plaque__bouton plaque__bouton--secondaire" href="cv-express.html">Voir le CV express</a>
+      </div>
+      <a class="plaque__courriel" href="mailto:labinealexis@gmail.com">labinealexis@gmail.com</a>
+    </div>
+
+    <!-- La consigne repose sur une bande sombre, jamais sur la brume seule (02) -->
+    <p class="accueil__consigne">Entrez ou défilez : les portes s’ouvrent</p>
   </section>
 
 
@@ -162,7 +175,7 @@
 
       <header class="hud__chapitre">
         <p class="mention">La régie</p>
-        <h1 id="titre-salle" class="titre-bloc">À propos</h1>
+        <h2 id="titre-salle" class="titre-bloc">À propos</h2>
         <h2 class="sous-titre">Le profil, le parcours et la méthode.</h2>
       </header>
 
@@ -258,7 +271,7 @@
 
       <header class="hud__chapitre">
         <p class="mention">Le matériel</p>
-        <h1 id="titre-competences" class="titre-bloc">Compétences</h1>
+        <h2 id="titre-competences" class="titre-bloc">Compétences</h2>
         <h2 class="sous-titre">Les outils dans le flight case, le reste sur la fiche.</h2>
       </header>
 
@@ -422,7 +435,7 @@
 
       <header class="hud__chapitre">
         <p class="mention">Le mur de production</p>
-        <h1 id="titre-mur" class="titre-bloc">Réalisations</h1>
+        <h2 id="titre-mur" class="titre-bloc">Réalisations</h2>
         <h2 class="sous-titre">Huit réalisations, quatre portes.</h2>
       </header>
 
@@ -526,7 +539,7 @@
 
       <header class="hud__chapitre">
         <p class="mention">La scène</p>
-        <h1 id="titre-festival" class="titre-bloc titre-festival">Contact</h1>
+        <h2 id="titre-festival" class="titre-bloc titre-festival">Contact</h2>
         <h2 class="sous-titre">Le rideau s'ouvre sur le contact et le CV.</h2>
       </header>
 

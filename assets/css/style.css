@@ -245,43 +245,174 @@ p {
   pointer-events: none;
 }
 
-.bouton-entree {
+.plaque {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 4;
   translate: -50% -50%;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: min(92vw, 640px);
+  max-height: calc(100% - 80px);
+  overflow-y: auto;
+  padding: 40px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--fond) 90%, transparent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .plaque {
+    gap: 10px;
+    width: min(100vw - 88px, 640px);
+    padding: 28px 20px;
+  }
+}
+@media (max-height: 520px) {
+  .plaque {
+    gap: 6px;
+    padding: 16px 24px;
+  }
+}
+.plaque__ruban {
+  margin: 0;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.plaque__nom {
+  margin: 0;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .plaque__nom {
+    font-size: 40px;
+  }
+}
+@media (max-height: 520px) {
+  .plaque__nom {
+    font-size: 36px;
+  }
+}
+.plaque__titre {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--texte-doux);
+}
+@media (max-width: 768px) {
+  .plaque__titre {
+    font-size: 15px;
+  }
+}
+.plaque__trait {
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin: 4px 0;
+  background: var(--accent);
+}
+.plaque__accroche {
+  margin: 0;
+  max-width: 34ch;
+  text-wrap: balance;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1.3;
+}
+@media (max-width: 768px) {
+  .plaque__accroche {
+    font-size: 19px;
+  }
+}
+.plaque__actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+@media (max-height: 520px) {
+  .plaque__actions {
+    margin-top: 4px;
+  }
+}
+@media (max-width: 768px) {
+  .plaque__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+}
+.plaque__bouton {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 210px;
-  min-height: 64px;
-  padding: 18px 36px;
-  border: 2px solid var(--texte-doux);
-  border-radius: 8px;
-  background: #1c1e22;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  color: var(--texte);
+  min-height: 48px;
+  padding: 0 28px;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.2s, border-color 0.2s;
 }
-.bouton-entree__texte {
-  margin-right: -0.3em;
-  font-family: "Oswald", "Arial Narrow", sans-serif;
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 1;
-  letter-spacing: 0.3em;
+.plaque__bouton--principal {
+  background: var(--accent);
+  color: var(--fond);
+}
+.plaque__bouton--principal:hover {
+  background: color-mix(in srgb, var(--accent) 85%, white);
+}
+.plaque__bouton--secondaire {
+  border-color: var(--bordure-champ);
+  background: transparent;
+  color: var(--texte);
+}
+.plaque__bouton--secondaire:hover {
+  border-color: var(--texte);
+}
+.plaque__courriel {
+  margin-top: 4px;
+  min-height: 24px;
+  font-size: 15px;
+  color: var(--texte-doux);
+  text-underline-offset: 3px;
+}
+.plaque__courriel:hover {
+  color: var(--texte);
+}
+
+.accueil__consigne {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  margin: 0;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--fond) 88%, transparent);
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-align: center;
   text-transform: uppercase;
-}
-.bouton-entree:hover, .bouton-entree:active {
-  border-color: var(--accent);
-  background: #2b2e33;
-}
-.bouton-entree:focus-visible {
-  outline: 2px dashed var(--accent);
-  outline-offset: 6px;
+  color: var(--texte-doux);
 }
 
 .scene {

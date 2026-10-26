@@ -1,5 +1,5 @@
 // ============================================================
-// L'ENTRÉE DES ARTISTES — portes, brume et bouton « Entrer »
+// L'ENTRÉE DES ARTISTES — portes, brume et plaque
 // ============================================================
 @use "../abstracts/jetons" as *;
 @use "../abstracts/mixins" as *;
@@ -93,47 +93,183 @@
   pointer-events: none;
 }
 
-// --- Le bouton « Entrer » : au-dessus de la brume, toujours lisible ---
-// (Il sera remplacé par la plaque nom / titre / accroche à la tâche 4.2.)
-.bouton-entree {
+// --- La plaque : nom, titre, accroche et boutons (02, composant 1) ---
+// Posée au centre des portes, au-dessus de la brume. Elle contient les
+// mots dont le recruteur a besoin tout de suite : qui, quoi, comment écrire.
+.plaque {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 4;
   translate: -50% -50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 210px;
-  min-height: 64px;
-  padding: 18px 36px;
-  border: 2px solid var(--texte-doux);
-  border-radius: 8px;
-  background: #1c1e22;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  color: var(--texte);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.2s, border-color 0.2s;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: min(92vw, 640px);
+  max-height: calc(100% - 80px); // laisse la place à la consigne du bas
+  overflow-y: auto;
+  padding: 40px 48px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--fond) 90%, transparent);
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.6);
+  text-align: center;
 
-  &__texte {
-    margin-right: -0.3em; // compense l'espacement après la dernière lettre
+  @include sur-mobile {
+    gap: 10px;
+    width: min(calc(100vw - 88px), 640px); // dégage la ligne du temps, à droite
+    padding: 28px 20px;
+  }
+
+  // Écran bas (téléphone en paysage) : on resserre pour tout garder visible.
+  @media (max-height: 520px) {
+    gap: 6px;
+    padding: 16px 24px;
+  }
+
+  &__ruban {
+    margin: 0;
+    font-family: $police-document;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  &__nom {
+    margin: 0;
     font-family: $police-titre;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 1;
-    letter-spacing: 0.3em;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+
+    @include sur-mobile {
+      font-size: 40px;
+    }
+
+    @media (max-height: 520px) {
+      font-size: 36px;
+    }
   }
 
-  &:hover,
-  &:active {
-    border-color: var(--accent);
-    background: #2b2e33;
+  &__titre {
+    margin: 0;
+    font-family: $police-texte;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    color: var(--texte-doux);
+
+    @include sur-mobile {
+      font-size: 15px;
+    }
   }
 
-  &:focus-visible {
-    outline: 2px dashed var(--accent);
-    outline-offset: 6px;
+  &__trait {
+    display: block;
+    width: 56px;
+    height: 2px;
+    margin: 4px 0;
+    background: var(--accent);
   }
+
+  &__accroche {
+    margin: 0;
+    max-width: 34ch;
+    text-wrap: balance;
+    font-family: $police-titre;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 1.3;
+
+    @include sur-mobile {
+      font-size: 19px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+
+    @media (max-height: 520px) {
+      margin-top: 4px;
+    }
+
+    @include sur-mobile {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+  }
+
+  // Boutons : principal = ambre, secondaire = contour (02, composant 13)
+  &__bouton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 28px;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    font-family: $police-texte;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s, border-color 0.2s;
+
+    &--principal {
+      background: var(--accent);
+      color: var(--fond);
+
+      &:hover {
+        background: color-mix(in srgb, var(--accent) 85%, white);
+      }
+    }
+
+    &--secondaire {
+      border-color: var(--bordure-champ);
+      background: transparent;
+      color: var(--texte);
+
+      &:hover {
+        border-color: var(--texte);
+      }
+    }
+  }
+
+  &__courriel {
+    margin-top: 4px;
+    min-height: 24px;
+    font-size: 15px;
+    color: var(--texte-doux);
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: var(--texte);
+    }
+  }
+}
+
+// --- La consigne du bas, sur une bande sombre (jamais sur la brume seule) ---
+.accueil__consigne {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  margin: 0;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--fond) 88%, transparent);
+  font-family: $police-document;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--texte-doux);
 }
