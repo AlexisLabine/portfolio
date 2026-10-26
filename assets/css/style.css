@@ -933,6 +933,15 @@ html.mode-tactile .accueil {
     animation: none;
   }
 }
+.scene--salle .objet .objet__legende {
+  display: flex;
+}
+
+.scene--salle .objet--pochette .objet__legende,
+.scene--salle .objet--telephone .objet__legende {
+  margin-top: 12px;
+}
+
 .scene--competences {
   --centre-x: 36%;
 }
@@ -1546,6 +1555,9 @@ html.mode-tactile .accueil {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+.modale__section ~ p {
+  margin: 0 0 10px;
+}
 .modale__liste {
   display: grid;
   gap: 12px;
@@ -1560,48 +1572,6 @@ html.mode-tactile .accueil {
 .modale__liste--puces li::before {
   content: "▸ ";
   color: var(--signature);
-}
-
-.langues {
-  display: grid;
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.langues__item {
-  display: grid;
-  grid-template-columns: 90px 1fr auto;
-  align-items: center;
-  gap: 12px;
-  font-size: 15px;
-}
-@media (max-width: 768px) {
-  .langues__item {
-    grid-template-columns: 1fr auto;
-  }
-}
-.langues__barre {
-  position: relative;
-  height: 8px;
-  background: rgba(28, 28, 30, 0.12);
-}
-.langues__barre::after {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: var(--niveau);
-  background: var(--signature);
-}
-@media (max-width: 768px) {
-  .langues__barre {
-    grid-column: 1/-1;
-    grid-row: 2;
-  }
-}
-.langues__valeur {
-  font-family: "Special Elite", "Courier New", monospace;
-  font-size: 13px;
 }
 
 .modale__visuel {

@@ -127,6 +127,10 @@
     text-transform: uppercase;
   }
 
+  &__section ~ p {
+    margin: 0 0 10px;
+  }
+
   &__liste {
     display: grid;
     gap: 12px;
@@ -143,52 +147,6 @@
         color: var(--signature);
       }
     }
-  }
-}
-
-// --- Barres de langues ---
-.langues {
-  display: grid;
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  &__item {
-    display: grid;
-    grid-template-columns: 90px 1fr auto;
-    align-items: center;
-    gap: 12px;
-    font-size: 15px;
-
-    @include sur-mobile {
-      grid-template-columns: 1fr auto;
-    }
-  }
-
-  // La barre se remplit selon --niveau (défini dans le HTML)
-  &__barre {
-    position: relative;
-    height: 8px;
-    background: rgba(28, 28, 30, 0.12);
-
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: var(--niveau);
-      background: var(--signature);
-    }
-
-    @include sur-mobile {
-      grid-column: 1 / -1;
-      grid-row: 2;
-    }
-  }
-
-  &__valeur {
-    font-family: $police-document;
-    font-size: 13px;
   }
 }
 
