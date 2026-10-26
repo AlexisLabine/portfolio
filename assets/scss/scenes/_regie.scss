@@ -248,3 +248,15 @@
     animation: none;
   }
 }
+
+// --- Étiquettes des objets du bureau, visibles aussi sur ordinateur ---
+// (02 : « les objets de la régie portent une étiquette visible »). Le style
+// de l'étiquette est dans _tactile.scss ; ici, on la rend visible partout.
+.scene--salle .objet .objet__legende {
+  display: flex;
+}
+
+.scene--salle .objet--pochette .objet__legende,
+.scene--salle .objet--telephone .objet__legende {
+  margin-top: 12px;
+}
