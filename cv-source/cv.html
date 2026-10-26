@@ -20,26 +20,26 @@
 @page { size: Letter; margin: 0; }
 * { box-sizing: border-box; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body { margin: 0; background: var(--papier); color: var(--encre); font: 400 8.3pt/1.37 "Inter", sans-serif; }
+body { margin: 0; background: var(--papier); color: var(--encre); font: 400 8.8pt/1.45 "Inter", sans-serif; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, p, ul { margin: 0; }
 ul { padding: 0; list-style: none; }
 
 /* En-tête sombre */
-.entete { background: var(--fond); color: var(--texte); padding: 16px 40px 11px; border-bottom: 3px solid var(--accent); }
+.entete { background: var(--fond); color: var(--texte); padding: 20px 42px 14px; border-bottom: 3px solid var(--accent); }
 .entete__haut { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
 .entete h1 { font: 600 29pt/1 "Oswald", sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .entete__poste { margin-top: 5px; font: 500 11.5pt/1.2 "Oswald", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 .entete__accroche { margin-top: 6px; font: 400 10.5pt/1.3 "Inter", sans-serif; color: var(--texte); }
 .entete img { width: 54px; height: auto; }
-.contact { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: 10px; padding-top: 8px; border-top: 1px solid #2A2E37; font-size: 8.6pt; color: var(--texte-doux); }
+.contact { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: 11px; padding-top: 8px; border-top: 1px solid #2A2E37; font-size: 8.6pt; color: var(--texte-doux); }
 .contact strong { font: 400 7.4pt "Special Elite", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-right: 6px; }
 
 /* Deux colonnes */
-.page { display: grid; grid-template-columns: 176px 1fr; gap: 0 26px; padding: 14px 40px 0; }
-h2 { display: flex; align-items: baseline; gap: 8px; padding-bottom: 3px; margin-bottom: 6px; border-bottom: 1px dotted var(--pointille); font: 600 11pt/1.1 "Oswald", sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.page { display: grid; grid-template-columns: 176px 1fr; gap: 0 32px; padding: 16px 42px 0; }
+h2 { display: flex; align-items: baseline; gap: 8px; padding-bottom: 4px; margin-bottom: 9px; border-bottom: 1px dotted var(--pointille); font: 600 11pt/1.1 "Oswald", sans-serif; letter-spacing: .07em; text-transform: uppercase; }
 h2 span { font: 400 8pt "Special Elite", monospace; letter-spacing: .1em; color: var(--accent-papier); }
-section { margin-bottom: 9px; break-inside: avoid; }
+section { margin-bottom: 12px; break-inside: avoid; }
 .date { white-space: nowrap; font: 400 8pt "Special Elite", monospace; color: var(--accent-papier); letter-spacing: .03em; }
 .petit { color: var(--encre-douce); }
 
@@ -50,24 +50,24 @@ section { margin-bottom: 9px; break-inside: avoid; }
 .bandeau span { font: 500 9pt "Oswald", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 
 /* Colonne de gauche */
-.cote section > p, .cote li { margin-bottom: 2px; }
+.cote section > p, .cote li { margin-bottom: 2.5px; }
 .cote h3 { margin: 5px 0 3px; font: 400 7.6pt "Special Elite", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-douce); }
-.cote .diplome { margin-bottom: 6px; }
+.cote .diplome { margin-bottom: 8px; }
 .cote .diplome strong { display: block; font-weight: 600; }
 .pastilles { display: flex; flex-wrap: wrap; gap: 3px; }
 .pastilles li { margin: 0; padding: 1px 5px; border: 1px solid var(--encre-douce); border-radius: 2px; font: 400 7.8pt "Special Elite", monospace; }
 
 /* Colonne de droite */
-.profil { font-size: 8.8pt; line-height: 1.45; }
-.poste { margin-bottom: 6px; break-inside: avoid; }
+.profil { font-size: 9.4pt; line-height: 1.45; }
+.poste { margin-bottom: 11px; break-inside: avoid; }
 .poste__tete { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .poste h3 { font-weight: 600; font-size: 9pt; line-height: 1.3; }
 .poste__lieu { color: var(--encre-douce); margin-bottom: 2px; }
-.poste li { position: relative; padding-left: 12px; margin-bottom: 1.5px; }
+.poste li { position: relative; padding-left: 13px; margin-bottom: 3px; }
 .poste li::before { content: ""; position: absolute; left: 1px; top: .55em; width: 4px; height: 4px; background: var(--signature); }
-.sous { margin: 4px 0 2px; font: 600 8.6pt "Inter", sans-serif; }
+.sous { margin: 7px 0 3px; font: 600 8.6pt "Inter", sans-serif; }
 
-.projets li { margin-bottom: 3px; break-inside: avoid; }
+.projets li { margin-bottom: 8px; break-inside: avoid; }
 .projets strong { font-weight: 600; }
 .ruban { display: inline-block; margin-left: 6px; padding: 0 5px; background: var(--signature); color: var(--texte); font: 400 6.8pt/1.5 "Special Elite", monospace; letter-spacing: .06em; text-transform: uppercase; vertical-align: 1px; }
 </style>
@@ -131,17 +131,6 @@ section { margin-bottom: 9px; break-inside: avoid; }
       </ul>
     </section>
     </section>
-
-    <section>
-      <h2><span>07</span>Intérêts</h2>
-      <ul>
-        <li>Ski alpin</li>
-        <li>Randonnée pédestre en plein air</li>
-        <li>Cuisine et gastronomie</li>
-        <li>Jeux vidéo (narratifs et coopératifs)</li>
-        <li>Hockey (analyse sportive et ligues simulées)</li>
-      </ul>
-    </section>
   </aside>
 
   <!-- ============ COLONNE DE DROITE ============ -->
@@ -167,7 +156,7 @@ section { margin-bottom: 9px; break-inside: avoid; }
         <ul>
           <li>Représenter les étudiants d’Intégration multimédia.</li>
           <li>Collaborer étroitement avec le corps professoral et la direction du département ATM.</li>
-          <li>Organiser des événements étudiants et coordonner des campagnes de financement.</li>
+          <li>Organiser des événements étudiants et des campagnes de financement.</li>
         </ul>
       </div>
 
@@ -187,22 +176,26 @@ section { margin-bottom: 9px; break-inside: avoid; }
         <ul>
           <li>Gérer les commandes et la réception des marchandises ; faire l’inventaire et tenir les statistiques à jour.</li>
           <li>Coordonner le travail des commis durant les quarts ; offrir un service à la clientèle courtois et efficace.</li>
-          <li>Assurer le respect des normes de qualité et d’organisation.</li>
         </ul>
       </div>
     </section>
 
 
     <section>
-      <h2><span>08</span>Réalisations</h2>
+      <h2><span>07</span>Réalisations</h2>
       <ul class="projets">
-        <li><strong>Festival de l’Âme à l’Écran (DAE)</strong><span class="ruban">Implication étudiante</span><br>Un festival de films étudiants de trois jours, avec des films d’écoles de partout au Québec.</li>
-        <li><strong>Le site du festival : avant et après</strong><span class="ruban">Web</span><br>Le site de l’édition 2026 (équipe de six) et celui de l’édition 2027, avec son back-office, que je développe seul.</li>
-        <li><strong>Site de l’École de musique du Bas-Saguenay</strong><span class="ruban">Mandat client, en cours</span><br>Chargé de projet, au sein d’Arlekin Numérique, notre agence étudiante (équipe de quatre) : parcours d’inscription en ligne.</li>
-        <li><strong>Rentrée Magique 101</strong><span class="ruban">Web</span><br>Un site WordPress qui guide les nouveaux élèves d’une école de sorcellerie. Thème, contenu et design, seul. Note : 90 %.</li>
-        <li><strong>TonTour</strong><span class="ruban">UI/UX</span><br>Concept d’app mobile de file d’attente virtuelle pour les urgences du Saguenay : système de composants et 11 écrans sur Figma, en une semaine.</li>
-        <li><strong>Game Jam, Timeline : Zero, Phoenix, NOVA, Ville néon</strong><span class="ruban">Graphisme</span><br>Affiche et mapping vidéo, direction artistique d’un jeu, logo animé, affiche publicitaire et photomontage.</li>
+        <li><strong>Festival de l’Âme à l’Écran (DAE)</strong><span class="ruban">Implication étudiante</span></li>
+        <li><strong>Le site du festival : avant et après</strong><span class="ruban">Web</span></li>
+        <li><strong>Site de l’École de musique du Bas-Saguenay</strong><span class="ruban">Mandat client, en cours</span></li>
+        <li><strong>Rentrée Magique 101</strong><span class="ruban">Web</span></li>
+        <li><strong>TonTour</strong><span class="ruban">UI/UX</span></li>
+        <li><strong>Game Jam, Timeline : Zero, Phoenix, NOVA, Ville néon</strong><span class="ruban">Graphisme</span></li>
       </ul>
+    </section>
+
+    <section>
+      <h2><span>08</span>Intérêts</h2>
+      <p>Ski alpin · Randonnée en plein air · Cuisine et gastronomie · Jeux vidéo (narratifs et coopératifs) · Hockey (analyse sportive et ligues simulées)</p>
     </section>
   </main>
 </div>
