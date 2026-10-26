@@ -1075,12 +1075,12 @@ html.mode-tactile .accueil {
   font-weight: 600;
 }
 .autocollant--html {
-  background: #E34F26;
+  background: #C4401A;
   color: #fff;
   border-radius: 999px;
 }
 .autocollant--scss {
-  background: #CD6799;
+  background: #B04A7C;
   color: #fff;
 }
 .autocollant--js {
@@ -1089,7 +1089,7 @@ html.mode-tactile .accueil {
   border-radius: 4px;
 }
 .autocollant--php {
-  background: #777BB4;
+  background: #686CA6;
   color: #fff;
   border-radius: 999px;
 }
