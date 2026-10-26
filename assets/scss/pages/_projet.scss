@@ -1,0 +1,355 @@
+// ============================================================
+// FICHE PROJET — le gabarit de 02, section 8
+// ============================================================
+// Ruban (numéro · saison · type), titre et ligne, portes, Mon rôle,
+// Outils, Côté coulisses (brief → plan → production → résultat, une image
+// par étape, reliées par le fil rouge), Résultat, Liens.
+// Les pièces communes (feuille, barre, ruban, pastilles, boutons, pied)
+// viennent de composants/_papier.scss.
+//
+// Le contenu de <article class="fiche"> est repris tel quel en modale par
+// fiche-projet.js (tâche 4.6) : tout ce qui sert à la fiche est dans
+// l'<article>, la barre et le pied restent autour.
+@use "../abstracts/jetons" as *;
+@use "../composants/papier";
+
+$ordinateur: $mobile;
+
+// Texte réservé aux lecteurs d'écran
+.sr-seulement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// La barre du haut a deux liens sur cette page
+.barre__liens {
+  display: flex;
+  align-items: center;
+  gap: 4px 18px;
+  white-space: nowrap;
+}
+
+// Sur téléphone : le nom cède la place aux deux liens
+.barre__marque span {
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+// --- En-tête de la fiche ---
+.fiche {
+  &__entete {
+    margin-top: 22px;
+  }
+
+  &__titre {
+    margin-top: 12px;
+    font-family: $police-titre;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 1.08;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-wrap: balance;
+
+    @media (min-width: $ordinateur) {
+      font-size: 48px;
+    }
+  }
+
+  &__ligne {
+    margin-top: 12px;
+    font-family: $police-titre;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 1.3;
+
+    @media (min-width: $ordinateur) {
+      font-size: 22px;
+    }
+  }
+
+  &__portes {
+    margin-top: 14px;
+  }
+
+  // Rubrique de la fiche : Mon rôle, Outils, Côté coulisses…
+  &__rubrique {
+    margin-top: 32px;
+  }
+
+  &__rubrique-titre {
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--pointille);
+    color: var(--encre-douce);
+    font-family: $police-document;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  &__texte {
+    margin-top: 12px;
+
+    + .fiche__texte {
+      margin-top: 8px;
+    }
+  }
+
+  // Mention (projet scolaire, concept, droits…)
+  &__mention {
+    margin-top: 20px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent-papier);
+    background: var(--papier-note);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  &__liens {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+
+    @media (min-width: $ordinateur) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .bouton {
+      flex: 0 0 auto;
+    }
+  }
+}
+
+.pastilles--portes li {
+  border-color: var(--accent-papier);
+  color: var(--accent-papier);
+  font-weight: 600;
+}
+
+// Avant / Après (fiche du site du festival)
+.avap {
+  margin-top: 8px;
+
+  &__etiquette {
+    color: var(--accent-papier);
+    font-family: $police-document;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+// --- Côté coulisses : le fil rouge relie les quatre étapes ---
+.coulisses {
+  position: relative;
+  display: grid;
+  gap: 26px;
+  margin: 18px 0 0;
+  padding: 0 0 0 26px;
+  list-style: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 4px;
+    width: 2px;
+    background: var(--signature);
+  }
+}
+
+.etape {
+  position: relative;
+
+  // la punaise de l'étape, sur le fil
+  &::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: -29px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--signature);
+    box-shadow: 0 0 0 3px var(--papier);
+  }
+
+  &__titre {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: $police-titre;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__numero {
+    color: var(--accent-papier);
+    font-family: $police-document;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+
+  &__texte {
+    margin-top: 8px;
+  }
+
+  &__medias {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+
+    @media (min-width: $ordinateur) {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    // affiches et jaquettes en hauteur : deux par ligne, plus étroites
+    &--hauteur {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 220px));
+      justify-content: start;
+    }
+  }
+}
+
+// Image : cadre papier, légende en machine à écrire
+.media {
+  margin: 0;
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--bordure-papier);
+    background: var(--papier-note);
+  }
+
+  &__legende {
+    margin-top: 6px;
+    color: var(--encre-douce);
+    font-family: $police-document;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  &--video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--bordure-papier);
+    background: var(--fond);
+  }
+}
+
+// Étape sans image : carte numérotée (comme dans la maquette Figma du CV)
+.carte-etape {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 12px 16px;
+  background: var(--fond-eleve);
+  color: var(--texte);
+  border-radius: 2px;
+
+  &__numero {
+    color: var(--accent);
+    font-family: $police-titre;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  &__texte {
+    color: var(--texte-doux);
+    font-family: $police-document;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  // « Projet en cours » : tuile du mandat client (aucune image du client)
+  &--cours &__texte {
+    color: var(--accent);
+  }
+}
+
+// Tableau d'avancement du mandat client
+.avancement {
+  width: 100%;
+  margin-top: 14px;
+  border-collapse: collapse;
+  font-size: 15px;
+
+  caption {
+    padding-bottom: 6px;
+    text-align: left;
+    color: var(--encre-douce);
+    font-family: $police-document;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  th,
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px dotted var(--pointille);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: 600;
+  }
+
+  &__etat {
+    font-family: $police-document;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+}
+
+// --- Galerie des pièces courtes ---
+.pieces {
+  display: grid;
+  gap: 28px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.piece {
+  &__titre {
+    font-family: $police-titre;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__texte {
+    margin-top: 8px;
+  }
+
+  &__medias {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+
+    @media (min-width: $ordinateur) {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+  }
+}
