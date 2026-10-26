@@ -12,11 +12,11 @@
 @use "../abstracts/jetons" as *;
 @use "../abstracts/mixins" as *;
 
-$degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
+$degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--lumiere-2));
 
 .scene--festival {
   --allumage: 0;
-  background: var(--noir-profond);
+  background: var(--fond-profond);
 
   // Le cadrage se décale pour laisser la place au HUD
   &[data-plan="2"],
@@ -57,14 +57,14 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   .hud__chapitre .mention {
-    color: var(--cyan-neon);
+    color: var(--lumiere-2);
   }
 
   // Contour d'objet interactif : néon plutôt qu'ambre
   .objet:hover img,
   .objet:focus-visible img {
     filter:
-      drop-shadow(0 0 1px var(--cyan-neon))
+      drop-shadow(0 0 1px var(--lumiere-2))
       drop-shadow(0 0 14px rgba(0, 229, 255, 0.6))
       drop-shadow(0 20px 16px rgba(0, 0, 0, 0.55));
   }
@@ -76,7 +76,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   font-size: clamp(40px, 6vw, 64px);
   letter-spacing: 0.03em;
   color: transparent;
-  background: linear-gradient(90deg, var(--rose-neon), var(--jaune-ambre) 50%, var(--cyan-neon));
+  background: linear-gradient(90deg, var(--lumiere-1), var(--accent) 50%, var(--lumiere-2));
   background-clip: text;
   -webkit-background-clip: text;
   filter: drop-shadow(0 0 14px rgba(255, 46, 154, 0.5));
@@ -141,7 +141,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
       left: 0;
       right: 0;
       height: 8px;
-      background: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon), var(--jaune-ambre), var(--rose-neon));
+      background: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--lumiere-2), var(--accent), var(--lumiere-1));
       background-size: 50% 100%;
       opacity: 0.15;
     }
@@ -211,8 +211,8 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     width: 230px;
     filter:
       drop-shadow(0 0 4px #fff)
-      drop-shadow(0 0 18px var(--rose-neon))
-      drop-shadow(0 0 40px var(--cyan-neon));
+      drop-shadow(0 0 18px var(--lumiere-1))
+      drop-shadow(0 0 40px var(--lumiere-2));
   }
 
   &__titre {
@@ -223,19 +223,19 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     color: #fff0f8;
     text-shadow:
       0 0 8px #fff,
-      0 0 26px var(--rose-neon),
-      0 0 60px var(--rose-neon),
+      0 0 26px var(--lumiere-1),
+      0 0 60px var(--lumiere-1),
       0 0 120px rgba(0, 229, 255, 0.6);
   }
 
   &__texte {
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-weight: 600;
     font-size: 56px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: #d8fbff;
-    text-shadow: 0 0 10px var(--cyan-neon), 0 0 30px var(--cyan-neon);
+    text-shadow: 0 0 10px var(--lumiere-2), 0 0 30px var(--lumiere-2);
   }
 }
 
@@ -348,12 +348,12 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
 .scene--festival.en-concert .objet--ligne::before {
   background: conic-gradient(
-    var(--rose-neon),
-    var(--violet-neon),
-    var(--cyan-neon),
-    var(--jaune-ambre),
-    var(--rouge-dossier),
-    var(--rose-neon)
+    var(--lumiere-1),
+    var(--lumiere-3),
+    var(--lumiere-2),
+    var(--accent),
+    var(--signature),
+    var(--lumiere-1)
   );
   filter: blur(24px);
   animation: sonnerie 2.4s ease-in-out infinite, halo-tourne 6s linear infinite;
@@ -418,7 +418,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
   .estrade__facade::before {
     opacity: 1;
-    box-shadow: 0 0 20px var(--rose-neon), 0 0 40px var(--cyan-neon);
+    box-shadow: 0 0 20px var(--lumiere-1), 0 0 40px var(--lumiere-2);
     animation: chenillard 3s linear infinite;
   }
 
@@ -471,7 +471,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     linear-gradient(rgba(10, 8, 16, 0.94), rgba(10, 8, 16, 0.94)) padding-box,
     $degrade-neon border-box;
   box-shadow: 0 0 50px rgba(139, 47, 224, 0.35);
-  color: var(--blanc-casse);
+  color: var(--texte);
 
   // Le cordon qui monte hors de l'écran
   &::before {
@@ -482,7 +482,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     width: 30px;
     height: 60vh;
     translate: -50% 0;
-    background: repeating-linear-gradient(90deg, var(--rose-neon) 0 10px, var(--violet-neon) 10px 20px, var(--rose-neon) 20px 30px);
+    background: repeating-linear-gradient(90deg, var(--lumiere-1) 0 10px, var(--lumiere-3) 10px 20px, var(--lumiere-1) 20px 30px);
     opacity: 0.85;
   }
 
@@ -492,14 +492,14 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     padding: 12px 28px;
     border-radius: 12px 12px 0 0;
     background: $degrade-neon;
-    color: var(--noir-profond);
+    color: var(--fond-profond);
     font-family: $police-titre;
     font-size: 15px;
     text-transform: uppercase;
   }
 
   &__titre {
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-weight: 600;
     font-size: 26px;
     line-height: 1.15;
@@ -593,22 +593,22 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
 // Un canal de contact direct (courriel, LinkedIn)
 .canal {
-  --couleur: var(--rose-neon);
+  --couleur: var(--lumiere-1);
   display: grid;
   gap: 2px;
   padding: 10px 16px;
   border-left: 3px solid var(--couleur);
   background: rgba(255, 255, 255, 0.05);
-  color: var(--blanc-casse);
+  color: var(--texte);
   text-decoration: none;
   transition: background 0.3s, box-shadow 0.3s, translate 0.3s;
 
   &--cyan {
-    --couleur: var(--cyan-neon);
+    --couleur: var(--lumiere-2);
   }
 
   &__type {
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-size: 13px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -639,7 +639,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   border: none;
   border-radius: 4px;
   background: $degrade-neon;
-  color: var(--noir-profond);
+  color: var(--fond-profond);
   font-family: $police-titre;
   font-size: 16px;
   text-transform: uppercase;
@@ -653,7 +653,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   &:focus-visible {
-    outline: 2px solid var(--blanc-casse);
+    outline: 2px solid var(--texte);
     outline-offset: 4px;
   }
 }
@@ -667,7 +667,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   padding: 28px 32px;
   background: rgba(5, 5, 7, 0.8);
   backdrop-filter: blur(6px);
-  box-shadow: inset 3px 0 0 var(--rose-neon);
+  box-shadow: inset 3px 0 0 var(--lumiere-1);
 
   // La photo et le titre, côte à côte (le titre passe dessous si la place manque)
   &__entete {
@@ -701,7 +701,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
       font-family: $police-document;
       font-size: 12px;
       text-align: center;
-      color: var(--anthracite);
+      color: var(--encre);
     }
   }
 
@@ -734,12 +734,12 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
     dt {
       @include machine-a-ecrire(11px);
-      color: var(--gris-acier);
+      color: var(--texte-doux);
     }
 
     dd {
       margin: 0;
-      font-family: $police-sous-titre;
+      font-family: $police-titre;
       font-weight: 500;
       font-size: 20px;
       letter-spacing: 0.08em;
@@ -748,7 +748,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   &__slogan {
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-size: 20px;
     font-style: italic;
     color: rgba(242, 239, 233, 0.85);
@@ -762,16 +762,16 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   &__retour {
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-size: 15px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--cyan-neon);
+    color: var(--lumiere-2);
     text-decoration: none;
 
     &:hover,
     &:focus-visible {
-      text-shadow: 0 0 12px var(--cyan-neon);
+      text-shadow: 0 0 12px var(--lumiere-2);
     }
   }
 
@@ -833,13 +833,13 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
       linear-gradient(rgba(12, 9, 20, 0.96), rgba(12, 9, 20, 0.96)) padding-box,
       $degrade-neon border-box;
     box-shadow: 0 0 50px rgba(139, 47, 224, 0.4), 0 0 120px rgba(255, 46, 154, 0.15);
-    color: var(--blanc-casse);
+    color: var(--texte);
 
     .mention {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--cyan-neon);
+      color: var(--lumiere-2);
     }
   }
 
@@ -851,13 +851,13 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
   .modale__fermer {
     border-color: rgba(242, 239, 233, 0.3);
-    color: var(--blanc-casse);
+    color: var(--texte);
 
     &:hover,
     &:focus-visible {
-      border-color: var(--rose-neon);
-      background: var(--rose-neon);
-      color: var(--noir-profond);
+      border-color: var(--lumiere-1);
+      background: var(--lumiere-1);
+      color: var(--fond-profond);
     }
   }
 
@@ -893,7 +893,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   }
 
   label {
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.16em;
@@ -909,7 +909,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     border: 1px solid rgba(242, 239, 233, 0.18);
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.05);
-    color: var(--blanc-casse);
+    color: var(--texte);
     font-family: $police-texte;
     font-size: 16px; // 16px minimum : pas de zoom automatique sur iPhone
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -920,14 +920,14 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
     &:focus {
       outline: none;
-      border-color: var(--cyan-neon);
+      border-color: var(--lumiere-2);
       box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2), 0 0 18px rgba(0, 229, 255, 0.25);
     }
   }
 
   // Erreur seulement après une tentative d'envoi
   &.est-verifie :invalid {
-    border-color: var(--rose-neon);
+    border-color: var(--lumiere-1);
   }
 
   select option {
@@ -955,10 +955,10 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   &__statut {
     @include machine-a-ecrire(13px);
     min-height: 1.5em;
-    color: var(--cyan-neon);
+    color: var(--lumiere-2);
 
     &.est-erreur {
-      color: var(--rose-neon);
+      color: var(--lumiere-1);
     }
   }
 }
@@ -1002,10 +1002,10 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 }
 
 @keyframes pulse-festival {
-  0%, 100% { box-shadow: 0 0 14px 2px var(--rose-neon), 0 0 34px var(--rose-neon); }
-  25% { box-shadow: 0 0 14px 2px var(--violet-neon), 0 0 34px var(--violet-neon); }
-  50% { box-shadow: 0 0 14px 2px var(--cyan-neon), 0 0 34px var(--cyan-neon); }
-  75% { box-shadow: 0 0 14px 2px var(--jaune-ambre), 0 0 34px var(--jaune-ambre); }
+  0%, 100% { box-shadow: 0 0 14px 2px var(--lumiere-1), 0 0 34px var(--lumiere-1); }
+  25% { box-shadow: 0 0 14px 2px var(--lumiere-3), 0 0 34px var(--lumiere-3); }
+  50% { box-shadow: 0 0 14px 2px var(--lumiere-2), 0 0 34px var(--lumiere-2); }
+  75% { box-shadow: 0 0 14px 2px var(--accent), 0 0 34px var(--accent); }
 }
 
 @media (prefers-reduced-motion: reduce) {

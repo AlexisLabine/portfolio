@@ -14,7 +14,7 @@
 @use "abstracts/jetons" as *;
 @use "abstracts/mixins" as *;
 
-$degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(--cyan-neon));
+$degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--lumiere-2));
 
 // Ces éléments n'existent qu'en mode tactile : cachés sur ordinateur.
 .hud__consigne,
@@ -35,8 +35,8 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--jaune-ambre);
-    box-shadow: 0 0 10px var(--jaune-ambre);
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
     animation: clignote 1.6s steps(2) infinite;
   }
 }
@@ -48,9 +48,9 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
   gap: 2px;
   padding: 8px 14px 10px;
   border-radius: 2px;
-  background: var(--blanc-casse);
+  background: var(--texte);
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.5);
-  color: var(--anthracite);
+  color: var(--encre);
   font-family: $police-titre;
   font-weight: 600;
   font-size: 17px;
@@ -72,7 +72,7 @@ $degrade-neon: linear-gradient(90deg, var(--rose-neon), var(--violet-neon), var(
 
 .objet__numero {
   @include machine-a-ecrire(11px);
-  color: var(--rouge-dossier);
+  color: var(--signature);
 }
 
 /* ============================================================
@@ -184,7 +184,7 @@ html.mode-tactile {
     background:
       radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255, 196, 110, 0.3), transparent 70%),
       radial-gradient(ellipse at 50% 45%, transparent 40%, rgba(0, 0, 0, 0.65) 95%),
-      var(--texture-bois, linear-gradient(180deg, #5a463b, var(--brun-bois) 40%, #1f1814));
+      var(--bois-degrade);
     background-size: cover;
     box-shadow:
       inset 0 3px 0 rgba(255, 220, 170, 0.12),
@@ -458,7 +458,7 @@ html.mode-tactile {
 
   .scene--festival .objet__legende {
     background: $degrade-neon;
-    color: var(--noir-profond);
+    color: var(--fond-profond);
 
     small,
     .objet__numero {

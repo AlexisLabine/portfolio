@@ -1,38 +1,16 @@
 // ============================================================
-// JETONS — palette, polices, points de rupture
+// JETONS — la charte 02 v1 en variables (tâche 3.3)
 // ============================================================
-// Copie de _variables.scss de la v1 (tâche 3.1), sans changement de
-// valeur. La tâche 3.3 remplace ce contenu par les jetons de la
-// charte 02 v1 (--fond, --papier, --accent…).
+// Toutes les couleurs, matières et ombres du site vivent ici : les autres
+// fichiers écrivent var(--accent), jamais #F4B740. Les valeurs et leurs
+// ratios de contraste sont dans 02, section 2. Ce sont des variables CSS
+// (et non Sass) pour qu'on puisse les lire ou les changer en JavaScript.
 
-// --- Palette ---
-// En variables CSS (et non Sass) pour pouvoir les modifier plus tard
-// en JavaScript, pendant la bascule Ombre → Festival.
-:root {
-  // Palette « Ombre » (Blocs 1 à 4)
-  --noir-bleute: #0D0F14;
-  --brun-bois: #3B2E27;
-  --rouge-dossier: #B3122B;
-  --jaune-ambre: #F4B740;
-  --gris-acier: #8A8F98;
-  --blanc-casse: #F2EFE9;
-  --anthracite: #1C1C1E;
-
-  // Palette « Festival » (Bloc 5)
-  --rose-neon: #FF2E9A;
-  --cyan-neon: #00E5FF;
-  --violet-neon: #8B2FE0;
-  --noir-profond: #050507;
-}
-
-// --- Jetons de la charte 02 v1 (ajoutés en 4.1) ---
-// AJOUT seulement : les noms de la v1 ci-dessus restent tels quels, parce
-// que les scènes en dépendent encore. La tâche 3.3 remplacera la v1 par
-// ces jetons. Les valeurs et les ratios de contraste sont dans 02, section 2.
 :root {
   // Fonds et texte (thème sombre)
   --fond: #0D0F14;
   --fond-eleve: #161920;
+  --fond-profond: #050507;
   --trait: #2A2E37;
   --bordure-champ: #646A76;
   --texte: #F2EFE9;
@@ -59,14 +37,22 @@
   --lumiere-texte: #7FF2FF;
   --fond-scene: #0A0810;
 
+  // Matières dessinées en dégradés (remplacent textures.js, retiré en 3.3)
+  --bois-degrade: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--bois) 90%, white),
+    var(--bois) 40%,
+    color-mix(in srgb, var(--bois) 60%, black)
+  );
+  --beton: linear-gradient(180deg, var(--fond-eleve), var(--fond));
+
   // Ombres (02, section 4)
   --ombre-papier: 0 12px 32px rgb(0 0 0 / 0.45);
   --ombre-portee: drop-shadow(0 14px 16px rgb(0 0 0 / 0.55));
 }
 
-// --- Polices ---
+// --- Polices (déclarées dans base/_polices.scss) ---
 $police-titre: "Oswald", "Arial Narrow", sans-serif;
-$police-sous-titre: "Barlow Condensed", "Arial Narrow", sans-serif;
 $police-texte: "Inter", "Segoe UI", sans-serif;
 $police-document: "Special Elite", "Courier New", monospace;
 

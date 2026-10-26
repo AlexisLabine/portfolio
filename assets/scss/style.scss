@@ -7,7 +7,7 @@
 //   sass --no-source-map assets/scss/style.scss assets/css/style.css
 //
 //   abstracts/   jetons (palette, polices) et mixins : aucun CSS à eux seuls
-//   base/        reset, puis classes de texte communes
+//   base/        polices, reset, accessibilité, puis classes de texte communes
 //   scenes/      _scene = le moteur 3D commun ; puis une scène par fichier
 //   composants/  pièces réutilisées (modale, ligne du temps…)
 //   _tactile     téléphone et iPad : TOUJOURS EN DERNIER, il remplace
@@ -21,7 +21,9 @@
 /* STYLE.CSS — FICHIER COMPILÉ à partir de assets/scss/style.scss.
    Ne pas le modifier à la main : éditer les partials, puis recompiler. */
 
+@use "base/polices";
 @use "base/reset";
+@use "base/a11y";
 @use "base/typo";
 @use "scenes/entree";
 @use "scenes/scene";

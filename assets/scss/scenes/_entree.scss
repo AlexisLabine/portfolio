@@ -26,7 +26,7 @@
     opacity: 0;
     background:
       radial-gradient(circle at 50% 45%, rgba(244, 183, 64, 0.08), transparent 60%),
-      var(--noir-bleute);
+      var(--fond);
   }
 
   &__revelation-titre {
@@ -38,13 +38,13 @@
   }
 
   &__descendre {
-    font-family: $police-sous-titre;
+    font-family: $police-titre;
     font-size: 16px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--blanc-casse);
+    color: var(--texte);
     text-decoration: none;
-    border: 1px solid var(--gris-acier);
+    border: 1px solid var(--texte-doux);
     padding: 10px 24px;
     transition: color 0.3s, border-color 0.3s;
 
@@ -55,8 +55,8 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--jaune-ambre);
-      border-color: var(--jaune-ambre);
+      color: var(--accent);
+      border-color: var(--accent);
     }
   }
 }
@@ -77,8 +77,8 @@
   object-fit: cover;
   display: block;
 }
-#porte-gauche { left: 0; border-right: 2px solid var(--noir-bleute); }
-#porte-droite { right: 0; border-left: 2px solid var(--noir-bleute); }
+#porte-gauche { left: 0; border-right: 2px solid var(--fond); }
+#porte-droite { right: 0; border-left: 2px solid var(--fond); }
 
 // --- La brume ---
 #brume {
@@ -107,11 +107,11 @@
   min-width: 210px;
   min-height: 64px;
   padding: 18px 36px;
-  border: 2px solid var(--gris-acier);
+  border: 2px solid var(--texte-doux);
   border-radius: 8px;
   background: #1c1e22;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  color: var(--blanc-casse);
+  color: var(--texte);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.2s, border-color 0.2s;
@@ -128,12 +128,12 @@
 
   &:hover,
   &:active {
-    border-color: var(--jaune-ambre);
+    border-color: var(--accent);
     background: #2b2e33;
   }
 
   &:focus-visible {
-    outline: 2px dashed var(--jaune-ambre);
+    outline: 2px dashed var(--accent);
     outline-offset: 6px;
   }
 }

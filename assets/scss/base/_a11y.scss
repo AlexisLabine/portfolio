@@ -1,0 +1,29 @@
+// ============================================================
+// ACCESSIBILITÉ — focus visible et lien d'évitement (tâche 3.3)
+// ============================================================
+// Commun à l'expérience, au CV express et aux pages de projet.
+
+// Contour de focus par défaut : visible sur fond sombre. Les composants
+// qui ont un contour plus précis (papier, polaroïd…) le remplacent.
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+// Lien d'évitement : caché hors écran, il apparaît au premier Tab.
+.lien-evitement {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  z-index: 100;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: var(--fond) !important;
+  font-weight: 600;
+  transform: translateY(-120%);
+
+  &:focus-visible {
+    transform: none;
+    outline-color: var(--texte);
+  }
+}

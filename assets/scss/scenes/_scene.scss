@@ -160,7 +160,7 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--rouge-dossier);
+    background: var(--signature);
     animation: clignote 1.2s steps(2) infinite;
   }
 
@@ -178,7 +178,7 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
       content: "";
       width: 64px;
       height: 2px;
-      background: var(--jaune-ambre);
+      background: var(--accent);
     }
 
     @include sur-mobile {
@@ -212,8 +212,8 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
     border-radius: 4px;
     background: rgba(8, 9, 12, 0.7);
     backdrop-filter: blur(6px);
-    color: var(--blanc-casse);
-    font-family: $police-sous-titre;
+    color: var(--texte);
+    font-family: $police-titre;
     font-size: 17px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -242,13 +242,13 @@ $courbe-camera: cubic-bezier(0.65, 0, 0.35, 1);
 
     &:hover kbd,
     &:focus-visible kbd {
-      background: var(--jaune-ambre);
-      border-color: var(--jaune-ambre);
-      color: var(--noir-bleute);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--fond);
     }
 
     &:focus-visible {
-      outline: 2px dashed var(--jaune-ambre);
+      outline: 2px dashed var(--accent);
       outline-offset: 4px;
     }
 

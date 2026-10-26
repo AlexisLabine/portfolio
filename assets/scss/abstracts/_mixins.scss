@@ -14,8 +14,8 @@
 
 // Feuille de papier posée sur le bureau (fiche, modales).
 @mixin papier {
-  background: var(--blanc-casse);
-  color: var(--anthracite);
+  background: var(--texte);
+  color: var(--encre);
   border-radius: 2px;
   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.55);
 }

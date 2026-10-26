@@ -6,18 +6,18 @@
 <title>Alexis Labine — Intégrateur multimédia · Communication numérique</title>
 <meta name="description" content="Intégrateur multimédia · Communication numérique. Je fais le pont entre l’idée, l’équipe et l’écran. Réalisations en web, communication, graphisme et coordination.">
 
-<!-- Polices (charte, section 3) : Oswald = titres, Barlow Condensed = sous-titres
-     (retirée en 3.3), Inter = texte courant, Special Elite = mentions "machine à écrire" -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&family=Special+Elite&display=swap">
+<!-- Polices (charte, section 3), hébergées dans assets/fonts/ et déclarées dans
+     assets/scss/base/_polices.scss : Oswald = titres, Inter = texte courant,
+     Special Elite = signature (étiquettes, légendes). On précharge les deux premières. -->
+<link rel="preload" href="assets/fonts/oswald-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 
 <!-- style.css est COMPILÉ à partir de assets/scss/style.scss (ne pas modifier à la main) -->
 <link rel="stylesheet" href="assets/css/style.css">
 
-<!-- GSAP + ScrollTrigger : animations d'apparition au scroll -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- GSAP 3.12.5 + ScrollTrigger, hébergés dans assets/js/vendor/ -->
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
 
 <!-- MODE TACTILE (téléphone, iPad) : pas de caméras 3D. Les scènes deviennent
      des sections qu'on fait défiler, et on touche les objets pour les lire.
@@ -32,6 +32,8 @@
 </head>
 
 <body>
+
+<a class="lien-evitement" href="#a-propos">Passer l'entrée et aller au contenu</a>
 
 <!-- ============================================================
      LIGNE DU TEMPS (navigation principale)
@@ -477,22 +479,22 @@
 
         <!-- La structure (truss) et ses projecteurs : --px = position sur la barre -->
         <div class="truss" style="--y: -780px; --z: -250px;" aria-hidden="true">
-          <span class="truss__lampe" style="--px: 12%; --couleur: var(--rose-neon);"></span>
-          <span class="truss__lampe" style="--px: 31%; --couleur: var(--cyan-neon);"></span>
-          <span class="truss__lampe" style="--px: 50%; --couleur: var(--violet-neon);"></span>
-          <span class="truss__lampe" style="--px: 69%; --couleur: var(--jaune-ambre);"></span>
-          <span class="truss__lampe" style="--px: 88%; --couleur: var(--rose-neon);"></span>
+          <span class="truss__lampe" style="--px: 12%; --couleur: var(--lumiere-1);"></span>
+          <span class="truss__lampe" style="--px: 31%; --couleur: var(--lumiere-2);"></span>
+          <span class="truss__lampe" style="--px: 50%; --couleur: var(--lumiere-3);"></span>
+          <span class="truss__lampe" style="--px: 69%; --couleur: var(--accent);"></span>
+          <span class="truss__lampe" style="--px: 88%; --couleur: var(--lumiere-1);"></span>
         </div>
         <div class="truss truss--pied" style="--x: -1290px; --y: -805px; --z: -250px;" aria-hidden="true"></div>
         <div class="truss truss--pied" style="--x: 1290px; --y: -805px; --z: -250px;" aria-hidden="true"></div>
 
         <!-- Les faisceaux, accrochés sous les projecteurs.
              --angle = inclinaison de départ, --delai = décalage du balayage -->
-        <div class="rayon" style="--x: -1013px; --y: -760px; --z: -240px; --couleur: var(--rose-neon); --angle: -24deg; --delai: 0s;" aria-hidden="true"><span class="rayon__cone"></span></div>
-        <div class="rayon" style="--x: -500px; --y: -760px; --z: -240px; --couleur: var(--cyan-neon); --angle: 14deg; --delai: -1.5s;" aria-hidden="true"><span class="rayon__cone"></span></div>
-        <div class="rayon" style="--x: 0px; --y: -760px; --z: -240px; --couleur: var(--violet-neon); --angle: -8deg; --delai: -3s;" aria-hidden="true"><span class="rayon__cone"></span></div>
-        <div class="rayon" style="--x: 500px; --y: -760px; --z: -240px; --couleur: var(--jaune-ambre); --angle: -16deg; --delai: -4.5s;" aria-hidden="true"><span class="rayon__cone"></span></div>
-        <div class="rayon" style="--x: 1013px; --y: -760px; --z: -240px; --couleur: var(--rose-neon); --angle: 24deg; --delai: -2s;" aria-hidden="true"><span class="rayon__cone"></span></div>
+        <div class="rayon" style="--x: -1013px; --y: -760px; --z: -240px; --couleur: var(--lumiere-1); --angle: -24deg; --delai: 0s;" aria-hidden="true"><span class="rayon__cone"></span></div>
+        <div class="rayon" style="--x: -500px; --y: -760px; --z: -240px; --couleur: var(--lumiere-2); --angle: 14deg; --delai: -1.5s;" aria-hidden="true"><span class="rayon__cone"></span></div>
+        <div class="rayon" style="--x: 0px; --y: -760px; --z: -240px; --couleur: var(--lumiere-3); --angle: -8deg; --delai: -3s;" aria-hidden="true"><span class="rayon__cone"></span></div>
+        <div class="rayon" style="--x: 500px; --y: -760px; --z: -240px; --couleur: var(--accent); --angle: -16deg; --delai: -4.5s;" aria-hidden="true"><span class="rayon__cone"></span></div>
+        <div class="rayon" style="--x: 1013px; --y: -760px; --z: -240px; --couleur: var(--lumiere-1); --angle: 24deg; --delai: -2s;" aria-hidden="true"><span class="rayon__cone"></span></div>
 
         <!-- La fumée de scène -->
         <div class="fumee billboard" style="--y: 230px; --z: -60px;" aria-hidden="true"></div>
@@ -765,7 +767,6 @@
 <!-- Scripts : chacun gère une seule partie du site -->
 <script src="assets/js/brume.js"></script>
 <script src="assets/js/portes.js"></script>
-<script src="assets/js/textures.js"></script>
 <script src="assets/js/camera.js"></script>
 <script src="assets/js/modales.js"></script>
 <script src="assets/js/scenes/regie.js"></script>

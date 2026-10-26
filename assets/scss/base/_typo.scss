@@ -10,7 +10,7 @@
 // --- Typographie commune des blocs Ombre ---
 .mention {
   @include machine-a-ecrire;
-  color: var(--jaune-ambre);
+  color: var(--accent);
 }
 
 .titre-bloc {
@@ -23,10 +23,10 @@
 }
 
 .sous-titre {
-  font-family: $police-sous-titre;
+  font-family: $police-titre;
   font-weight: 500;
   font-size: clamp(22px, 3vw, 28px);
-  color: var(--gris-acier);
+  color: var(--texte-doux);
 }
 
 // En-tête centré au début de chaque bloc
