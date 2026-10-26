@@ -49,7 +49,7 @@ const plansRegie = [
   { nom: "Vue d'ensemble", x: 0, y: -120, z: 0, distance: -500, rx: 6, ry: 0 },
   { nom: "Le bureau", x: 0, y: 150, z: 60, distance: 420, rx: -45, ry: 0 },
   {
-    nom: "La ligne backstage", objet: "telephone", invite: "Décrocher la ligne backstage",
+    nom: "La ligne backstage", objet: "telephone", invite: "Décrocher le téléphone pour m’écrire",
     ...POSES_OBJETS.telephone,
   },
 ];

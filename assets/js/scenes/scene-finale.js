@@ -116,8 +116,8 @@ const texteInviteFestival = sceneFestival.querySelector("[data-texte-invite]");
 const plansFestival = [
   { nom: "Avant le spectacle", x: 0, y: -170, z: 0, distance: -700, rx: 3, ry: 0 },
   {
-    nom: "La ligne backstage", objet: "telephone", invite: "Décrocher la ligne backstage",
-    x: 820, y: 10, z: 130, distance: 180, rx: -8, ry: -16,
+    nom: "La ligne backstage", objet: "telephone", invite: "Décrocher le téléphone pour m’écrire",
+    x: 640, y: 10, z: 130, distance: 180, rx: -8, ry: -16,
     examen: { y: -40, distance: 400, rx: -4, ry: -6 },
   },
   { nom: "Générique", x: 0, y: -280, z: -300, distance: -950, rx: -6, ry: 0 },
