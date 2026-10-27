@@ -12,7 +12,6 @@
    - Si le chargement échoue, on suit simplement le lien vers la page.
 */
 
-import "./copier-lien.js";
 import { ouvrirModale, fermerModale, modaleActive } from "./modales.js";
 
 const modaleProjet = document.getElementById("modale-projet");
@@ -98,7 +97,6 @@ async function afficherFiche(slug) {
 // Dans la modale, « Projet suivant » change de fiche au lieu de quitter le site.
 racineProjet.addEventListener("click", async (e) => {
   const lien = e.target.closest("a[href*='/projets/']");
-  if (lien && lien.hasAttribute("data-copier-lien")) return; // copier-lien.js s'en occupe
   if (!lien || e.ctrlKey || e.metaKey || e.shiftKey) return;
   e.preventDefault();
   const slug = lien.getAttribute("href").split("/projets/")[1].replace(".html", "");
