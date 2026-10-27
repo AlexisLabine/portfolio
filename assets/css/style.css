@@ -1209,17 +1209,6 @@ html.mouvement-reduit .objet--telephone::before {
   }
 }
 
-.scene--competences[data-plan="0"] .hud__fiche {
-  opacity: 0;
-  visibility: hidden;
-  translate: 40px -50%;
-}
-@media (max-width: 768px) {
-  .scene--competences[data-plan="0"] .hud__fiche {
-    translate: 0 40px;
-  }
-}
-
 html.mouvement-reduit .scene--competences.lumiere-allumee .projecteur,
 html.mouvement-reduit .scene--competences.lumiere-allumee .flaque-lumiere {
   animation: none;

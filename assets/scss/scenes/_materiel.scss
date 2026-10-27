@@ -283,16 +283,8 @@
   }
 }
 
-// La fiche apparaît après le plan d'ouverture.
-.scene--competences[data-plan="0"] .hud__fiche {
-  opacity: 0;
-  visibility: hidden;
-  translate: 40px -50%;
-
-  @include sur-mobile {
-    translate: 0 40px;
-  }
-}
+// La fiche est visible dès le premier plan : on peut cliquer un autocollant tout de suite,
+// sans défiler pour s'approcher du flight case.
 
 // « Moins d'animations » (système) sauf si la personne a activé les animations du site.
 html.mouvement-reduit {
