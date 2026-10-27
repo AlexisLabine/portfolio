@@ -63,13 +63,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scrollbar-gutter: stable;
 }
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+html.mode-tactile:not(.mouvement-reduit) {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -616,4 +613,8 @@ p {
   .piece__medias {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
+}
+
+.fiche__acces {
+  margin: 16px 0 0;
 }

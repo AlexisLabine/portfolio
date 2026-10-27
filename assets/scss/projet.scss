@@ -13,3 +13,8 @@
 @use "base/reset";
 @use "base/a11y";
 @use "pages/projet";
+
+// Accès direct au prototype, en haut de la fiche TonTour.
+.fiche__acces {
+  margin: 16px 0 0;
+}
