@@ -116,6 +116,19 @@ lienPageProjet.addEventListener("click", () => {
   history.replaceState(null, "", new URL("#realisations", RACINE).href);
 });
 
+// Flèches ← → : projet précédent / suivant, quand la fiche est ouverte.
+document.addEventListener("keydown", (e) => {
+  if (modaleActive() !== modaleProjet || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
+  if (e.target.closest && e.target.closest("input, textarea, select")) return;
+  const sens = e.key === "ArrowRight" ? "suivant" : e.key === "ArrowLeft" ? "precedent" : null;
+  if (!sens) return;
+  const lien = racineProjet.querySelector(`[data-projet-nav="${sens}"]`);
+  if (lien) {
+    e.preventDefault();
+    lien.click();
+  }
+});
+
 function pauseDesVideos() {
   racineProjet.querySelectorAll("video").forEach((video) => video.pause());
 }

@@ -1627,6 +1627,39 @@ html.mouvement-reduit .scene--mur.lumiere-allumee .neon {
   display: none;
 }
 
+.parcours__index {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.parcours__puce {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--bordure-champ);
+  border-radius: 50%;
+  color: var(--texte);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.parcours__puce:hover {
+  border-color: var(--accent);
+}
+.parcours__puce[aria-current=true] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--fond);
+}
+
 .modale {
   position: fixed;
   inset: 0;
