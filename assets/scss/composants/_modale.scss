@@ -150,6 +150,41 @@
   }
 }
 
+// --- Les intérêts : des tuiles de papier, un titre et un détail ---
+.modale__interets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.modale__interet {
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  min-height: 64px;
+  padding: 10px 14px;
+  background: var(--papier-note);
+  border: 1px solid var(--bordure-papier);
+  border-left: 4px solid var(--signature);
+  border-radius: 3px;
+
+  strong {
+    font-family: $police-titre;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  span {
+    @include machine-a-ecrire(12px);
+    color: var(--encre-douce);
+  }
+}
+
 // --- La cocarde affichée dans sa modale ---
 .modale__visuel {
   display: grid;

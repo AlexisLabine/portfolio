@@ -1764,6 +1764,41 @@ html.mouvement-reduit .scene--mur.lumiere-allumee .neon {
   color: var(--signature);
 }
 
+.modale__interets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.modale__interet {
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  min-height: 64px;
+  padding: 10px 14px;
+  background: var(--papier-note);
+  border: 1px solid var(--bordure-papier);
+  border-left: 4px solid var(--signature);
+  border-radius: 3px;
+}
+.modale__interet strong {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.modale__interet span {
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+
 .modale__visuel {
   display: grid;
   justify-items: start;
