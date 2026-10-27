@@ -206,10 +206,30 @@ const boutonsParcours = {
   ouvrir: parcours.querySelector('[data-parcours="ouvrir"]'),
   ensemble: parcours.querySelector('[data-parcours="ensemble"]'),
 };
+const indexParcours = parcours.querySelector("[data-parcours-index]");
 const compteurParcours = parcours.querySelector("[data-parcours-compteur]");
 const nomParcours = parcours.querySelector("[data-parcours-nom]");
 
+// Les puces 1 à 8 : un clic mène directement au projet, sans passer par les autres.
+const puces = etapes.map((etape, i) => {
+  const item = document.createElement("li");
+  const puce = document.createElement("button");
+  puce.type = "button";
+  puce.className = "parcours__puce";
+  puce.textContent = i + 1;
+  puce.title = etape.titre;
+  puce.setAttribute("aria-label", `Projet ${i + 1} sur ${etapes.length} : ${etape.titre}`);
+  puce.addEventListener("click", () => railMur.allerAuPlan(i + 1));
+  item.append(puce);
+  indexParcours.append(item);
+  return puce;
+});
+
 function majParcours() {
+  puces.forEach((puce, i) => {
+    if (i + 1 === indexPlanMur) puce.setAttribute("aria-current", "true");
+    else puce.removeAttribute("aria-current");
+  });
   const surUnProjet = indexPlanMur > 0;
   compteurParcours.textContent = surUnProjet ? `${indexPlanMur}/${etapes.length}` : "";
   nomParcours.textContent = surUnProjet ? plansMur[indexPlanMur].nom : "Parcourir les projets";
@@ -228,6 +248,16 @@ if (etapes.length && !MODE_TACTILE && !MOUVEMENT_REDUIT) {
   boutonsParcours.suivant.addEventListener("click", () => railMur.allerAuPlan(indexPlanMur + 1));
   boutonsParcours.ouvrir.addEventListener("click", ouvrirProjetDuPlan);
   boutonsParcours.ensemble.addEventListener("click", () => railMur.allerAuPlan(0));
+
+  // Au clavier, Tab passe d'un polaroïd à l'autre : la caméra suit le focus, sinon
+  // le polaroïd serait hors de l'écran.
+  polaroidsMur.forEach((polaroid) => {
+    polaroid.addEventListener("focus", () => {
+      if (!polaroid.matches(":focus-visible")) return;
+      const index = etapes.findIndex((etape) => etape.polaroid.dataset.projet === polaroid.dataset.projet);
+      if (index >= 0 && index + 1 !== indexPlanMur) railMur.allerAuPlan(index + 1);
+    });
+  });
 
   document.addEventListener("keydown", (e) => {
     const dansUnChamp = e.target.closest("input, textarea, select");
