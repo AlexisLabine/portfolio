@@ -63,13 +63,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scrollbar-gutter: stable;
 }
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+html.mode-tactile:not(.mouvement-reduit) {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -269,6 +266,15 @@ p {
 .bouton--ambre {
   background: var(--accent);
   color: var(--fond) !important;
+}
+.bouton--inactif {
+  border-style: dashed;
+  border-color: var(--encre-douce);
+  color: var(--encre-douce) !important;
+  cursor: default;
+}
+.bouton--inactif:hover {
+  background: transparent;
 }
 
 .ruban {

@@ -177,6 +177,18 @@ $ordinateur: $mobile;
     background: var(--accent);
     color: var(--fond) !important;
   }
+
+  // Lien pas encore disponible : un cadre en pointillé, sans survol (aria-disabled dans le HTML).
+  &--inactif {
+    border-style: dashed;
+    border-color: var(--encre-douce);
+    color: var(--encre-douce) !important;
+    cursor: default;
+
+    &:hover {
+      background: transparent;
+    }
+  }
 }
 
 // Ruban rouge : numéro · saison · type (02, composant 10)
