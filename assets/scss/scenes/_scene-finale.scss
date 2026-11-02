@@ -98,9 +98,14 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
 }
 
 // --- Le terrain, sous la foule ---
+// Assez grand pour les plans larges, pas plus : à 6000 × 2200, un coin du
+// terrain passait derrière l'œil de la caméra au plan du téléphone. Chrome
+// devait alors dessiner un calque de plus d'un million de pixels de large :
+// le téléphone disparaissait, tout clignotait et la transition ramait.
+// Aucun élément du monde ne doit approcher l'œil à moins de 300 px.
 .terrain {
-  width: 6000px;
-  height: 2200px;
+  width: 4400px;
+  height: 1500px;
   background:
     radial-gradient(ellipse 30% 30% at 50% 25%, rgba(139, 47, 224, 0.2), transparent 70%),
     #050308;

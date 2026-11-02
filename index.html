@@ -574,9 +574,11 @@
     <!-- LE MONDE 3D -->
     <div class="scene__echelle">
       <div class="camera">
-        <!-- Le ciel de nuit, très loin derrière, et le terrain de la foule -->
+        <!-- Le ciel de nuit, très loin derrière, et le terrain de la foule.
+             Le terrain s'arrête à z = 100 : plus près, son coin passait derrière
+             l'œil de la caméra au plan du téléphone (voir _scene-finale.scss). -->
         <div class="decor decor--ciel" style="--y: -600px; --z: -1500px;" aria-hidden="true"></div>
-        <div class="decor terrain sol" style="--y: 400px; --z: -300px;" aria-hidden="true"></div>
+        <div class="decor terrain sol" style="--y: 400px; --z: -650px;" aria-hidden="true"></div>
 
         <!-- La scène : le plateau et sa façade (bande LED) -->
         <div class="decor estrade sol" style="--y: 200px; --z: -150px;" aria-hidden="true"></div>
@@ -629,7 +631,9 @@
 
         <!-- La foule en contre-jour (deux rangées, remplies par assets/js/scenes/scene-finale.js) -->
         <svg class="foule billboard" data-foule="22" style="--y: 400px; --z: 420px;" viewBox="0 0 3200 320" aria-hidden="true"></svg>
-        <svg class="foule foule--devant billboard" data-foule="17" style="--y: 400px; --z: 680px;" viewBox="0 0 3200 320" aria-hidden="true"></svg>
+        <!-- z = 500 (et non 680) : au gros plan sur le téléphone, la rangée du devant
+             frôlait l'œil de la caméra et était agrandie environ 8 fois -->
+        <svg class="foule foule--devant billboard" data-foule="17" style="--y: 400px; --z: 500px;" viewBox="0 0 3200 320" aria-hidden="true"></svg>
       </div>
     </div>
 
