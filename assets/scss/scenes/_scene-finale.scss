@@ -191,9 +191,9 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
     align-items: center;
     justify-content: center;
     gap: 26px;
-    background: linear-gradient(120deg, #2a0640, #050414 30%, #1a0230 55%, #003a46 80%, #2a0640);
-    background-size: 300% 300%;
+    background: #050414;
     opacity: 0;
+    isolation: isolate; // le dégradé (z-index: -1) reste derrière le texte
 
     // Une ligne de balayage qui descend, comme sur un vrai écran
     &::before {
@@ -204,6 +204,22 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
       top: -20%;
       height: 20%;
       background: linear-gradient(transparent, rgba(255, 255, 255, 0.06), transparent);
+      will-change: transform;
+    }
+
+    // Le dégradé qui glisse : un calque trois fois plus grand que l'écran,
+    // déplacé avec translate. (Animer background-position ou top redessinait
+    // tout l'écran, néons compris, à chaque image : 10 images/s au lieu de 60.)
+    &::after {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: 0;
+      z-index: -1;
+      width: 300%;
+      height: 300%;
+      background: linear-gradient(120deg, #2a0640, #050414 30%, #1a0230 55%, #003a46 80%, #2a0640);
+      will-change: transform;
     }
   }
 
@@ -407,12 +423,14 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   }
 
   .ecran-geant__contenu {
-    animation:
-      allumage 1.6s linear 0.3s both,
-      fond-ecran 12s ease-in-out infinite alternate;
+    animation: allumage 1.6s linear 0.3s both;
 
     &::before {
       animation: balayage-ecran 4s linear infinite;
+    }
+
+    &::after {
+      animation: fond-ecran 12s ease-in-out infinite alternate;
     }
   }
 
@@ -1001,13 +1019,14 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   to { rotate: calc(var(--angle) + 14deg); }
 }
 
+// Le calque fait 300 % de large : -66,67 % le fait glisser jusqu'à son bord droit.
 @keyframes fond-ecran {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
+  to { translate: -66.667% 0; }
 }
 
+// De top: -20 % à 120 % de l'écran, soit 7 fois la hauteur de la ligne.
 @keyframes balayage-ecran {
-  to { top: 120%; }
+  to { translate: 0 700%; }
 }
 
 @keyframes chenillard {
@@ -1049,6 +1068,7 @@ html.mouvement-reduit {
 
     .rayon__cone,
     .ecran-geant__contenu::before,
+    .ecran-geant__contenu::after,
     .estrade__facade::before,
     .fumee,
     .fan,

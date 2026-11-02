@@ -2418,9 +2418,9 @@ html.mode-tactile .chronologie__label {
   align-items: center;
   justify-content: center;
   gap: 26px;
-  background: linear-gradient(120deg, #2a0640, #050414 30%, #1a0230 55%, #003a46 80%, #2a0640);
-  background-size: 300% 300%;
+  background: #050414;
   opacity: 0;
+  isolation: isolate;
 }
 .ecran-geant__contenu::before {
   content: "";
@@ -2430,6 +2430,18 @@ html.mode-tactile .chronologie__label {
   top: -20%;
   height: 20%;
   background: linear-gradient(transparent, rgba(255, 255, 255, 0.06), transparent);
+  will-change: transform;
+}
+.ecran-geant__contenu::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: -1;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(120deg, #2a0640, #050414 30%, #1a0230 55%, #003a46 80%, #2a0640);
+  will-change: transform;
 }
 .ecran-geant__logo {
   width: 230px;
@@ -2578,10 +2590,13 @@ html.mode-tactile .chronologie__label {
   display: none;
 }
 .scene--festival.en-concert .ecran-geant__contenu {
-  animation: allumage 1.6s linear 0.3s both, fond-ecran 12s ease-in-out infinite alternate;
+  animation: allumage 1.6s linear 0.3s both;
 }
 .scene--festival.en-concert .ecran-geant__contenu::before {
   animation: balayage-ecran 4s linear infinite;
+}
+.scene--festival.en-concert .ecran-geant__contenu::after {
+  animation: fond-ecran 12s ease-in-out infinite alternate;
 }
 .scene--festival.en-concert .estrade__facade::before {
   opacity: 1;
@@ -3114,16 +3129,13 @@ html.mode-tactile .chronologie__label {
   }
 }
 @keyframes fond-ecran {
-  from {
-    background-position: 0% 50%;
-  }
   to {
-    background-position: 100% 50%;
+    translate: -66.667% 0;
   }
 }
 @keyframes balayage-ecran {
   to {
-    top: 120%;
+    translate: 0 700%;
   }
 }
 @keyframes chenillard {
@@ -3176,6 +3188,7 @@ html.mouvement-reduit .scene--festival.en-concert .ecran-geant__contenu {
 }
 html.mouvement-reduit .scene--festival.en-concert .rayon__cone,
 html.mouvement-reduit .scene--festival.en-concert .ecran-geant__contenu::before,
+html.mouvement-reduit .scene--festival.en-concert .ecran-geant__contenu::after,
 html.mouvement-reduit .scene--festival.en-concert .estrade__facade::before,
 html.mouvement-reduit .scene--festival.en-concert .fumee,
 html.mouvement-reduit .scene--festival.en-concert .fan,
