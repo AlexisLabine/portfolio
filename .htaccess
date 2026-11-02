@@ -1,0 +1,4 @@
+# .htaccess — réglages Apache de l'hébergement (DirectAdmin)
+# Les fichiers de travail du dépôt ne servent pas au site : s'ils sont
+# téléversés avec le reste, le serveur répond 404 au lieu de les montrer.
+RedirectMatch 404 (?i)^/(CLAUDE\.md|README\.md|\.gitignore|assets/scss/.*|cv-source/.*)$

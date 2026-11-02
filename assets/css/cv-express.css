@@ -63,13 +63,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scrollbar-gutter: stable;
 }
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+html.mode-tactile:not(.mouvement-reduit) {
+  scroll-behavior: smooth;
 }
 
 body {
