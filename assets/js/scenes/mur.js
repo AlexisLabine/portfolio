@@ -190,7 +190,7 @@ inviteMur.addEventListener("click", ouvrirProjetDuPlan);
 document.addEventListener("keydown", (e) => {
   const dansUnChamp = e.target.closest("input, textarea");
   if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
-  if (cameraMur.visible) ouvrirProjetDuPlan();
+  if (cameraMur.auPremierPlan) ouvrirProjetDuPlan();
 });
 
 /* ------------------------------------------------------------
@@ -261,7 +261,7 @@ if (etapes.length && !MODE_TACTILE && !MOUVEMENT_REDUIT) {
 
   document.addEventListener("keydown", (e) => {
     const dansUnChamp = e.target.closest("input, textarea, select");
-    if (dansUnChamp || modaleActive() || !cameraMur.visible) return;
+    if (dansUnChamp || modaleActive() || !cameraMur.auPremierPlan) return;
     if (e.key === "ArrowRight") railMur.allerAuPlan(indexPlanMur + 1);
     else if (e.key === "ArrowLeft") railMur.allerAuPlan(indexPlanMur - 1);
   }, true);

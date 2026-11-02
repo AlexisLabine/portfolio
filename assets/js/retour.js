@@ -46,13 +46,22 @@ function remettrePosition() {
   [100, 500, 1000].forEach((delai) => setTimeout(aller, delai));
 }
 
-// Retour avec rechargement de la page.
+// Retour avec rechargement de la page. Sinon (lien, rechargement), la note
+// ne sert plus : on l'efface pour qu'elle ne ressorte pas plus tard.
 window.addEventListener("load", () => {
   if (etaitUnRetour()) remettrePosition();
+  else {
+    try {
+      sessionStorage.removeItem(CLE);
+    } catch {
+      // stockage indisponible : rien à effacer
+    }
+  }
 });
 
 // Retour sans rechargement (page gardée en mémoire par le navigateur).
+// Pas de « popstate » ici : un clic sur un lien d'ancrage (#contact) en
+// déclenche un aussi, et la page sautait à une vieille position.
 window.addEventListener("pageshow", (e) => {
   if (e.persisted) remettrePosition();
 });
-window.addEventListener("popstate", remettrePosition);

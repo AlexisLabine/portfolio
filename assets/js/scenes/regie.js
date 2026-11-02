@@ -124,5 +124,5 @@ invite.addEventListener("click", () => examinerObjet(planActuelRegie.objet));
 document.addEventListener("keydown", (e) => {
   const dansUnChamp = e.target.closest("input, textarea");
   if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
-  if (cameraRegie.visible && planActuelRegie.objet) examinerObjet(planActuelRegie.objet);
+  if (cameraRegie.auPremierPlan && planActuelRegie.objet) examinerObjet(planActuelRegie.objet);
 });
