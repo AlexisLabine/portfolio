@@ -2345,8 +2345,8 @@ html.mode-tactile .chronologie__label {
 }
 
 .terrain {
-  width: 6000px;
-  height: 2200px;
+  width: 4400px;
+  height: 1500px;
   background: radial-gradient(ellipse 30% 30% at 50% 25%, rgba(139, 47, 224, 0.2), transparent 70%), #050308;
 }
 .terrain::after {
