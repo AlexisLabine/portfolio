@@ -198,7 +198,7 @@ sceneFestival.querySelectorAll("[data-ouvrir-contact]").forEach((bouton) => {
 document.addEventListener("keydown", (e) => {
   const dansUnChamp = e.target.closest("input, textarea, select");
   if (e.key.toLowerCase() !== "e" || dansUnChamp || modaleActive()) return;
-  if (cameraFestival.visible && planActuelFestival.objet) decrocher();
+  if (cameraFestival.auPremierPlan && planActuelFestival.objet) decrocher();
 });
 
 /* ------------------------------------------------------------

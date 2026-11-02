@@ -63,6 +63,7 @@ export class Camera {
   constructor(scene) {
     this.scene = scene;
     this.visible = false;
+    this.auPremierPlan = false; // la scène occupe au moins la moitié de l'écran : elle répond au clavier
     allumerAuPassage(scene);
     if (MODE_TACTILE) return; // pas de caméra : la scène reste à plat
 
@@ -86,11 +87,17 @@ export class Camera {
       this.regard.y = (e.clientY / window.innerHeight) * 2 - 1;
     });
 
-    // On ne calcule les images que lorsque la scène est à l'écran.
-    new IntersectionObserver(([entree]) => {
-      this.visible = entree.isIntersecting;
-      if (this.visible) this.demarrer();
-    }).observe(scene);
+    // On ne calcule les images que lorsque la scène est à l'écran. Une scène
+    // dont le bord touche seulement l'écran (ratio 0) ne compte pas : sinon le
+    // mur, juste au-dessus du Contact, réagissait encore aux touches E, ← et →.
+    new IntersectionObserver(
+      ([entree]) => {
+        this.visible = entree.intersectionRatio > 0;
+        this.auPremierPlan = entree.intersectionRatio >= 0.5;
+        if (this.visible) this.demarrer();
+      },
+      { threshold: [0, 0.01, 0.5] },
+    ).observe(scene);
   }
 
   ajusterEchelle() {

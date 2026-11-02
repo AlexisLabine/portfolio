@@ -2943,6 +2943,12 @@ html.mode-tactile .chronologie__label {
   visibility: hidden;
 }
 
+.scene--festival.en-examen .hud__passe,
+.scene--festival.en-examen .hud__generique {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .scene--festival[data-plan="2"] .generique > * {
   animation: apparition-ligne 0.7s ease both;
 }

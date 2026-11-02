@@ -819,6 +819,16 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   visibility: hidden;
 }
 
+// Gros plan sur le téléphone : le laissez-passer et le générique s'effacent,
+// sinon ils restent par-dessus le téléphone et le formulaire.
+.scene--festival.en-examen {
+  .hud__passe,
+  .hud__generique {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 // Les lignes du générique apparaissent l'une après l'autre
 .scene--festival[data-plan="2"] .generique > * {
   animation: apparition-ligne 0.7s ease both;
