@@ -2577,7 +2577,7 @@ html.mode-tactile .chronologie__label {
    LE SPECTACLE COMMENCE (.en-concert)
    ============================================================ */
 .scene--festival.en-concert .rayon {
-  animation: allumage 1.4s linear both;
+  animation: fondu-allumage 1.2s ease-out both;
 }
 .scene--festival.en-concert .rayon__cone {
   animation: balayage 6s ease-in-out var(--delai) infinite alternate;
@@ -2590,7 +2590,7 @@ html.mode-tactile .chronologie__label {
   display: none;
 }
 .scene--festival.en-concert .ecran-geant__contenu {
-  animation: allumage 1.6s linear 0.3s both;
+  animation: fondu-allumage 1.4s ease-out 0.3s both;
 }
 .scene--festival.en-concert .ecran-geant__contenu::before {
   animation: balayage-ecran 4s linear infinite;
@@ -3126,6 +3126,14 @@ html.mode-tactile .chronologie__label {
   }
   to {
     rotate: calc(var(--angle) + 14deg);
+  }
+}
+@keyframes fondu-allumage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 @keyframes fond-ecran {

@@ -405,8 +405,10 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
    LE SPECTACLE COMMENCE (.en-concert)
    ============================================================ */
 .scene--festival.en-concert {
+  // Les lumières montent en fondu : le clignotement façon néon (allumage)
+  // passait pour un bogue sur l'écran géant.
   .rayon {
-    animation: allumage 1.4s linear both;
+    animation: fondu-allumage 1.2s ease-out both;
   }
 
   .rayon__cone {
@@ -423,7 +425,7 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
   }
 
   .ecran-geant__contenu {
-    animation: allumage 1.6s linear 0.3s both;
+    animation: fondu-allumage 1.4s ease-out 0.3s both;
 
     &::before {
       animation: balayage-ecran 4s linear infinite;
@@ -1017,6 +1019,12 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
 @keyframes balayage {
   from { rotate: calc(var(--angle) - 14deg); }
   to { rotate: calc(var(--angle) + 14deg); }
+}
+
+// L'écran et les rayons sont à opacity: 0 au repos : la fin du fondu doit le dire.
+@keyframes fondu-allumage {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 // Le calque fait 300 % de large : -66,67 % le fait glisser jusqu'à son bord droit.
