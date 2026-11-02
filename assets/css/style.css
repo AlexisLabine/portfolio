@@ -2576,6 +2576,10 @@ html.mode-tactile .chronologie__label {
 /* ============================================================
    LE SPECTACLE COMMENCE (.en-concert)
    ============================================================ */
+.scene--festival.lumiere-allumee .scene__obscurite {
+  animation: fondu-obscurite 1.2s ease-out forwards;
+}
+
 .scene--festival.en-concert .rayon {
   animation: fondu-allumage 1.2s ease-out both;
 }
@@ -3134,6 +3138,14 @@ html.mode-tactile .chronologie__label {
   }
   to {
     opacity: 1;
+  }
+}
+@keyframes fondu-obscurite {
+  from {
+    opacity: 0.92;
+  }
+  to {
+    opacity: 0;
   }
 }
 @keyframes fond-ecran {

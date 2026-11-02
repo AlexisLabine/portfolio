@@ -404,6 +404,13 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
 /* ============================================================
    LE SPECTACLE COMMENCE (.en-concert)
    ============================================================ */
+// À la première arrivée sur le Contact, le voile noir clignotait comme un néon
+// (obscurite-dissipee, _scene.scss) : on aurait dit que la scène se rechargeait.
+// Ici, il se lève en fondu. Les autres scènes gardent leur clignotement.
+.scene--festival.lumiere-allumee .scene__obscurite {
+  animation: fondu-obscurite 1.2s ease-out forwards;
+}
+
 .scene--festival.en-concert {
   // Les lumières montent en fondu : le clignotement façon néon (allumage)
   // passait pour un bogue sur l'écran géant.
@@ -1025,6 +1032,12 @@ $degrade-neon: linear-gradient(90deg, var(--lumiere-1), var(--lumiere-3), var(--
 @keyframes fondu-allumage {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+// Le voile noir du Contact se lève en fondu (voir plus bas).
+@keyframes fondu-obscurite {
+  from { opacity: 0.92; }
+  to { opacity: 0; }
 }
 
 // Le calque fait 300 % de large : -66,67 % le fait glisser jusqu'à son bord droit.
